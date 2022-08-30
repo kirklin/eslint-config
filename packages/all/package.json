@@ -1,0 +1,38 @@
+{
+  "name": "@kirklin/eslint-config",
+  "version": "0.1.0",
+  "description": "Kirk Lin's ESLint config",
+  "author": "Kirk Lin <linkirk@163.com> (https://github.com/kirklin)",
+  "license": "MIT",
+  "homepage": "https://github.com/kirklin/eslint-config",
+  "keywords": [
+    "eslint-config"
+  ],
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "peerDependencies": {
+    "eslint": ">=7.4.0"
+  },
+  "dependencies": {
+    "@kirklin/eslint-config-react": "workspace:*",
+    "@kirklin/eslint-config-vue": "workspace:*",
+    "@typescript-eslint/eslint-plugin": "^5.35.1",
+    "@typescript-eslint/parser": "^5.35.1",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-html": "^7.1.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsonc": "^2.4.0",
+    "eslint-plugin-n": "^15.2.5",
+    "eslint-plugin-promise": "^6.0.1",
+    "eslint-plugin-unicorn": "^43.0.2",
+    "eslint-plugin-vue": "^9.4.0",
+    "eslint-plugin-yml": "^1.1.0",
+    "jsonc-eslint-parser": "^2.1.0",
+    "yaml-eslint-parser": "^1.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.23.0"
+  }
+}
