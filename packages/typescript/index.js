@@ -110,7 +110,7 @@ module.exports = {
     // "@typescript-eslint/no-implied-eval": "error",
     // "dot-notation": "off",
     // "@typescript-eslint/dot-notation": ["error", { allowKeywords: true }],
-
+    // "@typescript-eslint/no-floating-promises": "error",
     // off
     "@typescript-eslint/consistent-indexed-object-style": "off",
     "@typescript-eslint/naming-convention": "off",
