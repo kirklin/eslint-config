@@ -16,9 +16,9 @@
   },
   "dependencies": {
     "@kirklin/eslint-config-ts": "workspace:*",
-    "eslint-plugin-vue": "^9.5.1"
+    "eslint-plugin-vue": "^9.4.0"
   },
   "devDependencies": {
-    "eslint": "^8.24.0"
+    "eslint": "^8.23.0"
   }
 }

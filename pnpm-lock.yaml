@@ -6,9 +6,9 @@ importers:
     specifiers:
       '@kirklin/eslint-config': '*'
       bumpp: ^8.2.1
-      eslint: ^8.24.0
+      eslint: ^8.23.0
       eslint-plugin-kirklin: workspace:*
-      typescript: ^4.8.4
+      typescript: ^4.8.2
     devDependencies:
       '@kirklin/eslint-config': link:packages/all
       bumpp: 8.2.1
@@ -20,18 +20,18 @@ importers:
     specifiers:
       '@kirklin/eslint-config-react': workspace:*
       '@kirklin/eslint-config-vue': workspace:*
-      '@typescript-eslint/eslint-plugin': ^5.38.1
-      '@typescript-eslint/parser': ^5.38.1
-      eslint: ^8.24.0
+      '@typescript-eslint/eslint-plugin': ^5.36.1
+      '@typescript-eslint/parser': ^5.36.1
+      eslint: ^8.23.0
       eslint-plugin-eslint-comments: ^3.2.0
       eslint-plugin-html: ^7.1.0
       eslint-plugin-import: ^2.26.0
       eslint-plugin-jsonc: ^2.4.0
-      eslint-plugin-n: ^15.3.0
+      eslint-plugin-n: ^15.2.5
       eslint-plugin-promise: ^6.0.1
       eslint-plugin-unicorn: ^43.0.2
-      eslint-plugin-vue: ^9.5.1
-      eslint-plugin-yml: ^1.2.0
+      eslint-plugin-vue: ^9.4.0
+      eslint-plugin-yml: ^1.1.0
       jsonc-eslint-parser: ^2.1.0
       yaml-eslint-parser: ^1.1.0
     dependencies:
@@ -55,17 +55,17 @@ importers:
 
   packages/basic:
     specifiers:
-      eslint: ^8.24.0
+      eslint: ^8.23.0
       eslint-plugin-eslint-comments: ^3.2.0
       eslint-plugin-html: ^7.1.0
       eslint-plugin-import: ^2.26.0
       eslint-plugin-jsonc: ^2.4.0
-      eslint-plugin-kirklin: 0.0.2
+      eslint-plugin-kirklin: workspace:*
       eslint-plugin-markdown: ^3.0.0
-      eslint-plugin-n: ^15.3.0
+      eslint-plugin-n: ^15.2.5
       eslint-plugin-promise: ^6.0.1
       eslint-plugin-unicorn: ^43.0.2
-      eslint-plugin-yml: ^1.2.0
+      eslint-plugin-yml: ^1.1.0
       jsonc-eslint-parser: ^2.1.0
       yaml-eslint-parser: ^1.1.0
     dependencies:
@@ -73,7 +73,7 @@ importers:
       eslint-plugin-html: 7.1.0
       eslint-plugin-import: 2.26.0_eslint@8.24.0
       eslint-plugin-jsonc: 2.4.0_eslint@8.24.0
-      eslint-plugin-kirklin: 0.0.2_eslint@8.24.0
+      eslint-plugin-kirklin: link:../eslint-plugin-kirklin
       eslint-plugin-markdown: 3.0.0_eslint@8.24.0
       eslint-plugin-n: 15.3.0_eslint@8.24.0
       eslint-plugin-promise: 6.0.1_eslint@8.24.0
@@ -98,13 +98,15 @@ importers:
   packages/react:
     specifiers:
       '@kirklin/eslint-config-ts': workspace:*
-      eslint: ^8.24.0
-      eslint-plugin-react: ^7.31.8
+      eslint: ^8.23.0
+      eslint-plugin-react: ^7.31.1
+      eslint-plugin-react-hooks: ^4.6.0
       react: ^18.2.0
-      typescript: ^4.8.4
+      typescript: ^4.8.2
     dependencies:
       '@kirklin/eslint-config-ts': link:../typescript
       eslint-plugin-react: 7.31.8_eslint@8.24.0
+      eslint-plugin-react-hooks: 4.6.0_eslint@8.24.0
     devDependencies:
       eslint: 8.24.0
       react: 18.2.0
@@ -113,9 +115,9 @@ importers:
   packages/typescript:
     specifiers:
       '@kirklin/eslint-config-basic': workspace:*
-      '@typescript-eslint/eslint-plugin': ^5.38.1
-      '@typescript-eslint/parser': ^5.38.1
-      eslint: ^8.24.0
+      '@typescript-eslint/eslint-plugin': ^5.36.1
+      '@typescript-eslint/parser': ^5.36.1
+      eslint: ^8.23.0
     dependencies:
       '@kirklin/eslint-config-basic': link:../basic
       '@typescript-eslint/eslint-plugin': 5.38.1_gofx6msuqd4luqedfouzks2s4u
@@ -126,8 +128,8 @@ importers:
   packages/vue:
     specifiers:
       '@kirklin/eslint-config-ts': workspace:*
-      eslint: ^8.24.0
-      eslint-plugin-vue: ^9.5.1
+      eslint: ^8.23.0
+      eslint-plugin-vue: ^9.4.0
     dependencies:
       '@kirklin/eslint-config-ts': link:../typescript
       eslint-plugin-vue: 9.5.1_eslint@8.24.0
@@ -633,14 +635,6 @@ packages:
       - supports-color
     dev: false
 
-  /@typescript-eslint/scope-manager/5.36.1:
-    resolution: {integrity: sha512-pGC2SH3/tXdu9IH3ItoqciD3f3RRGCh7hb9zPdN2Drsr341zgd6VbhP5OHQO/reUqihNltfPpMpTNihFMarP2w==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-    dependencies:
-      '@typescript-eslint/types': 5.36.1
-      '@typescript-eslint/visitor-keys': 5.36.1
-    dev: false
-
   /@typescript-eslint/scope-manager/5.38.1:
     resolution: {integrity: sha512-BfRDq5RidVU3RbqApKmS7RFMtkyWMM50qWnDAkKgQiezRtLKsoyRKIvz1Ok5ilRWeD9IuHvaidaLxvGx/2eqTQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -668,34 +662,9 @@ packages:
       - supports-color
     dev: false
 
-  /@typescript-eslint/types/5.36.1:
-    resolution: {integrity: sha512-jd93ShpsIk1KgBTx9E+hCSEuLCUFwi9V/urhjOWnOaksGZFbTOxAT47OH2d4NLJnLhkVD+wDbB48BuaycZPLBg==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-    dev: false
-
   /@typescript-eslint/types/5.38.1:
     resolution: {integrity: sha512-QTW1iHq1Tffp9lNfbfPm4WJabbvpyaehQ0SrvVK2yfV79SytD9XDVxqiPvdrv2LK7DGSFo91TB2FgWanbJAZXg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-    dev: false
-
-  /@typescript-eslint/typescript-estree/5.36.1:
-    resolution: {integrity: sha512-ih7V52zvHdiX6WcPjsOdmADhYMDN15SylWRZrT2OMy80wzKbc79n8wFW0xpWpU0x3VpBz/oDgTm2xwDAnFTl+g==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-    peerDependencies:
-      typescript: '*'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@typescript-eslint/types': 5.36.1
-      '@typescript-eslint/visitor-keys': 5.36.1
-      debug: 4.3.4
-      globby: 11.1.0
-      is-glob: 4.0.3
-      semver: 7.3.7
-      tsutils: 3.21.0
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
   /@typescript-eslint/typescript-estree/5.38.1:
@@ -716,24 +685,6 @@ packages:
       tsutils: 3.21.0
     transitivePeerDependencies:
       - supports-color
-    dev: false
-
-  /@typescript-eslint/utils/5.36.1_eslint@8.24.0:
-    resolution: {integrity: sha512-lNj4FtTiXm5c+u0pUehozaUWhh7UYKnwryku0nxJlYUEWetyG92uw2pr+2Iy4M/u0ONMKzfrx7AsGBTCzORmIg==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-    peerDependencies:
-      eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
-    dependencies:
-      '@types/json-schema': 7.0.11
-      '@typescript-eslint/scope-manager': 5.36.1
-      '@typescript-eslint/types': 5.36.1
-      '@typescript-eslint/typescript-estree': 5.36.1
-      eslint: 8.24.0
-      eslint-scope: 5.1.1
-      eslint-utils: 3.0.0_eslint@8.24.0
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
     dev: false
 
   /@typescript-eslint/utils/5.38.1:
@@ -769,14 +720,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
       - typescript
-    dev: false
-
-  /@typescript-eslint/visitor-keys/5.36.1:
-    resolution: {integrity: sha512-ojB9aRyRFzVMN3b5joSYni6FAS10BBSCAfKJhjJAV08t/a95aM6tAhz+O1jF+EtgxktuSO3wJysp2R+Def/IWQ==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-    dependencies:
-      '@typescript-eslint/types': 5.36.1
-      eslint-visitor-keys: 3.3.0
     dev: false
 
   /@typescript-eslint/visitor-keys/5.38.1:
@@ -1817,16 +1760,6 @@ packages:
       natural-compare: 1.4.0
     dev: false
 
-  /eslint-plugin-kirklin/0.0.2_eslint@8.24.0:
-    resolution: {integrity: sha512-4gTv3RWy59C4HarUBl7Xa6xeYlhv5Crt3JpIQ0aVtIZ9+0fubfcgWkY+unBNXDuItB8fqf9TzqlOLL1+DkV+NA==}
-    dependencies:
-      '@typescript-eslint/utils': 5.36.1_eslint@8.24.0
-    transitivePeerDependencies:
-      - eslint
-      - supports-color
-      - typescript
-    dev: false
-
   /eslint-plugin-markdown/3.0.0_eslint@8.24.0:
     resolution: {integrity: sha512-hRs5RUJGbeHDLfS7ELanT0e29Ocyssf/7kBM+p7KluY5AwngGkDf8Oyu4658/NZSGTTq05FZeWbkxXtbVyHPwg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -1861,6 +1794,15 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0
+    dependencies:
+      eslint: 8.24.0
+    dev: false
+
+  /eslint-plugin-react-hooks/4.6.0_eslint@8.24.0:
+    resolution: {integrity: sha512-oFc7Itz9Qxh2x4gNHStv3BqJq54ExXmfC+a1NjAta66IAN87Wu0R/QArgIS9qKzX3dXKPI9H5crl9QchNMY9+g==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
     dependencies:
       eslint: 8.24.0
     dev: false
