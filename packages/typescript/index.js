@@ -58,6 +58,9 @@ module.exports = {
         "JSXEmptyExpression",
         "JSXSpreadChild",
         "TSTypeParameterInstantiation",
+        "FunctionExpression > .params[decorators.length > 0]",
+        "FunctionExpression > .params > :matches(Decorator, :not(:first-child))",
+        "ClassBody.body > PropertyDefinition[decorators.length > 0] > .key",
       ],
       offsetTernaryExpressions: true,
     }],
@@ -102,6 +105,7 @@ module.exports = {
     "@typescript-eslint/no-loss-of-precision": "error",
     "lines-between-class-members": "off",
     "@typescript-eslint/lines-between-class-members": ["error", "always", { exceptAfterSingleLine: true }],
+
     // The following rule overrides require a parser service, aka. require a `typescript.json` path.
     // This needs to be done individually for each project, and it slows down linting significantly.
     // "no-throw-literal": "off",

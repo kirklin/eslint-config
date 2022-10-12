@@ -13,15 +13,15 @@
     "index.js"
   ],
   "peerDependencies": {
-    "eslint": "^8.23.1",
+    "eslint": ">=7.4.0",
     "typescript": ">=3.9"
   },
   "dependencies": {
     "@kirklin/eslint-config-basic": "workspace:*",
-    "@typescript-eslint/eslint-plugin": "^5.38.1",
-    "@typescript-eslint/parser": "^5.38.1"
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/parser": "^5.36.1"
   },
   "devDependencies": {
-    "eslint": "^8.24.0"
+    "eslint": "^8.23.0"
   }
 }
