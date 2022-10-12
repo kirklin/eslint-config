@@ -18,7 +18,6 @@ importers:
 
   packages/all:
     specifiers:
-      '@kirklin/eslint-config-react': workspace:*
       '@kirklin/eslint-config-vue': workspace:*
       '@typescript-eslint/eslint-plugin': ^5.36.1
       '@typescript-eslint/parser': ^5.36.1
@@ -35,7 +34,6 @@ importers:
       jsonc-eslint-parser: ^2.1.0
       yaml-eslint-parser: ^1.1.0
     dependencies:
-      '@kirklin/eslint-config-react': link:../react
       '@kirklin/eslint-config-vue': link:../vue
       '@typescript-eslint/eslint-plugin': 5.38.1_gofx6msuqd4luqedfouzks2s4u
       '@typescript-eslint/parser': 5.38.1_eslint@8.24.0
