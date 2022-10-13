@@ -192,7 +192,7 @@ module.exports = {
     "no-unused-vars": "warn",
     "no-param-reassign": "off",
     "array-bracket-spacing": ["error", "never"],
-    "brace-style": ["error", "stroustrup", { allowSingleLine: true }],
+    "brace-style": ["error", "1tbs"],
     "block-spacing": ["error", "always"],
     "camelcase": "off",
     "comma-spacing": ["error", { before: false, after: true }],
