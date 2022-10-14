@@ -105,6 +105,9 @@ pnpm add -D eslint @kirklin/eslint-config
 [code-style-image]: https://img.shields.io/badge/code__style-%40kirklin%2Feslint--config-brightgreen
 [code-style-url]: https://github.com/kirklin/eslint-config/
 
+## 致谢
+本项目基于 [@antfu/eslint-config](https://github.com/antfu/eslint-config)
+
 
 ## 开源协议
 

@@ -104,6 +104,8 @@ let people know that your code is using the standard style.
 [code-style-image]: https://img.shields.io/badge/code__style-%40kirklin%2Feslint--config-brightgreen
 [code-style-url]: https://github.com/kirklin/eslint-config/
 
+## Thanks
+This project is based on [@antfu/eslint-config](https://github.com/antfu/eslint-config)
 
 ## License
 
