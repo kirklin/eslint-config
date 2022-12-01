@@ -16,10 +16,10 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^5.38.1"
+    "@typescript-eslint/utils": "^5.45.0"
   },
   "devDependencies": {
-    "unbuild": "^0.8.11",
-    "vitest": "^0.23.4"
+    "unbuild": "^1.0.1",
+    "vitest": "^0.25.3"
   }
 }
