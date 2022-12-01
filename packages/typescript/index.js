@@ -131,6 +131,9 @@ module.exports = {
     "lines-between-class-members": "off",
     "@typescript-eslint/lines-between-class-members": ["error", "always", { exceptAfterSingleLine: true }],
 
+    // kirklin
+    "kirklin/generic-spacing": "error",
+
     // off
     "@typescript-eslint/consistent-indexed-object-style": "off",
     "@typescript-eslint/naming-convention": "off",
