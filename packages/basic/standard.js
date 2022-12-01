@@ -9,20 +9,24 @@ module.exports = {
     },
     sourceType: "module",
   },
+
   env: {
     es2021: true,
     node: true,
   },
+
   plugins: [
     "import",
     "n",
     "promise",
   ],
+
   globals: {
     document: "readonly",
     navigator: "readonly",
     window: "readonly",
   },
+
   rules: {
     "no-var": "warn",
     "object-shorthand": ["warn", "properties"],
@@ -35,7 +39,7 @@ module.exports = {
     }],
     "arrow-spacing": ["error", { before: true, after: true }],
     "block-spacing": ["error", "always"],
-    "brace-style": ["error", "1tbs", { allowSingleLine: false }],
+    "brace-style": ["error", "1tbs", { allowSingleLine: true }],
     "camelcase": ["error", {
       allow: ["^UNSAFE_"],
       properties: "never",
@@ -134,7 +138,7 @@ module.exports = {
     "no-mixed-spaces-and-tabs": "error",
     "no-multi-spaces": "error",
     "no-multi-str": "error",
-    "no-multiple-empty-lines": ["error", { max: 1, maxEOF: 0 }],
+    "no-multiple-empty-lines": ["error", { max: 1, maxBOF: 0, maxEOF: 0 }],
     "no-new": "error",
     "no-new-func": "error",
     "no-new-object": "error",
@@ -202,14 +206,7 @@ module.exports = {
     "semi": ["error", "never"],
     "semi-spacing": ["error", { before: false, after: true }],
     "space-before-blocks": ["error", "always"],
-    "space-before-function-paren": [
-      "error",
-      {
-        anonymous: "always",
-        named: "never",
-        asyncArrow: "always",
-      },
-    ],
+    "space-before-function-paren": ["error", "always"],
     "space-in-parens": ["error", "never"],
     "space-infix-ops": "error",
     "space-unary-ops": ["error", { words: true, nonwords: false }],
