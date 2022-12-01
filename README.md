@@ -90,7 +90,7 @@ add you like rules to your `.eslintrc` file:
 ```
 ### TypeScript Aware Rules
 
-Type aware rules are enabled when a `tsconfig.eslint.json` is found in the project root. Refer to [this file](https://github.com/kirklin/eslint-config/blob/main/packages/typescript/index.js#L17).
+Type aware rules are enabled when a `tsconfig.eslint.json` is found in the project root. Refer to [this file](https://github.com/kirklin/eslint-config/blob/master/packages/typescript/index.js#L17).
 
 ## Badge
 

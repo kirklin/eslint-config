@@ -92,6 +92,9 @@ pnpm add -D eslint @kirklin/eslint-config
   }
 }
 ```
+### TypeScript Aware Rules
+
+当在项目根目录中找到`tsconfig.eslint.json`时，将启用Type Aware Rules, [参阅此处](https://github.com/kirklin/eslint-config/blob/master/packages/typescript/index.js#L17).
 
 ## 徽章
 在你的README中包括一个这样的徽章，以便让人们知道你的代码使用的是哪种ESLint样式。
