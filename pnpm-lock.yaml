@@ -88,12 +88,14 @@ importers:
 
   packages/eslint-plugin-kirklin:
     specifiers:
+      '@types/node': ^18.11.9
       '@typescript-eslint/utils': ^5.45.0
       unbuild: ^1.0.1
       vitest: ^0.25.3
     dependencies:
       '@typescript-eslint/utils': 5.45.0
     devDependencies:
+      '@types/node': 18.11.9
       unbuild: 1.0.1
       vitest: 0.25.3
 
