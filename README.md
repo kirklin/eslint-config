@@ -90,7 +90,17 @@ add you like rules to your `.eslintrc` file:
 ```
 ### TypeScript Aware Rules
 
-Type aware rules are enabled when a `tsconfig.eslint.json` is found in the project root. Refer to [this file](https://github.com/kirklin/eslint-config/blob/master/packages/typescript/index.js#L17).
+Type aware rules are enabled when a `tsconfig.eslint.json` is found in the project root. If you want to enable it while have no `tsconfig.eslint.json` in the project root, you can change tsconfig name by modifying `ESLINT_TSCONFIG` env.
+
+```js
+// .eslintrc.js
+process.env.ESLINT_TSCONFIG = 'tsconfig.json'
+
+module.exports = {
+  extends: '@kirklin'
+}
+```
+
 
 ## Badge
 
