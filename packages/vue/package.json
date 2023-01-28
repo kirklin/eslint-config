@@ -18,7 +18,7 @@
     "@kirklin/eslint-config-basic": "workspace:*",
     "@kirklin/eslint-config-ts": "workspace:*",
     "eslint-plugin-vue": "^9.9.0",
-    "local-pkg": "^0.4.2"
+    "local-pkg": "^0.4.3"
   },
   "devDependencies": {
     "eslint": "^8.32.0"
