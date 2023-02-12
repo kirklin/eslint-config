@@ -14,7 +14,7 @@ export default createEslintRule<Options, MessageIds>({
   meta: {
     type: "suggestion",
     docs: {
-      description: "Newline after if",
+      description: "Inline type import",
       recommended: "error",
     },
     fixable: "code",
