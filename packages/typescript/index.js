@@ -66,7 +66,7 @@ module.exports = {
 
     // TS
     "@typescript-eslint/ban-ts-comment": ["error", { "ts-ignore": "allow-with-description" }],
-    "@typescript-eslint/member-delimiter-style": ["error", { multiline: { delimiter: "semi" } }],
+    "@typescript-eslint/member-delimiter-style": ["error", { multiline: { delimiter: "none" } }],
     "@typescript-eslint/type-annotation-spacing": ["error", {}],
     "@typescript-eslint/consistent-type-imports": ["error", { prefer: "type-imports", disallowTypeAnnotations: false }],
     "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
@@ -113,8 +113,6 @@ module.exports = {
       ],
       offsetTernaryExpressions: true,
     }],
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
     "no-redeclare": "off",
     "@typescript-eslint/no-redeclare": "error",
     "no-use-before-define": "off",
@@ -173,5 +171,7 @@ module.exports = {
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/no-namespace": "off",
     "@typescript-eslint/triple-slash-reference": "off",
+    // handled by unused-imports/no-unused-imports
+    "@typescript-eslint/no-unused-vars": "off",
   },
 };
