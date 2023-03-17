@@ -65,6 +65,8 @@ module.exports = {
     "vue/no-unused-refs": "error",
     "vue/padding-line-between-blocks": ["error", "always"],
     "vue/prefer-separate-static-class": "error",
+    // only allows <script setup>.
+    "vue/component-api-style": ["error", ["script-setup"]],
 
     // extensions
     "vue/array-bracket-spacing": ["error", "never"],
