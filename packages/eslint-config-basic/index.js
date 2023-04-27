@@ -307,7 +307,7 @@ module.exports = {
     "no-multi-str": "error",
     "no-with": "error",
     "no-void": "error",
-    "no-useless-escape": "off",
+    "no-useless-escape": "error",
     "vars-on-top": "error",
     "require-await": "off",
     "no-return-assign": "off",
