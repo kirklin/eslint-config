@@ -20,6 +20,7 @@ module.exports = {
     "dist",
     "LICENSE*",
     "output",
+    "out",
     "coverage",
     "public",
     "temp",
@@ -41,6 +42,8 @@ module.exports = {
     "!.github",
     "!.vitepress",
     "!.vscode",
+    // force exclude
+    ".vitepress/cache",
   ],
   plugins: [
     "html",
