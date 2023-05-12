@@ -25,9 +25,11 @@ export default createEslintRule<Options, MessageIds>({
         if (!node.consequent) {
           return;
         }
+
         if (node.consequent.type === "BlockStatement") {
           return;
         }
+
         if (node.test.loc.end.line === node.consequent.loc.start.line) {
           context.report({
             node,

@@ -1,6 +1,3 @@
-// Ported from https://github.com/antfu/eslint-config/blob/main/packages/eslint-plugin-antfu/src/rules/generic-spacing.ts
-// by antfu https://github.com/antfu
-
 import { createEslintRule } from "../utils";
 
 export const RULE_NAME = "generic-spacing";
@@ -69,6 +66,7 @@ export default createEslintRule<Options, MessageIds>({
         if (!node.default) {
           return;
         }
+
         const endNode = node.constraint || node.name;
         const from = endNode.range[1];
         const to = node.default.range[0];

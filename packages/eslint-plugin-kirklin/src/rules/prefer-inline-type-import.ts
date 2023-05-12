@@ -32,6 +32,7 @@ export default createEslintRule<Options, MessageIds>({
         if (node.specifiers.length === 1 && ["ImportNamespaceSpecifier", "ImportDefaultSpecifier"].includes(node.specifiers[0].type)) {
           return;
         }
+
         if (node.importKind === "type") {
           context.report({
             * fix(fixer) {

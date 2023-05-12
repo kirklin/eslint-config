@@ -43,6 +43,7 @@ export default createEslintRule<Options, MessageIds>({
                 if (context.getSourceCode().text[e] === ",") {
                   e += 1;
                 }
+
                 return fixer.removeRange([s, e]);
               },
             });
