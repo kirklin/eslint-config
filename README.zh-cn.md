@@ -71,7 +71,25 @@ pnpm add -D eslint @kirklin/eslint-config
   "prettier.enable": false,
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": true,
+    "source.organizeImports": false,
+
+    // 以下内容为可选项。
+    // 建议将其放置在项目的 .vscode/settings.json 文件中，
+    // 以避免在使用不同的 eslint 配置时出现冲突，
+    // 这些配置可能不支持所有格式。
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+      "vue",
+      "html",
+      "markdown",
+      "json",
+      "jsonc",
+      "yaml"
+    ]
   }
 }
 ```

@@ -70,7 +70,25 @@ Create `.vscode/settings.json`
   "prettier.enable": false,
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": true,
+    "source.organizeImports": false,
+
+    // The following section is optional.
+    // It is recommended to place it in the project's .vscode/settings.json file
+    // to avoid conflicts when working with different eslint configurations
+    // that may not support all formats.
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+      "vue",
+      "html",
+      "markdown",
+      "json",
+      "jsonc",
+      "yaml"
+    ]
   }
 }
 ```
