@@ -1,6 +1,7 @@
 import genericSpacing from "./rules/generic-spacing";
 import ifNewline from "./rules/if-newline";
 import importDedupe from "./rules/import-dedupe";
+import noConstEnum from "./rules/no-const-enum";
 import preferInlineTypeImport from "./rules/prefer-inline-type-import";
 
 export default {
@@ -9,5 +10,6 @@ export default {
     "import-dedupe": importDedupe,
     "prefer-inline-type-import": preferInlineTypeImport,
     "generic-spacing": genericSpacing,
+    "no-const-enum": noConstEnum,
   },
 };

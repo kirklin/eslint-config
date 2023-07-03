@@ -158,6 +158,7 @@ module.exports = {
 
     // kirklin
     "kirklin/generic-spacing": "error",
+    "kirklin/no-const-enum": "error",
 
     // off
     "@typescript-eslint/consistent-indexed-object-style": "off",
