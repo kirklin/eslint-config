@@ -16,11 +16,11 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^5.59.11"
+    "@typescript-eslint/utils": "^5.60.1"
   },
   "devDependencies": {
-    "@types/node": "^20.3.1",
+    "@types/node": "^20.3.3",
     "unbuild": "^1.2.1",
-    "vitest": "^0.32.0"
+    "vitest": "^0.32.2"
   }
 }

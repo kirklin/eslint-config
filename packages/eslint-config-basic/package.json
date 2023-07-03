@@ -25,7 +25,7 @@
     "eslint-plugin-jsonc": "^2.9.0",
     "eslint-plugin-kirklin": "workspace:*",
     "eslint-plugin-markdown": "^3.0.0",
-    "eslint-plugin-n": "^16.0.0",
+    "eslint-plugin-n": "^16.0.1",
     "eslint-plugin-no-only-tests": "^3.1.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-unicorn": "^47.0.0",
@@ -35,6 +35,6 @@
     "yaml-eslint-parser": "^1.2.2"
   },
   "devDependencies": {
-    "eslint": "^8.42.0"
+    "eslint": "^8.44.0"
   }
 }
