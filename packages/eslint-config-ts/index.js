@@ -1,4 +1,5 @@
 const fs = require("node:fs");
+const process = require("node:process");
 const { join } = require("node:path");
 const basic = require("@kirklin/eslint-config-basic");
 
