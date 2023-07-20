@@ -1,4 +1,5 @@
 # @kirklin/eslint-config
+
 [![CI][ci-image]][ci-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript_code style][code-style-image]][code-style-url]
 
 [ci-image]: https://github.com/kirklin/eslint-config/actions/workflows/release.yml/badge.svg?branch=master
@@ -31,13 +32,14 @@ You can learn more about
 [Shareable Configs](http://eslint.org/docs/developer-guide/shareable-configs) on the
 official ESLint website.
 
-####  run the following command:
+#### run the following command:
 
 ### Install
 
 ```bash
 pnpm add -D eslint @kirklin/eslint-config
 ```
+
 ### add this to your `.eslintrc` file:
 
 ```json
@@ -71,41 +73,45 @@ Create `.vscode/settings.json`
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
-    "source.organizeImports": false,
+    "source.organizeImports": false
+  },
+  // The following section is optional.
+  // It is recommended to place it in the project's .vscode/settings.json file
+  // to avoid conflicts when working with different eslint configurations
+  // that may not support all formats.
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "html",
+    "markdown",
+    "json",
+    "jsonc",
+    "yaml"
+  ]
+}
+```
 
-    // The following section is optional.
-    // It is recommended to place it in the project's .vscode/settings.json file
-    // to avoid conflicts when working with different eslint configurations
-    // that may not support all formats.
-    "eslint.validate": [
-      "javascript",
-      "javascriptreact",
-      "typescript",
-      "typescriptreact",
-      "vue",
-      "html",
-      "markdown",
-      "json",
-      "jsonc",
-      "yaml"
+### Customization rules
+
+add you like rules to your `.eslintrc` file:
+
+```json
+{
+  "extends": ["@kirklin"],
+  "rules": {
+    "vue/component-tags-order": [
+      "error",
+      {
+        "order": ["template", "script", "style"]
+      }
     ]
   }
 }
 ```
-### Customization rules
-add you like rules to your `.eslintrc` file:
-```json
-{
-  "extends": [
-    "@kirklin"
-  ],
-  "rules": {
-    "vue/component-tags-order": ["error", {
-      "order": ["template", "script", "style"]
-    }]
-  }
-}
-```
+
 ### TypeScript Aware Rules
 
 Type aware rules are enabled when a `tsconfig.eslint.json` is found in the project root. If you want to enable it while have no `tsconfig.eslint.json` in the project root, you can change tsconfig name by modifying `ESLINT_TSCONFIG` env.
@@ -115,16 +121,14 @@ Type aware rules are enabled when a `tsconfig.eslint.json` is found in the proje
 process.env.ESLINT_TSCONFIG = "tsconfig.json";
 
 module.exports = {
-  extends: "@kirklin"
+  extends: "@kirklin",
 };
 ```
-
 
 ## Badge
 
 Use this in one of your projects? Include one of these badges in your readme to
 let people know that your code is using the standard style.
-
 
 [![kirklin-code-style-image](https://img.shields.io/badge/code__style-%40kirklin%2Feslint--config-brightgreen)](https://github.com/kirklin/eslint-config/)
 
@@ -136,6 +140,7 @@ let people know that your code is using the standard style.
 [code-style-url]: https://github.com/kirklin/eslint-config/
 
 ## Thanks
+
 This project is based on [@antfu/eslint-config](https://github.com/antfu/eslint-config)
 
 ## License
