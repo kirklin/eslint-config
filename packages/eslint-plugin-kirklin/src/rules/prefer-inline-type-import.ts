@@ -33,7 +33,7 @@ export default createEslintRule<Options, MessageIds>({
           return;
         }
 
-        if (node.importKind === "type") {
+        if (node.importKind === "type" && node.specifiers.length > 0) {
           context.report({
             * fix(fixer) {
               yield * removeTypeSpecifier(fixer, sourceCode, node);
