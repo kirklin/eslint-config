@@ -142,8 +142,9 @@ module.exports = {
             pathPattern: "^exports.*$",
             order: [
               "types",
-              "require",
               "import",
+              "require",
+              "default",
             ],
           },
         ],
