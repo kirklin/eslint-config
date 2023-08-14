@@ -4,6 +4,9 @@ module.exports = {
     "plugin:react-hooks/recommended",
     "@kirklin/eslint-config-ts",
   ],
+  plugins: [
+    "react-refresh",
+  ],
   settings: {
     react: {
       version: "17.0",
@@ -15,5 +18,9 @@ module.exports = {
       "prefer-double",
     ],
     "react/react-in-jsx-scope": "off",
+    "react-refresh/only-export-components": [
+      "warn",
+      { allowConstantExport: true },
+    ],
   },
 };
