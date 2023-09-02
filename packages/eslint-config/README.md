@@ -102,7 +102,7 @@ add you like rules to your `.eslintrc` file:
 {
   "extends": ["@kirklin"],
   "rules": {
-    "vue/component-tags-order": [
+    "vue/block-order": [
       "error",
       {
         "order": ["template", "script", "style"]

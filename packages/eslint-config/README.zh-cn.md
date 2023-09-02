@@ -102,7 +102,7 @@ pnpm add -D eslint @kirklin/eslint-config
 {
   "extends": ["@kirklin"],
   "rules": {
-    "vue/component-tags-order": [
+    "vue/block-order": [
       "error",
       {
         "order": ["template", "script", "style"]
