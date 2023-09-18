@@ -1,6 +1,6 @@
 {
   "name": "@kirklin/eslint-config-monorepo",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "private": true,
   "packageManager": "pnpm@8.7.6",
   "author": "Kirk Lin <linkirk@163.com> (https://github.com/kirklin)",
