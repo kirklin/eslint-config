@@ -412,6 +412,9 @@ module.exports = {
     "jsdoc/require-param-description": "off",
     "jsdoc/require-yields": "off",
     "jsdoc/tag-lines": "off",
+    "jsdoc/check-values": "off",
+    "jsdoc/check-tag-names": "off",
+    "jsdoc/no-undefined-types": "off",
 
     // kirklin
     "kirklin/if-newline": "error",
