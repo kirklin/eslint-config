@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "target": "es2020",
     "module": "es2020",
-    "moduleResolution": "node"
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "esModuleInterop": true
   },
   "include": [
     "./packages/**/*.ts"
