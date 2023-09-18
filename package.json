@@ -2,7 +2,7 @@
   "name": "@kirklin/eslint-config-monorepo",
   "version": "0.5.3",
   "private": true,
-  "packageManager": "pnpm@8.7.1",
+  "packageManager": "pnpm@8.7.6",
   "author": "Kirk Lin <linkirk@163.com> (https://github.com/kirklin)",
   "license": "MIT",
   "scripts": {
@@ -16,7 +16,7 @@
   "devDependencies": {
     "@kirklin/eslint-config": "workspace:*",
     "bumpp": "^9.2.0",
-    "eslint": "^8.48.0",
+    "eslint": "^8.49.0",
     "eslint-plugin-kirklin": "workspace:*",
     "rimraf": "^5.0.1",
     "typescript": "^5.2.2"
