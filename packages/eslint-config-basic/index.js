@@ -230,6 +230,7 @@ module.exports = {
     "import/no-absolute-path": "off",
     "import/newline-after-import": ["error", { count: 1, considerComments: true }],
     "import/no-self-import": "error",
+    "import/named": "off",
 
     // Common
     "semi": ["error", "always"],
