@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-kirklin",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "license": "MIT",
   "homepage": "https://github.com/kirklin/eslint-config",
   "main": "./dist/index.cjs",
