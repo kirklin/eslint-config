@@ -1,7 +1,7 @@
 {
   "name": "@kirklin/eslint-config",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "packageManager": "pnpm@8.10.2",
   "description": "Kirk Lin's ESLint config",
   "author": "Kirk Lin (https://github.com/kirklin/)",
