@@ -75,7 +75,7 @@ export function stylistic(options: StylisticConfig = {}): ConfigItem[] {
         "style/keyword-spacing": ["error", { after: true, before: true }],
         "style/lines-between-class-members": ["error", "always", { exceptAfterSingleLine: true }],
         "style/max-statements-per-line": ["error", { max: 1 }],
-        "style/member-delimiter-style": ["error", { multiline: { delimiter: "none" } }],
+        "style/member-delimiter-style": ["error", { multiline: { delimiter: "semi" } }],
         "style/multiline-ternary": ["error", "always-multiline"],
         "style/new-parens": "error",
         "style/no-extra-parens": ["error", "functions"],

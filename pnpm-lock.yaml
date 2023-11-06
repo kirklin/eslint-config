@@ -36,8 +36,8 @@ importers:
         specifier: ^2.10.0
         version: 2.10.0(eslint@8.53.0)
       eslint-plugin-kirklin:
-        specifier: ^1.0.0-beta.0
-        version: 1.0.0-beta.0(eslint@8.53.0)
+        specifier: ^1.0.0
+        version: 1.0.0(eslint@8.53.0)
       eslint-plugin-markdown:
         specifier: ^3.0.1
         version: 3.0.1(eslint@8.53.0)
@@ -2141,8 +2141,8 @@ packages:
       natural-compare: 1.4.0
     dev: false
 
-  /eslint-plugin-kirklin@1.0.0-beta.0(eslint@8.53.0):
-    resolution: {integrity: sha512-zMD0v9fDKBMI57FRcHgIS9vR7vXmBCZn2DMo5jSd2sZsQzgWA6BOCBMzUVoF6/66ojJ9f39kMpTMs0wdhoH/lA==}
+  /eslint-plugin-kirklin@1.0.0(eslint@8.53.0):
+    resolution: {integrity: sha512-HLp8jdwIuMgH/ntP7EBf0CZ/ZqXfPlMDL535I9llsN4jMuC+/WrN2u1Ga+zJl9WauDHrVgME9xmmH6GvgozMWg==}
     peerDependencies:
       eslint: '*'
     dependencies:
