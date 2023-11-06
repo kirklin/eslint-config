@@ -8,37 +8,36 @@
 [downloads-url]: https://npmjs.org/package/@kirklin/eslint-config
 
 <div align='left'>
-<b>English</b> | <a href="README.zh-cn.md">简体中文</a>
+<a href="README.md">English</a> | <b>简体中文</b>
 <br>
 </div>
 
-## Features
 
-- "double quotes", must semi;
-- Auto fix for formatting (aimed to be used standalone **without** Prettier)
-- Designed to work with TypeScript, JSX, Vue out-of-box
-- Lints also for json, yaml, markdown
-- Sorted imports, dangling commas
-- Reasonable defaults, best practices, only one-line of config
-- Respects `.gitignore` by default
-- [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), compose easily!
-- Using [ESLint Stylistic](https://github.com/eslint-stylistic/eslint-stylistic)
+- "双引号"，必须有分号;
+- 自动修复格式（旨在独立使用，**不需要** Prettier）
+- 设计用于与TypeScript、JSX、Vue配合使用
+- 同样适用于json、yaml、markdown的规范
+- 排序导入、悬空逗号
+- 合理的默认设置，最佳实践，只需要一行配置
+- 默认情况下遵守`.gitignore`
+- [ESLint Flat配置](https://eslint.org/docs/latest/use/configure/configuration-files-new), compose easily!
+- 使用 [ESLint Stylistic](https://github.com/eslint-stylistic/eslint-stylistic)
 - **Style principle**: Minimal for reading, stable for diff, consistent
 
 > [!IMPORTANT]
-> Since v1.0.0, this config is rewritten to the new [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), check the [release note](https://github.com/kirklin/eslint-config/releases/tag/v1.0.0) for more details.
+> 从v1.0.0开始，该配置已重写为新的 [ESLint Flat配置](https://eslint.org/docs/latest/use/configure/configuration-files-new), 请查看[发布说明](https://github.com/kirklin/eslint-config/releases/tag/v1.0.0)以获取更多详细信息。
 
-## Usage
+## 使用
 
-### Install
+### 安装
 
 ```bash
 pnpm i -D eslint @kirklin/eslint-config
 ```
 
-### Create config file
+### 创建配置文件
 
-With [`"type": "module"`](https://nodejs.org/api/packages.html#type) in `package.json` (recommended):
+使用 `package.json` 中的 [`"type": "module"`](https://nodejs.org/api/packages.html#type) (推荐):
 
 ```js
 // eslint.config.js
@@ -47,7 +46,7 @@ import kirklin from "@kirklin/eslint-config";
 export default kirklin();
 ```
 
-With CJS:
+使用 CJS:
 
 ```js
 // eslint.config.js
@@ -56,11 +55,11 @@ const kirklin = require("@kirklin/eslint-config").default;
 module.exports = kirklin();
 ```
 
-> Note that `.eslintignore` no longer works in Flat config, see [customization](#customization) for more details.
+> 请注意，在Flat配置中不再支持 `.eslintignore`，请查看[自定义](#customization)以获取更多详细信息。
 
-### Add script for package.json
+### 为 package.json添加script
 
-For example:
+例如：
 
 ```json
 {
@@ -71,28 +70,28 @@ For example:
 }
 ```
 
-## VS Code support (auto fix)
+## VS Code支持（自动修复）
 
-Install [VS Code ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+安装 [VS Code ESLint扩展](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
-Add the following settings to your `.vscode/settings.json`:
+将以下设置添加到您的 `.vscode/settings.json`:
 
 ```jsonc
 {
-  // Enable the ESlint flat config support
+  // 启用ESlint Flat配置支持
   "eslint.experimental.useFlatConfig": true,
 
-  // Disable the default formatter, use eslint instead
+  // 禁用默认格式化程序，使用eslint代替
   "prettier.enable": false,
   "editor.formatOnSave": false,
 
-  // Auto fix
+  // 自动修复
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "never"
   },
 
-  // Silent the stylistic rules in you IDE, but still auto fix them
+  // 在IDE中静默风格规则，但仍自动修复它们
   "eslint.rules.customizations": [
     { "rule": "style/*", "severity": "off" },
     { "rule": "*-indent", "severity": "off" },
@@ -105,7 +104,7 @@ Add the following settings to your `.vscode/settings.json`:
     { "rule": "*semi", "severity": "off" }
   ],
 
-  // Enable eslint for all supported languages
+  // 为所有支持的语言启用eslint
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -121,12 +120,11 @@ Add the following settings to your `.vscode/settings.json`:
 }
 ```
 
-## Customization
+## 自定义
 
-Since v1.0, we migrated to [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new). It provides much better organization and composition.
+从v1.0开始，我们迁移到了[ESLint Flat 配置](https://eslint.org/docs/latest/use/configure/configuration-files-new)。它提供了更好的组织和组合。
 
-Normally you only need to import the `kirklin` preset:
-
+通常，您只需要导入 `kirklin` 预设：
 ```js
 // eslint.config.js
 import kirklin from "@kirklin/eslint-config";
@@ -134,31 +132,31 @@ import kirklin from "@kirklin/eslint-config";
 export default kirklin();
 ```
 
-And that's it! Or you can configure each integration individually, for example:
+就是这样！或者您还可以单独配置每个集成，例如：
 
 ```js
 // eslint.config.js
 import kirklin from "@kirklin/eslint-config";
 
 export default kirklin({
-  // Enable stylistic formatting rules
+  // 启用风格格式规则
   // stylistic: true,
 
-  // Or customize the stylistic rules
+  // 或自定义风格规则
   stylistic: {
-    indent: 2, // 4, or 'tab'
-    quotes: "double", // or 'single'
+    indent: 2, // 4或'tab'
+    quotes: "double", // 或'single'
   },
 
-  // TypeScript and Vue are auto-detected, you can also explicitly enable them:
+  // TypeScript和Vue会自动检测，您也可以显式启用它们：
   typescript: true,
   vue: true,
 
-  // Disable jsonc and yaml support
+  // 禁用jsonc和yaml支持
   jsonc: false,
   yaml: false,
 
-  // `.eslintignore` is no longer supported in Flat config, use `ignores` instead
+  // 在Flat配置中不再支持`.eslintignore`，请使用`ignores`代替
   ignores: [
     "./fixtures",
     // ...globs
@@ -166,7 +164,7 @@ export default kirklin({
 });
 ```
 
-The `kirklin` factory function also accepts any number of arbitrary custom config overrides:
+`kirklin` 工厂函数还接受任意数量的自定义配置覆盖：
 
 ```js
 // eslint.config.js
@@ -189,12 +187,12 @@ export default kirklin(
 );
 ```
 
-Going more advanced, you can also import fine-grained configs and compose them as you wish:
+更高级的情况下，您还可以导入细粒度的配置并根据需要组合它们：
 
 <details>
-<summary>Advanced Example</summary>
+<summary>高级示例</summary>
 
-We don't recommend using this style in general usages, as there are shared options between configs and might need extra care to make them consistent.
+我们不建议在一般用途中使用这种样式，因为在配置之间可能存在共享选项，可能需要额外的注意以使它们一致。
 
 ```js
 // eslint.config.js
@@ -235,15 +233,14 @@ export default [
 
 </details>
 
-Check out the [configs](https://github.com/kirklin/eslint-config/blob/main/src/configs) and [factory](https://github.com/kirklin/eslint-config/blob/main/src/factory.ts) for more details.
+查看[configs](https://github.com/kirklin/eslint-config/blob/main/src/configs)和[factory](https://github.com/kirklin/eslint-config/blob/main/src/factory.ts)以获取更多详细信息。
+> 感谢 [sxzz/eslint-config](https://github.com/sxzz/eslint-config) 提供灵感和参考。
 
-> Thanks to [sxzz/eslint-config](https://github.com/sxzz/eslint-config) for the inspiration and reference.
+### 插件重命名
 
-### Plugins Renaming
+由于Flat配置要求我们明确提供插件名称（而不是从npm包名称强制性约定），我们已经重命名了一些插件，以使整体范围更一致且更容易编写。
 
-Since flat config requires us to explicitly provide the plugin names (instead of mandatory convention from npm package name), we renamed some plugins to make overall scope more consistent and easier to write.
-
-| New Prefix | Original Prefix | Source Plugin |
+| 新前缀 | 原前缀 | 源插件 |
 | --- | --- | --- |
 | `import/*` | `i/*` | [eslint-plugin-i](https://github.com/un-es/eslint-plugin-i) |
 | `node/*` | `n/*` | [eslint-plugin-n](https://github.com/eslint-community/eslint-plugin-n) |
@@ -253,7 +250,7 @@ Since flat config requires us to explicitly provide the plugin names (instead of
 | `test/*` | `vitest/*` | [eslint-plugin-vitest](https://github.com/veritem/eslint-plugin-vitest) |
 | `test/*` | `no-only-tests/*` | [eslint-plugin-no-only-tests](https://github.com/levibuzolic/eslint-plugin-no-only-tests) |
 
-When you want to override rules, or disable them inline, you need to update to the new prefix:
+当您想要覆盖规则或在内联中禁用它们时，您需要更新新前缀：
 
 ```diff
 -// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
@@ -261,9 +258,9 @@ When you want to override rules, or disable them inline, you need to update to t
 type foo = { bar: 2 }
 ```
 
-### Rules Overrides
+### 规则覆盖
 
-Certain rules would only be enabled in specific files, for example, `ts/*` rules would only be enabled in `.ts` files and `vue/*` rules would only be enabled in `.vue` files. If you want to override the rules, you need to specify the file extension:
+某些规则仅在特定文件中启用，例如， `ts/*` 规则仅在 `.ts` 文件中启用， `vue/*` 规则仅在 `.vue` 文件中启用。如果要覆盖规则，需要指定文件扩展名：
 
 ```js
 // eslint.config.js
@@ -272,14 +269,14 @@ import kirklin from "@kirklin/eslint-config";
 export default kirklin(
   { vue: true, typescript: true },
   {
-    // Remember to specify the file glob here, otherwise it might cause the vue plugin to handle non-vue files
+    // 记得在这里指定文件glob，否则可能会导致vue插件处理非vue文件
     files: ["**/*.vue"],
     rules: {
       "vue/operator-linebreak": ["error", "before"],
     },
   },
   {
-    // Without `files`, they are general rules for all files
+    // 没有`files`，它们是所有文件的一般规则
     rules: {
       "style/semi": ["error", "never"],
     },
@@ -287,7 +284,7 @@ export default kirklin(
 );
 ```
 
-We also provided an `overrides` options to make it easier:
+我们还提供了一个 `overrides` 选项，以使其更容易：
 
 ```js
 // eslint.config.js
@@ -307,17 +304,17 @@ export default kirklin({
 });
 ```
 
-### Optional Rules
+### 可选规则
 
-This config also provides some optional plugins/rules for extended usages.
+此配置还提供了一些用于扩展用途的可选插件/规则。
 
-#### `perfectionist` (sorting)
+#### `perfectionist`（排序）
 
-This plugin [`eslint-plugin-perfectionist`](https://github.com/azat-io/eslint-plugin-perfectionist) allows you to sorted object keys, imports, etc, with auto-fix.
+此插件 [`eslint-plugin-perfectionist`](https://github.com/azat-io/eslint-plugin-perfectionist) 允许您对对象键、导入等进行自动修复的排序。
 
-The plugin is installed but no rules are enabled by default. 
+插件已安装，但默认情况下不启用任何规则。
 
-It's recommended to opt-in on each file individually using [configuration comments](https://eslint.org/docs/latest/use/configure/rules#using-configuration-comments-1).
+建议通过使用[配置注释](https://eslint.org/docs/latest/use/configure/rules#using-configuration-comments-1)来为每个文件单独选择启用。
 
 ```js
 /* eslint perfectionist/sort-objects: "error" */
@@ -329,9 +326,9 @@ const objectWantedToSort = {
 /* eslint perfectionist/sort-objects: "off" */
 ```
 
-### Type Aware Rules
+### 类型感知规则
 
-You can optionally enable the [type aware rules](https://typescript-eslint.io/linting/typed-linting/) by passing the options object to the `typescript` config:
+您可以通过将选项对象传递给`typescript`配置来选择启用[类型感知规则](https://typescript-eslint.io/linting/typed-linting/)：
 
 ```js
 // eslint.config.js
@@ -346,7 +343,7 @@ export default kirklin({
 
 ### Lint Staged
 
-If you want to apply lint and auto-fix before every commit, you can add the following to your `package.json`:
+如果您想在每次提交之前应用lint和自动修复，可以将以下内容添加到您的 `package.json` 中：
 
 ```json
 {
@@ -359,33 +356,33 @@ If you want to apply lint and auto-fix before every commit, you can add the foll
 }
 ```
 
-and then
+然后运行：
 
 ```bash
 npm i -D lint-staged simple-git-hooks
 ```
 
-## Versioning Policy
+## 版本控制策略
 
-This project follows [Semantic Versioning](https://semver.org/) for releases. However, since this is just a config and involved with opinions and many moving parts, we don't treat rules changes as breaking changes.
+本项目遵循[语义化版本控制](https://semver.org/)用于发布。然而，由于这只是一个配置文件，涉及意见和许多不断变化的部分，我们不将规则更改视为破坏性更改。
 
-### Changes Considered as Breaking Changes
+### 被视为破坏性更改的变化
 
-- Node.js version requirement changes
-- Huge refactors that might break the config
-- Plugins made major changes that might break the config
-- Changes that might affect most of the codebases
+- Node.js 版本要求的更改
+- 可能破坏配置的大规模重构
+- 插件进行了可能破坏配置的重大更改
+- 可能影响大部分代码库的更改
 
-### Changes Considered as Non-breaking Changes
+### 被视为非破坏性更改的变化
 
-- Enable/disable rules and plugins (that might become stricter)
-- Rules options changes
-- Version bumps of dependencies
+- 启用/禁用规则和插件（可能更加严格）
+- 规则选项的更改
+- 依赖项的版本升级
 
-## Badge
+## 徽章
 
-Use this in one of your projects? Include one of these badges in your readme to
-let people know that your code is using the Kirk Lin style.
+在你的项目中使用此配置？在你的自述文件中包括以下徽章，以告知人们你的代码正在使用Kirk Lin的代码风格。
+
 
 [![kirklin-code-style-image](https://img.shields.io/badge/code__style-%40kirklin%2Feslint--config-brightgreen)](https://github.com/kirklin/eslint-config/)
 
