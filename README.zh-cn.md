@@ -1,11 +1,23 @@
 # @kirklin/eslint-config
 
-[![npm](https://img.shields.io/npm/v/@kirklin/eslint-config?color=444&label=)](https://npmjs.com/package/@kirklin/eslint-config) [![downloads][downloads-image]][downloads-url] [![kirklin-code-style-image](https://img.shields.io/badge/code__style-%40kirklin%2Feslint--config-brightgreen)](https://github.com/kirklin/eslint-config/)
+[![npm version][npm-version-src]][npm-version-href]
+[![npm downloads][npm-downloads-src]][npm-downloads-href]
+[![JSDocs][jsdocs-src]][jsdocs-href]
+[![License][license-src]][license-href]
+[![javascript_code style][code-style-image]][code-style-url]
 
-[npm-image]: https://img.shields.io/npm/v/@kirklin/eslint-config.svg
-[npm-url]: https://npmjs.org/package/@kirklin/eslint-config
-[downloads-image]: https://img.shields.io/npm/dm/@kirklin/eslint-config.svg
-[downloads-url]: https://npmjs.org/package/@kirklin/eslint-config
+<!-- Badges -->
+
+[npm-version-src]: https://img.shields.io/npm/v/@kirklin/eslint-config?style=flat&colorA=080f12&colorB=3491fa
+[npm-version-href]: https://npmjs.com/package/@kirklin/eslint-config
+[npm-downloads-src]: https://img.shields.io/npm/dm/@kirklin/eslint-config?style=flat&colorA=080f12&colorB=3491fa
+[npm-downloads-href]: https://npmjs.com/package/@kirklin/eslint-config
+[license-src]: https://img.shields.io/github/license/kirklin/eslint-config.svg?style=flat&colorA=080f12&colorB=3491fa
+[license-href]: https://github.com/kirklin/eslint-config/blob/main/LICENSE
+[jsdocs-src]: https://img.shields.io/badge/jsdocs-reference-080f12?style=flat&colorA=080f12&colorB=3491fa
+[jsdocs-href]: https://www.jsdocs.io/package/@kirklin/eslint-config
+[code-style-image]: https://img.shields.io/badge/code__style-%40kirklin%2Feslint--config-3491fa?style=flat&colorA=080f12&colorB=3491fa
+[code-style-url]: https://github.com/kirklin/eslint-config/
 
 <div align='left'>
 <a href="README.md">English</a> | <b>简体中文</b>
@@ -384,14 +396,15 @@ npm i -D lint-staged simple-git-hooks
 在你的项目中使用此配置？在你的自述文件中包括以下徽章，以告知人们你的代码正在使用Kirk Lin的代码风格。
 
 
-[![kirklin-code-style-image](https://img.shields.io/badge/code__style-%40kirklin%2Feslint--config-brightgreen)](https://github.com/kirklin/eslint-config/)
+[![kirklin-code-style-image](https://img.shields.io/badge/code__style-%40kirklin%2Feslint--config-3491fa?style=flat&colorA=080f12&colorB=3491fa)](https://github.com/kirklin/eslint-config/)
 
 ```markdown
-[![kirklin-code-style-image](https://img.shields.io/badge/code__style-%40kirklin%2Feslint--config-brightgreen)](https://github.com/kirklin/eslint-config/)
+[![kirklin-code-style-image](https://img.shields.io/badge/code__style-%40kirklin%2Feslint--config-3491fa?style=flat&colorA=080f12&colorB=3491fa)](https://github.com/kirklin/eslint-config/)
 ```
 
-[code-style-image]: https://img.shields.io/badge/code__style-%40kirklin%2Feslint--config-brightgreen
+[code-style-image]: https://img.shields.io/badge/code__style-%40kirklin%2Feslint--config-3491fa?style=flat&colorA=080f12&colorB=3491fa
 [code-style-url]: https://github.com/kirklin/eslint-config/
+
 
 ## Thanks
 
