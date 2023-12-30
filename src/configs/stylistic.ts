@@ -49,6 +49,7 @@ export async function stylistic(
         "kirklin/if-newline": "error",
         "kirklin/top-level-function": "error",
         "style/brace-style": ["error", "1tbs", { allowSingleLine: false }],
+        "style/member-delimiter-style": ["error", { multiline: { delimiter: "semi" } }],
 
         ...overrides,
       },
