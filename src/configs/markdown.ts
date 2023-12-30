@@ -1,24 +1,45 @@
-import type { ConfigItem, OptionsComponentExts, OptionsOverrides } from "../types";
-import { GLOB_MARKDOWN, GLOB_MARKDOWN_CODE } from "../globs";
-import { pluginMarkdown } from "../plugins";
+import { mergeProcessors, processorPassThrough } from "eslint-merge-processors";
+import type { FlatConfigItem, OptionsComponentExts, OptionsFiles, OptionsOverrides } from "../types";
+import { GLOB_MARKDOWN, GLOB_MARKDOWN_CODE, GLOB_MARKDOWN_IN_MARKDOWN } from "../globs";
+import { interopDefault, parserPlain } from "../utils";
 
-export function markdown(options: OptionsComponentExts & OptionsOverrides = {}): ConfigItem[] {
+export async function markdown(
+  options: OptionsFiles & OptionsComponentExts & OptionsOverrides = {},
+): Promise<FlatConfigItem[]> {
   const {
     componentExts = [],
+    files = [GLOB_MARKDOWN],
     overrides = {},
   } = options;
+
+  // @ts-expect-error missing types
+  const markdown = await interopDefault(import("eslint-plugin-markdown"));
 
   return [
     {
       name: "kirklin:markdown:setup",
       plugins: {
-        markdown: pluginMarkdown,
+        markdown,
       },
     },
     {
-      files: [GLOB_MARKDOWN],
+      files,
+      ignores: [GLOB_MARKDOWN_IN_MARKDOWN],
       name: "kirklin:markdown:processor",
-      processor: "markdown/markdown",
+      // `eslint-plugin-markdown` only creates virtual files for code blocks,
+      // but not the markdown file itself. We use `eslint-merge-processors` to
+      // add a pass-through processor for the markdown file itself.
+      processor: mergeProcessors([
+        markdown.processors.markdown,
+        processorPassThrough,
+      ]),
+    },
+    {
+      files,
+      languageOptions: {
+        parser: parserPlain,
+      },
+      name: "kirklin:markdown:parser",
     },
     {
       files: [
@@ -32,18 +53,18 @@ export function markdown(options: OptionsComponentExts & OptionsOverrides = {}):
           },
         },
       },
-      name: "kirklin:markdown:rules",
+      name: "kirklin:markdown:disables",
       rules: {
         "import/newline-after-import": "off",
-        "kirklin/no-cjs-exports": "off",
-
-        "kirklin/no-ts-export-equal": "off",
 
         "no-alert": "off",
         "no-console": "off",
+        "no-labels": "off",
+        "no-lone-blocks": "off",
+        "no-restricted-syntax": "off",
         "no-undef": "off",
         "no-unused-expressions": "off",
-
+        "no-unused-labels": "off",
         "no-unused-vars": "off",
 
         "node/prefer-global/process": "off",

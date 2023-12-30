@@ -1,7 +1,8 @@
-import type { ConfigItem, OptionsStylistic } from "../types";
+import type { FlatConfigItem, OptionsStylistic } from "../types";
 import { pluginImport, pluginKirkLin } from "../plugins";
+import { GLOB_SRC_EXT } from "../globs";
 
-export function imports(options: OptionsStylistic = {}): ConfigItem[] {
+export async function imports(options: OptionsStylistic = {}): Promise<FlatConfigItem[]> {
   const {
     stylistic = true,
   } = options;
@@ -23,6 +24,7 @@ export function imports(options: OptionsStylistic = {}): ConfigItem[] {
         "import/no-webpack-loader-syntax": "error",
         "import/order": "error",
         "kirklin/import-dedupe": "error",
+        // 'kirklin/no-import-dist': 'error',
         "kirklin/no-import-node-modules-by-path": "error",
 
         ...stylistic
@@ -30,6 +32,14 @@ export function imports(options: OptionsStylistic = {}): ConfigItem[] {
               "import/newline-after-import": ["error", { considerComments: true, count: 1 }],
             }
           : {},
+      },
+    },
+    {
+      files: ["**/bin/**/*", `**/bin.${GLOB_SRC_EXT}`],
+      name: "kirklin:imports:bin",
+      rules: {
+        // 'kirklin/no-import-dist': 'off',
+        "kirklin/no-import-node-modules-by-path": "off",
       },
     },
   ];

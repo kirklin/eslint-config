@@ -1,19 +1,26 @@
 import process from "node:process";
-import type { ConfigItem, OptionsComponentExts, OptionsOverrides, OptionsTypeScriptParserOptions, OptionsTypeScriptWithTypes } from "../types";
-import { GLOB_SRC } from "../globs";
-import { parserTs, pluginImport, pluginKirkLin, pluginTs } from "../plugins";
-import { renameRules, toArray } from "../utils";
+import { GLOB_SRC, GLOB_TS, GLOB_TSX } from "../globs";
+import type { FlatConfigItem, OptionsComponentExts, OptionsFiles, OptionsOverrides, OptionsTypeScriptParserOptions, OptionsTypeScriptWithTypes } from "../types";
+import { pluginKirkLin } from "../plugins";
+import { interopDefault, renameRules, toArray } from "../utils";
 
-export function typescript(
-  options?: OptionsComponentExts & OptionsOverrides & OptionsTypeScriptWithTypes & OptionsTypeScriptParserOptions,
-): ConfigItem[] {
+export async function typescript(
+  options: OptionsFiles & OptionsComponentExts & OptionsOverrides & OptionsTypeScriptWithTypes & OptionsTypeScriptParserOptions = {},
+): Promise<FlatConfigItem[]> {
   const {
     componentExts = [],
     overrides = {},
     parserOptions = {},
-  } = options ?? {};
+  } = options;
 
-  const typeAwareRules: ConfigItem["rules"] = {
+  const files = options.files ?? [
+    GLOB_SRC,
+    ...componentExts.map(ext => `**/*.${ext}`),
+  ];
+
+  const filesTypeAware = options.filesTypeAware ?? [GLOB_TS, GLOB_TSX];
+
+  const typeAwareRules: FlatConfigItem["rules"] = {
     "dot-notation": "off",
     "no-implied-eval": "off",
     "no-throw-literal": "off",
@@ -39,21 +46,25 @@ export function typescript(
     ? toArray(options.tsconfigPath)
     : undefined;
 
+  const [
+    pluginTs,
+    parserTs,
+  ] = await Promise.all([
+    interopDefault(import("@typescript-eslint/eslint-plugin")),
+    interopDefault(import("@typescript-eslint/parser")),
+  ] as const);
+
   return [
     {
       // Install the plugins without globs, so they can be configured separately.
       name: "kirklin:typescript:setup",
       plugins: {
-        import: pluginImport,
         kirklin: pluginKirkLin,
         ts: pluginTs as any,
       },
     },
     {
-      files: [
-        GLOB_SRC,
-        ...componentExts.map(ext => `**/*.${ext}`),
-      ],
+      files,
       languageOptions: {
         parser: parserTs,
         parserOptions: {
@@ -80,13 +91,7 @@ export function typescript(
           "@typescript-eslint/",
           "ts/",
         ),
-
-        "kirklin/generic-spacing": "error",
-        "kirklin/named-tuple-spacing": "error",
-        "kirklin/no-cjs-exports": "error",
-
         "no-dupe-class-members": "off",
-        "no-invalid-this": "off",
         "no-loss-of-precision": "off",
         "no-redeclare": "off",
         "no-use-before-define": "off",
@@ -100,7 +105,6 @@ export function typescript(
         "ts/no-explicit-any": "off",
         "ts/no-extraneous-class": "off",
         "ts/no-import-type-side-effects": "error",
-        "ts/no-invalid-this": "error",
         "ts/no-invalid-void-type": "off",
         "ts/no-loss-of-precision": "error",
         "ts/no-non-null-assertion": "off",
@@ -112,7 +116,13 @@ export function typescript(
         "ts/prefer-ts-expect-error": "error",
         "ts/triple-slash-reference": "off",
         "ts/unified-signatures": "off",
-
+        ...overrides,
+      },
+    },
+    {
+      files: filesTypeAware,
+      name: "kirklin:typescript:rules-type-aware",
+      rules: {
         ...tsconfigPath ? typeAwareRules : {},
         ...overrides,
       },

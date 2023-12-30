@@ -1,18 +1,36 @@
-import type { ConfigItem, OptionsHasTypeScript, OptionsOverrides, OptionsStylistic } from "../types";
+import { mergeProcessors } from "eslint-merge-processors";
+import { interopDefault } from "../utils";
+import type { FlatConfigItem, OptionsFiles, OptionsHasTypeScript, OptionsOverrides, OptionsStylistic, OptionsVue } from "../types";
 import { GLOB_VUE } from "../globs";
-import { parserTs, parserVue, pluginVue } from "../plugins";
 
-export function vue(
-  options: OptionsHasTypeScript & OptionsOverrides & OptionsStylistic = {},
-): ConfigItem[] {
+export async function vue(
+  options: OptionsVue & OptionsHasTypeScript & OptionsOverrides & OptionsStylistic & OptionsFiles = {},
+): Promise<FlatConfigItem[]> {
   const {
+    files = [GLOB_VUE],
     overrides = {},
     stylistic = true,
+    vueVersion = 3,
   } = options;
+
+  const sfcBlocks = options.sfcBlocks === true
+    ? {}
+    : options.sfcBlocks ?? {};
 
   const {
     indent = 2,
   } = typeof stylistic === "boolean" ? {} : stylistic;
+
+  const [
+    pluginVue,
+    parserVue,
+    processorVueBlocks,
+  ] = await Promise.all([
+    // @ts-expect-error missing types
+    interopDefault(import("eslint-plugin-vue")),
+    interopDefault(import("vue-eslint-parser")),
+    interopDefault(import("eslint-processor-vue-blocks")),
+  ] as const);
 
   return [
     {
@@ -22,7 +40,7 @@ export function vue(
       },
     },
     {
-      files: [GLOB_VUE],
+      files,
       languageOptions: {
         parser: parserVue,
         parserOptions: {
@@ -30,17 +48,39 @@ export function vue(
             jsx: true,
           },
           extraFileExtensions: [".vue"],
-          parser: options.typescript ? parserTs as any : null,
+          parser: options.typescript
+            ? await interopDefault(import("@typescript-eslint/parser")) as any
+            : null,
           sourceType: "module",
         },
       },
       name: "kirklin:vue:rules",
-      processor: pluginVue.processors[".vue"],
+      processor: sfcBlocks === false
+        ? pluginVue.processors[".vue"]
+        : mergeProcessors([
+          pluginVue.processors[".vue"],
+          processorVueBlocks({
+            ...sfcBlocks,
+            blocks: {
+              styles: true,
+              ...sfcBlocks.blocks,
+            },
+          }),
+        ]),
       rules: {
         ...pluginVue.configs.base.rules as any,
-        ...pluginVue.configs["vue3-essential"].rules as any,
-        ...pluginVue.configs["vue3-strongly-recommended"].rules as any,
-        ...pluginVue.configs["vue3-recommended"].rules as any,
+
+        ...vueVersion === 2
+          ? {
+              ...pluginVue.configs.essential.rules as any,
+              ...pluginVue.configs["strongly-recommended"].rules as any,
+              ...pluginVue.configs.recommended.rules as any,
+            }
+          : {
+              ...pluginVue.configs["vue3-essential"].rules as any,
+              ...pluginVue.configs["vue3-strongly-recommended"].rules as any,
+              ...pluginVue.configs["vue3-recommended"].rules as any,
+            },
 
         "node/prefer-global/process": "off",
 

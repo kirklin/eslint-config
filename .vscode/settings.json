@@ -36,6 +36,14 @@
     "markdown",
     "json",
     "jsonc",
-    "yaml"
+    "yaml",
+    "toml"
+  ],
+
+  "pair-diff.patterns": [
+    {
+      "source": "./fixtures/output/**/*.*",
+      "target": "./fixtures/input/<base>"
+    }
   ]
 }

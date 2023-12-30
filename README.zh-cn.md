@@ -24,17 +24,21 @@
 <br>
 </div>
 
+## Features
 
-- "双引号"，必须有分号;
-- 自动修复格式（旨在独立使用，**不需要** Prettier）
-- 设计用于与TypeScript、JSX、Vue配合使用
-- 同样适用于json、yaml、markdown的规范
-- 排序导入、悬空逗号
-- 合理的默认设置，最佳实践，只需要一行配置
+- “双引号”，必须有分号;
+- 自动修复格式（旨在独立使用 **不包括** Prettier）
+- 排序导入项，悬挂逗号
+- 合理的默认设置，最佳实践，只需一行配置
+- 设计用于与TypeScript，JSX，Vue无缝配合
+- 对json，yaml，toml，markdown等进行语法检查
+- 有主见，但可[非常定制化](#customization)
+- [ESLint Flat配置](https://eslint.org/docs/latest/use/configure/configuration-files-new)，轻松组合！
+- 使用[ESLint Stylistic](https://github.com/eslint-stylistic/eslint-stylistic)
 - 默认情况下遵守`.gitignore`
-- [ESLint Flat配置](https://eslint.org/docs/latest/use/configure/configuration-files-new), compose easily!
-- 使用 [ESLint Stylistic](https://github.com/eslint-stylistic/eslint-stylistic)
-- **Style principle**: Minimal for reading, stable for diff, consistent
+- 可选的[React](#react)，[Svelte](#svelte)，[UnoCSS](#unocss)支持
+- 可选的[格式化程序](#formatters)支持CSS，HTML等。
+- **样式原则**：最小化阅读，稳定的差异性，保持一致性
 
 > [!IMPORTANT]
 > 从v1.0.0开始，该配置已重写为新的 [ESLint Flat配置](https://eslint.org/docs/latest/use/configure/configuration-files-new), 请查看[发布说明](https://github.com/kirklin/eslint-config/releases/tag/v1.0.0)以获取更多详细信息。
@@ -67,6 +71,35 @@ const kirklin = require("@kirklin/eslint-config").default;
 module.exports = kirklin();
 ```
 
+> [!TIP]
+> ESLint只检测`eslint.config.js`作为扁平配置的入口，这意味着您需要在`package.json`中放置`type: module`，或者您必须在`eslint.config.js`中使用CJS。如果您想要明确的扩展名，如`.mjs`或`.cjs`，甚至是`eslint.config.ts`，您可以安装[`eslint-ts-patch`](https://github.com/antfu/eslint-ts-patch)来修复此问题。
+
+结合旧有的配置：
+
+```js
+// eslint.config.js
+const kirklin = require("@kirklin/eslint-config").default;
+const { FlatCompat } = require("@eslint/eslintrc");
+
+const compat = new FlatCompat();
+
+module.exports = kirklin(
+  {
+    ignores: [],
+  },
+
+  // Legacy config
+  ...compat.config({
+    extends: [
+      "eslint:recommended",
+      // Other extends...
+    ],
+  })
+
+  // Other flat configs...
+);
+```
+
 > 请注意，在Flat配置中不再支持 `.eslintignore`，请查看[自定义](#customization)以获取更多详细信息。
 
 ### 为 package.json添加script
@@ -81,6 +114,16 @@ module.exports = kirklin();
   }
 }
 ```
+
+### 迁移
+
+我们提供了一个实验性的CLI工具，可以帮助您从传统配置迁移到新的扁平配置。
+
+```bash
+npx @kirklin/eslint-config@latest
+```
+
+在运行迁移之前，请确保先提交您未保存的更改。
 
 ## VS Code支持（自动修复）
 
@@ -106,6 +149,7 @@ module.exports = kirklin();
   // 在IDE中静默风格规则，但仍自动修复它们
   "eslint.rules.customizations": [
     { "rule": "style/*", "severity": "off" },
+    { "rule": "format/*", "severity": "off" },
     { "rule": "*-indent", "severity": "off" },
     { "rule": "*-spacing", "severity": "off" },
     { "rule": "*-spaces", "severity": "off" },
@@ -127,7 +171,8 @@ module.exports = kirklin();
     "markdown",
     "json",
     "jsonc",
-    "yaml"
+    "yaml",
+    "toml"
   ]
 }
 ```
@@ -137,6 +182,7 @@ module.exports = kirklin();
 从v1.0开始，我们迁移到了[ESLint Flat 配置](https://eslint.org/docs/latest/use/configure/configuration-files-new)。它提供了更好的组织和组合。
 
 通常，您只需要导入 `kirklin` 预设：
+
 ```js
 // eslint.config.js
 import kirklin from "@kirklin/eslint-config";
@@ -209,6 +255,7 @@ export default kirklin(
 ```js
 // eslint.config.js
 import {
+  combine,
   comments,
   ignores,
   imports,
@@ -220,47 +267,50 @@ import {
   sortPackageJson,
   sortTsconfig,
   stylistic,
+  toml,
   typescript,
   unicorn,
   vue,
   yaml,
 } from "@kirklin/eslint-config";
 
-export default [
-  ...ignores(),
-  ...javascript(/* Options */),
-  ...comments(),
-  ...node(),
-  ...jsdoc(),
-  ...imports(),
-  ...unicorn(),
-  ...typescript(/* Options */),
-  ...stylistic(),
-  ...vue(),
-  ...jsonc(),
-  ...yaml(),
-  ...markdown(),
-];
+export default combine(
+  ignores(),
+  javascript(/* Options */),
+  comments(),
+  node(),
+  jsdoc(),
+  imports(),
+  unicorn(),
+  typescript(/* Options */),
+  stylistic(),
+  vue(),
+  jsonc(),
+  yaml(),
+  toml(),
+  markdown(),
+);
 ```
 
 </details>
 
 查看[configs](https://github.com/kirklin/eslint-config/blob/main/src/configs)和[factory](https://github.com/kirklin/eslint-config/blob/main/src/factory.ts)以获取更多详细信息。
+
 > 感谢 [sxzz/eslint-config](https://github.com/sxzz/eslint-config) 提供灵感和参考。
 
 ### 插件重命名
 
 由于Flat配置要求我们明确提供插件名称（而不是从npm包名称强制性约定），我们已经重命名了一些插件，以使整体范围更一致且更容易编写。
 
-| 新前缀 | 原前缀 | 源插件 |
-| --- | --- | --- |
-| `import/*` | `i/*` | [eslint-plugin-i](https://github.com/un-es/eslint-plugin-i) |
-| `node/*` | `n/*` | [eslint-plugin-n](https://github.com/eslint-community/eslint-plugin-n) |
-| `yaml/*` | `yml/*` | [eslint-plugin-yml](https://github.com/ota-meshi/eslint-plugin-yml) |
-| `ts/*` | `@typescript-eslint/*` | [@typescript-eslint/eslint-plugin](https://github.com/typescript-eslint/typescript-eslint) |
-| `style/*` | `@stylistic/*` | [@stylistic/eslint-plugin](https://github.com/eslint-stylistic/eslint-stylistic) |
-| `test/*` | `vitest/*` | [eslint-plugin-vitest](https://github.com/veritem/eslint-plugin-vitest) |
-| `test/*` | `no-only-tests/*` | [eslint-plugin-no-only-tests](https://github.com/levibuzolic/eslint-plugin-no-only-tests) |
+| New Prefix | Original Prefix        | Source Plugin                                                                              |
+| ---------- | ---------------------- | ------------------------------------------------------------------------------------------ |
+| `import/*` | `i/*`                  | [eslint-plugin-i](https://github.com/un-es/eslint-plugin-i)                                |
+| `node/*`   | `n/*`                  | [eslint-plugin-n](https://github.com/eslint-community/eslint-plugin-n)                     |
+| `yaml/*`   | `yml/*`                | [eslint-plugin-yml](https://github.com/ota-meshi/eslint-plugin-yml)                        |
+| `ts/*`     | `@typescript-eslint/*` | [@typescript-eslint/eslint-plugin](https://github.com/typescript-eslint/typescript-eslint) |
+| `style/*`  | `@stylistic/*`         | [@stylistic/eslint-plugin](https://github.com/eslint-stylistic/eslint-stylistic)           |
+| `test/*`   | `vitest/*`             | [eslint-plugin-vitest](https://github.com/veritem/eslint-plugin-vitest)                    |
+| `test/*`   | `no-only-tests/*`      | [eslint-plugin-no-only-tests](https://github.com/levibuzolic/eslint-plugin-no-only-tests)  |
 
 当您想要覆盖规则或在内联中禁用它们时，您需要更新新前缀：
 
@@ -279,7 +329,10 @@ type foo = { bar: 2 }
 import kirklin from "@kirklin/eslint-config";
 
 export default kirklin(
-  { vue: true, typescript: true },
+  {
+    vue: true,
+    typescript: true
+  },
   {
     // 记得在这里指定文件glob，否则可能会导致vue插件处理非vue文件
     files: ["**/*.vue"],
@@ -303,17 +356,122 @@ export default kirklin(
 import kirklin from "@kirklin/eslint-config";
 
 export default kirklin({
-  overrides: {
-    vue: {
+  vue: {
+    overrides: {
       "vue/operator-linebreak": ["error", "before"],
     },
-    typescript: {
+  },
+  typescript: {
+    overrides: {
       "ts/consistent-type-definitions": ["error", "interface"],
     },
-    yaml: {},
-    // ...
+  },
+  yaml: {
+    overrides: {
+      // ...
+    },
+  },
+});
+```
+
+### 可选配置
+
+我们提供了一些针对特定用例的可选配置，这些配置在默认情况下不包括它们的依赖项。
+
+#### 格式化器
+
+> [!WARNING]
+> 实验性功能，更改可能不遵循语义版本规范。
+
+使用外部格式化器格式化ESLint无法处理的文件（`.css`，`.html`等）。由[`eslint-plugin-format`](https://github.com/kirklin/eslint-plugin-format)提供支持。
+
+```js
+// eslint.config.js
+import kirklin from "@kirklin/eslint-config";
+
+export default kirklin({
+  formatters: {
+    /**
+     * 格式化CSS、LESS、SCSS文件，以及Vue中的`<style>`块
+     * 默认情况下使用Prettier
+     */
+    css: true,
+    /**
+     * 格式化HTML文件
+     * 默认情况下使用Prettier
+     */
+    html: true,
+    /**
+     * 格式化Markdown文件
+     * 支持Prettier和dprint
+     * 默认情况下使用Prettier
+     */
+    markdown: "prettier"
   }
 });
+```
+
+运行 `npx eslint` 应该会提示您安装所需的依赖项，否则，您可以手动安装它们：
+
+```bash
+npm i -D eslint-plugin-format
+```
+
+#### React
+
+要启用React支持，您需要明确地将其打开：
+
+```js
+// eslint.config.js
+import kirklin from "@kirklin/eslint-config";
+
+export default kirklin({
+  react: true,
+});
+```
+
+运行 npx eslint 应该会提示您安装所需的依赖项，否则，您可以手动安装它们：
+
+```bash
+npm i -D eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh
+```
+
+#### Svelte
+
+要启用Svelte支持，您需要明确地将其打开：
+
+```js
+// eslint.config.js
+import kirklin from "@kirklin/eslint-config";
+
+export default kirklin({
+  svelte: true,
+});
+```
+
+运行 `npx eslint` 应该会提示您安装所需的依赖项，否则，您可以手动安装它们：
+
+```bash
+npm i -D eslint-plugin-svelte
+```
+
+#### UnoCSS
+
+要启用UnoCSS支持，您需要明确地将其打开：
+
+```js
+// eslint.config.js
+import kirklin from "@kirklin/eslint-config";
+
+export default kirklin({
+  unocss: true,
+});
+```
+
+运行 `npx eslint` 应该会提示您安装所需的依赖项，否则，您可以手动安装它们：
+
+```bash
+npm i -D @unocss/eslint-plugin
 ```
 
 ### 可选规则
@@ -372,6 +530,19 @@ export default kirklin({
 
 ```bash
 npm i -D lint-staged simple-git-hooks
+
+// to active the hooks
+npx simple-git-hooks
+```
+
+## 查看启用的规则
+
+我创建了一个可视化工具，帮助您查看项目中启用了哪些规则，并将它们应用于哪些文件，[eslint-flat-config-viewer](https://github.com/kirklin/eslint-flat-config-viewer)
+
+前往包含 `eslint.config.js` 的项目根目录，并运行：
+
+```bash
+npx eslint-flat-config-viewer
 ```
 
 ## 版本控制策略
@@ -395,7 +566,6 @@ npm i -D lint-staged simple-git-hooks
 
 在你的项目中使用此配置？在你的自述文件中包括以下徽章，以告知人们你的代码正在使用Kirk Lin的代码风格。
 
-
 [![kirklin-code-style-image](https://img.shields.io/badge/code__style-%40kirklin%2Feslint--config-3491fa?style=flat&colorA=080f12&colorB=3491fa)](https://github.com/kirklin/eslint-config/)
 
 ```markdown
@@ -404,7 +574,6 @@ npm i -D lint-staged simple-git-hooks
 
 [code-style-image]: https://img.shields.io/badge/code__style-%40kirklin%2Feslint--config-3491fa?style=flat&colorA=080f12&colorB=3491fa
 [code-style-url]: https://github.com/kirklin/eslint-config/
-
 
 ## Thanks
 
