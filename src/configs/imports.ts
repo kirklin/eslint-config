@@ -24,7 +24,7 @@ export async function imports(options: OptionsStylistic = {}): Promise<FlatConfi
         "import/no-webpack-loader-syntax": "error",
         "import/order": "error",
         "kirklin/import-dedupe": "error",
-        // 'kirklin/no-import-dist': 'error',
+        "kirklin/no-import-dist": "error",
         "kirklin/no-import-node-modules-by-path": "error",
 
         ...stylistic
@@ -38,7 +38,7 @@ export async function imports(options: OptionsStylistic = {}): Promise<FlatConfi
       files: ["**/bin/**/*", `**/bin.${GLOB_SRC_EXT}`],
       name: "kirklin:imports:bin",
       rules: {
-        // 'kirklin/no-import-dist': 'off',
+        "kirklin/no-import-dist": "off",
         "kirklin/no-import-node-modules-by-path": "off",
       },
     },

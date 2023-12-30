@@ -15,7 +15,7 @@ export interface RuleOptions {
   /**
    * Skip prompts and use default values
    */
-  yes?: boolean
+  yes?: boolean;
 }
 
 export async function run(options: RuleOptions = {}) {
