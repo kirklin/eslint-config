@@ -216,7 +216,7 @@ export default kirklin({
 
   // 在Flat配置中不再支持`.eslintignore`，请使用`ignores`代替
   ignores: [
-    "./fixtures",
+    "**/fixtures",
     // ...globs
   ]
 });
