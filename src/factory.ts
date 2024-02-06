@@ -115,6 +115,7 @@ export async function kirklin(
     configs.push(typescript({
       ...resolveSubOptions(options, "typescript"),
       componentExts,
+      overrides: getOverrides(options, "typescript"),
     }));
   }
 
@@ -135,6 +136,7 @@ export async function kirklin(
   if (enableVue) {
     configs.push(vue({
       ...resolveSubOptions(options, "vue"),
+      overrides: getOverrides(options, "vue"),
       stylistic: stylisticOptions,
       typescript: !!enableTypeScript,
     }));
