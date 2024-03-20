@@ -3,6 +3,7 @@ import fs from "node:fs";
 import { isPackageExists } from "local-pkg";
 import type { Awaitable, FlatConfigItem, OptionsConfig, UserConfigItem } from "./types";
 import {
+  astro,
   comments,
   ignores,
   imports,
@@ -55,6 +56,7 @@ export async function kirklin(
   ...userConfigs: Awaitable<UserConfigItem | UserConfigItem[]>[]
 ): Promise<UserConfigItem[]> {
   const {
+    astro: enableAstro = false,
     componentExts = [],
     gitignore: enableGitignore = true,
     isInEditor = !!((process.env.VSCODE_PID || process.env.VSCODE_CWD || process.env.JETBRAINS_IDE || process.env.VIM) && !process.env.CI),
@@ -162,6 +164,13 @@ export async function kirklin(
     configs.push(unocss({
       ...resolveSubOptions(options, "unocss"),
       overrides: getOverrides(options, "unocss"),
+    }));
+  }
+
+  if (enableAstro) {
+    configs.push(astro({
+      overrides: getOverrides(options, "astro"),
+      stylistic: stylisticOptions,
     }));
   }
 
