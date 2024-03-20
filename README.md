@@ -45,6 +45,14 @@
 
 ## Usage
 
+### Wizard
+
+We provided a CLI tool to help you set up your project, or migrate from the legacy config to the new flat config.
+
+```bash
+npx @kirklin/eslint-config@latest
+```
+
 ### Install
 
 ```bash
@@ -461,9 +469,9 @@ To enable astro support, you need to explicitly turn it on:
 
 ```js
 // eslint.config.js
-import antfu from "@antfu/eslint-config";
+import kirklin from "@kirklin/eslint-config";
 
-export default antfu({
+export default kirklin({
   astro: true,
 });
 ```
