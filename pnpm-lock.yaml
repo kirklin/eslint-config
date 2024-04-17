@@ -45,8 +45,8 @@ importers:
         specifier: ^2.15.1
         version: 2.15.1(eslint@9.0.0)
       eslint-plugin-kirklin:
-        specifier: ^1.1.0
-        version: 1.1.0(eslint@9.0.0)
+        specifier: ^1.2.0
+        version: 1.2.0(eslint@9.0.0)
       eslint-plugin-markdown:
         specifier: ^4.0.1
         version: 4.0.1(eslint@9.0.0)
@@ -2613,10 +2613,10 @@ packages:
       synckit: 0.6.2
     dev: false
 
-  /eslint-plugin-kirklin@1.1.0(eslint@9.0.0):
-    resolution: {integrity: sha512-rvSBb8+QXWniwmuYlYE0CcgTPdF0PISdw14/fuNPcU7pcI3TVkYSIcC6vci+7zPAjGhEqRwhklQts1UPt922Bw==}
+  /eslint-plugin-kirklin@1.2.0(eslint@9.0.0):
+    resolution: {integrity: sha512-x+mlPjTAg6NG8+dPMf7pbjAgkKbxEBytGyDWHge45Ei08dyq5RqJu6LnQMGZz6FlCEy003ATDrzQ5Jf5zsln9Q==}
     peerDependencies:
-      eslint: '*'
+      eslint: '>=8.40.0'
     dependencies:
       eslint: 9.0.0
     dev: false
