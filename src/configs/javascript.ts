@@ -1,11 +1,11 @@
 import globals from "globals";
-import type { FlatConfigItem, OptionsIsInEditor, OptionsOverrides } from "../types";
+import type { OptionsIsInEditor, OptionsOverrides, TypedFlatConfigItem } from "../types";
 import { pluginKirkLin, pluginUnusedImports } from "../plugins";
 import { GLOB_SRC, GLOB_SRC_EXT } from "../globs";
 
 export async function javascript(
   options: OptionsIsInEditor & OptionsOverrides = {},
-): Promise<FlatConfigItem[]> {
+): Promise<TypedFlatConfigItem[]> {
   const {
     isInEditor = false,
     overrides = {},
@@ -35,7 +35,7 @@ export async function javascript(
       linterOptions: {
         reportUnusedDisableDirectives: true,
       },
-      name: "kirklin:javascript",
+      name: "kirklin/javascript/rules",
       plugins: {
         "kirklin": pluginKirkLin,
         "unused-imports": pluginUnusedImports,
@@ -90,7 +90,7 @@ export async function javascript(
         "no-multi-str": "error",
         "no-new": "error",
         "no-new-func": "error",
-        "no-new-symbol": "error",
+        "no-new-native-nonconstructor": "error",
         "no-new-wrappers": "error",
         "no-obj-calls": "error",
         "no-octal": "error",
@@ -201,10 +201,15 @@ export async function javascript(
         "symbol-description": "error",
         "unicode-bom": ["error", "never"],
         "unused-imports/no-unused-imports": isInEditor ? "off" : "error",
-
         "unused-imports/no-unused-vars": [
           "error",
-          { args: "after-used", argsIgnorePattern: "^_", vars: "all", varsIgnorePattern: "^_" },
+          {
+            args: "after-used",
+            argsIgnorePattern: "^_",
+            ignoreRestSiblings: true,
+            vars: "all",
+            varsIgnorePattern: "^_",
+          },
         ],
         "use-isnan": ["error", { enforceForIndexOf: true, enforceForSwitchCase: true }],
         "valid-typeof": ["error", { requireStringLiterals: true }],
@@ -216,7 +221,7 @@ export async function javascript(
     },
     {
       files: [`scripts/${GLOB_SRC}`, `cli.${GLOB_SRC_EXT}`],
-      name: "kirklin:scripts-overrides",
+      name: "kirklin/javascript/disables/cli",
       rules: {
         "no-console": "off",
       },

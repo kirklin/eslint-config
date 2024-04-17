@@ -1,5 +1,5 @@
 import { interopDefault } from "../utils";
-import type { FlatConfigItem, OptionsOverrides, StylisticConfig } from "../types";
+import type { OptionsOverrides, StylisticConfig, TypedFlatConfigItem } from "../types";
 import { pluginKirkLin } from "../plugins";
 
 export const StylisticConfigDefaults: StylisticConfig = {
@@ -9,12 +9,17 @@ export const StylisticConfigDefaults: StylisticConfig = {
   semi: true,
 };
 
+export interface StylisticOptions extends StylisticConfig, OptionsOverrides {
+  lessOpinionated?: boolean;
+}
+
 export async function stylistic(
-  options: StylisticConfig & OptionsOverrides = {},
-): Promise<FlatConfigItem[]> {
+  options: StylisticOptions = {},
+): Promise<TypedFlatConfigItem[]> {
   const {
     indent,
     jsx,
+    lessOpinionated = false,
     overrides = {},
     quotes,
     semi,
@@ -36,7 +41,7 @@ export async function stylistic(
 
   return [
     {
-      name: "kirklin:stylistic",
+      name: "kirklin/stylistic/rules",
       plugins: {
         kirklin: pluginKirkLin,
         style: pluginStylistic,
@@ -44,12 +49,20 @@ export async function stylistic(
       rules: {
         ...config.rules,
 
-        "curly": ["error", "all"],
         "kirklin/consistent-list-newline": "error",
-        "kirklin/if-newline": "error",
-        "kirklin/top-level-function": "error",
         "style/brace-style": ["error", "1tbs", { allowSingleLine: false }],
         "style/member-delimiter-style": ["error", { multiline: { delimiter: "semi" } }],
+
+        ...(lessOpinionated
+          ? {
+              curly: ["error", "multi-or-nest", "consistent"],
+            }
+          : {
+              "curly": ["error", "all"],
+              "kirklin/if-newline": "error",
+              "kirklin/top-level-function": "error",
+            }
+        ),
 
         ...overrides,
       },

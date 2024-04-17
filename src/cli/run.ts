@@ -49,7 +49,7 @@ export async function run(options: CliRunOptions = {}) {
     result = await p.group({
       uncommittedConfirmed: () => {
         if (argSkipPrompt || isGitClean()) {
-          return;
+          return Promise.resolve(true);
         }
 
         return p.confirm({
@@ -71,6 +71,7 @@ export async function run(options: CliRunOptions = {}) {
         return p.multiselect<PromItem<FrameworkOption>[], FrameworkOption>({
           message: c.reset(message),
           options: frameworkOptions,
+          required: false,
         });
       },
       extra: ({ results }) => {

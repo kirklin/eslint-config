@@ -1,17 +1,22 @@
 // @ts-expect-error missing types
 import styleMigrate from "@stylistic/eslint-plugin-migrate";
-import kirklin from "./src";
+import { kirklin } from "./src";
 
 export default kirklin(
   {
     vue: true,
-    // react: true,
+    react: true,
+    solid: true,
+    svelte: true,
+    astro: true,
     typescript: true,
+    formatters: true,
+  },
+  {
     ignores: [
       "fixtures",
       "_fixtures",
     ],
-    formatters: true,
   },
   {
     files: ["src/**/*.ts"],

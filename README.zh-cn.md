@@ -36,54 +36,55 @@
 - [ESLint Flat配置](https://eslint.org/docs/latest/use/configure/configuration-files-new)，轻松组合！
 - 使用[ESLint Stylistic](https://github.com/eslint-stylistic/eslint-stylistic)
 - 默认情况下遵守`.gitignore`
-- 可选的[React](#react)，[Svelte](#svelte)，[UnoCSS](#unocss)支持
+- 可选的[React](#react), [Svelte](#svelte), [UnoCSS](#unocss), [Astro](#astro), [Solid](#solid)支持
 - 可选的[格式化程序](#formatters)支持CSS，HTML等。
 - **样式原则**：最小化阅读，稳定的差异性，保持一致性
 
 > [!IMPORTANT]
 > 从v1.0.0开始，该配置已重写为新的 [ESLint Flat配置](https://eslint.org/docs/latest/use/configure/configuration-files-new), 请查看[发布说明](https://github.com/kirklin/eslint-config/releases/tag/v1.0.0)以获取更多详细信息。
 
-## 使用
+## 使用方法
 
-### 安装
+### 起始向导
+
+我们提供了一个命令行工具，帮助您快速设置项目，或者通过一个命令从旧的配置迁移到新的平面配置。
+
+```bash
+npx @kirklin/eslint-config@latest
+```
+
+### 手动安装
+
+如果您更喜欢手动设置：
 
 ```bash
 pnpm i -D eslint @kirklin/eslint-config
 ```
 
-### 创建配置文件
-
-使用 `package.json` 中的 [`"type": "module"`](https://nodejs.org/api/packages.html#type) (推荐):
+然后在您的项目根目录下创建 `eslint.config.mjs` 文件：
 
 ```js
-// eslint.config.js
+// eslint.config.mjs
 import kirklin from "@kirklin/eslint-config";
 
 export default kirklin();
 ```
 
-使用 CJS:
+<details>
+<summary>
+ 结合旧版配置:
+</summary>
+
+如果您仍然使用旧版`eslintrc`的一些配置，您可以使用[`@eslint/eslintrc`](https://www.npmjs.com/package/@eslint/eslintrc)将它们转换为flat config
 
 ```js
-// eslint.config.js
-const kirklin = require("@kirklin/eslint-config").default;
-
-module.exports = kirklin();
-```
-
-> [!TIP]
-> ESLint只检测`eslint.config.js`作为扁平配置的入口，这意味着您需要在`package.json`中放置`type: module`，或者您必须在`eslint.config.js`中使用CJS。如果您想要明确的扩展名，如`.mjs`或`.cjs`，甚至是`eslint.config.ts`，您可以安装[`eslint-ts-patch`](https://github.com/antfu/eslint-ts-patch)来修复此问题。
-
-结合旧有的配置：
-
-```js
-// eslint.config.js
-const kirklin = require("@kirklin/eslint-config").default;
-const { FlatCompat } = require("@eslint/eslintrc");
+// eslint.config.mjs
+import kirklin from "@kirklin/eslint-config";
+import { FlatCompat } from "@eslint/eslintrc";
 
 const compat = new FlatCompat();
 
-module.exports = kirklin(
+export default kirklin(
   {
     ignores: [],
   },
@@ -100,11 +101,13 @@ module.exports = kirklin(
 );
 ```
 
-> 请注意，在Flat配置中不再支持 `.eslintignore`，请查看[自定义](#customization)以获取更多详细信息。
+> 请注意，在Flat配置中不再支持 `.eslintignore`，请查看[自定义](#自定义)以获取更多详细信息。
 
-### 为 package.json添加script
+</details>
 
-例如：
+### 在 package.json 中添加脚本
+
+For example:
 
 ```json
 {
@@ -115,28 +118,20 @@ module.exports = kirklin(
 }
 ```
 
-### 迁移
-
-我们提供了一个实验性的CLI工具，可以帮助您从传统配置迁移到新的扁平配置。
-
-```bash
-npx @kirklin/eslint-config@latest
-```
-
-在运行迁移之前，请确保先提交您未保存的更改。
-
 ## VS Code支持（自动修复）
 
-安装 [VS Code ESLint扩展](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+为了在Visual Studio Code中实现保存时自动修复代码的功能，您需要安装ESLint扩展并配置相应的设置。以下是详细的步骤和说明：
 
-将以下设置添加到您的 `.vscode/settings.json`:
+1. 安装 [VS Code ESLint扩展](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+
+2. 在您的项目根目录下，创建或编辑`.vscode`文件夹中的`settings.json`文件，添加以下配置：
 
 ```jsonc
 {
-  // 启用ESlint Flat配置支持
+  // 启用ESLint flat config支持
   "eslint.experimental.useFlatConfig": true,
 
-  // 禁用默认格式化程序，使用eslint代替
+  // 禁用默认的格式化程序，改用ESLint进行格式化
   "prettier.enable": false,
   "editor.formatOnSave": false,
 
@@ -146,7 +141,7 @@ npx @kirklin/eslint-config@latest
     "source.organizeImports": "never"
   },
 
-  // 在IDE中静默风格规则，但仍自动修复它们
+  // 在IDE中隐藏样式规则的提示，但仍然自动修复它们
   "eslint.rules.customizations": [
     { "rule": "style/*", "severity": "off" },
     { "rule": "format/*", "severity": "off" },
@@ -160,7 +155,7 @@ npx @kirklin/eslint-config@latest
     { "rule": "*semi", "severity": "off" }
   ],
 
-  // 为所有支持的语言启用eslint
+  // 为所有支持的语言启用ESLint
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -172,7 +167,9 @@ npx @kirklin/eslint-config@latest
     "json",
     "jsonc",
     "yaml",
-    "toml"
+    "toml",
+    "gql",
+    "graphql"
   ]
 }
 ```
@@ -304,7 +301,7 @@ export default combine(
 
 | New Prefix | Original Prefix        | Source Plugin                                                                              |
 | ---------- | ---------------------- | ------------------------------------------------------------------------------------------ |
-| `import/*` | `i/*`                  | [eslint-plugin-i](https://github.com/un-es/eslint-plugin-i)                                |
+| `import/*` | `import-x/*`           | [eslint-plugin-import-x](https://github.com/un-es/eslint-plugin-import-x)                  |
 | `node/*`   | `n/*`                  | [eslint-plugin-n](https://github.com/eslint-community/eslint-plugin-n)                     |
 | `yaml/*`   | `yml/*`                | [eslint-plugin-yml](https://github.com/ota-meshi/eslint-plugin-yml)                        |
 | `ts/*`     | `@typescript-eslint/*` | [@typescript-eslint/eslint-plugin](https://github.com/typescript-eslint/typescript-eslint) |
@@ -319,6 +316,17 @@ export default combine(
 +// eslint-disable-next-line ts/consistent-type-definitions
 type foo = { bar: 2 }
 ```
+
+> [!NOTE]
+> 关于插件重命名 - 实际上这是一个相当危险的举动，可能会导致潜在的命名冲突，如[这里](https://github.com/eslint/eslint/discussions/17766) 和 [这里](https://github.com/prettier/eslint-config-prettier#eslintconfigjs-flat-config-plugin-caveat) 所指出的。由于这个配置非常**个人化**和**主观化**，我雄心勃勃地将这个配置定位为每个项目唯一的**"顶层"**配置，这可能会改变规则命名的偏好。
+>
+> 这个配置更关心面向用户的体验，试图简化实现细节。例如，用户可以继续使用语义化的 `import/order`，而无需知道底层插件已经迁移到 `eslint-plugin-i` 然后再到 `eslint-plugin-import-x`。用户也不被迫在中途迁移到隐式的 `i/order`，仅仅因为我们将实现换成了一个分支。
+>
+> 话虽如此，这可能仍然不是一个好主意。如果你正在维护自己的 eslint 配置，你可能不想这样做。
+>
+> 如果你想将这个配置与其他配置预设组合使用，但遇到了命名冲突，请随时提出问题。我很乐意找出一种方法让它们协同工作。但目前我没有计划撤销重命名。
+
+从 v2.3.0 版本开始，这个预设将自动重命名插件，也适用于您的自定义配置。您可以使用原始前缀直接覆盖规则。
 
 ### 规则覆盖
 
@@ -374,16 +382,74 @@ export default kirklin({
 });
 ```
 
+### 配置组合器
+
+从 v2.3.0 版本开始，工厂函数 `kirklin()` 返回了一个来自 `eslint-flat-config-utils` 的 [`FlatConfigComposer` 对象](https://github.com/antfu/eslint-flat-config-utils#composer)。您可以链式调用方法，以更加灵活地组合配置。
+
+```js
+// eslint.config.js
+import kirklin from "@kirklin/eslint-config";
+
+export default kirklin()
+  .prepend(
+    // 主配置之前的一些配置
+  )
+  // 覆盖任何命名配置
+  .override(
+    "kirklin/imports",
+    {
+      rules: {
+        "import/order": ["error", { "newlines-between": "always" }],
+      }
+    }
+  )
+  // 重命名插件前缀
+  .renamePlugins({
+    "old-prefix": "new-prefix",
+    // ...
+  });
+// ...
+```
+
+这段代码展示了如何使用 `FlatConfigComposer` 来更加精细地控制您的 ESLint 配置。通过 `prepend` 方法，您可以在主配置之前添加一些配置。`override` 方法允许您覆盖任何命名配置的规则。最后，`renamePlugins` 方法可以用于重命名插件前缀，这在处理潜在的命名冲突时非常有用。
+
+### Vue
+
+对于Vue框架的支持，是通过检查项目中是否安装了`vue`来自动检测的。您也可以明确地启用或禁用它：
+
+```js
+// eslint.config.js
+import kirklin from "@kirklin/eslint-config";
+
+export default kirklin({
+  vue: true
+});
+```
+
+#### Vue 2
+
+对于Vue 2的有限支持（因为它已经达到了[生命周期结束](https://v2.vuejs.org/eol/)），如果您仍在使用Vue 2，可以通过设置`vueVersion`为`2`来手动配置它：
+
+```js
+// eslint.config.js
+import kirklin from "@kirklin/eslint-config";
+
+export default kirklin({
+  vue: {
+    vueVersion: 2
+  },
+});
+```
+
+由于Vue 2目前已经进入维护模式，我们只接受针对Vue 2的错误修复。当`eslint-plugin-vue`停止支持Vue 2时，我们可能会在未来移除对Vue 2的支持。如果可能的话，我们推荐您升级到Vue 3。
+
 ### 可选配置
 
-我们提供了一些针对特定用例的可选配置，这些配置在默认情况下不包括它们的依赖项。
+我们为特定的使用场景提供了一些可选的配置，默认情况下不包含它们的依赖。这些可选配置允许您根据项目的具体需求来选择性地引入和使用，从而避免不必要的依赖引入和性能开销。您可以根据项目需要，选择启用或禁用这些可选配置。如果您想了解更多关于如何使用这些可选配置的信息，可以查阅相关文档或在社区中寻求帮助。
 
 #### 格式化器
 
-> [!WARNING]
-> 实验性功能，更改可能不遵循语义版本规范。
-
-使用外部格式化器格式化ESLint无法处理的文件（`.css`，`.html`等）。由[`eslint-plugin-format`](https://github.com/kirklin/eslint-plugin-format)提供支持。
+使用外部格式化器格式化ESLint无法处理的文件（`.css`，`.html`等）。由[`eslint-plugin-format`](https://github.com/antfu/eslint-plugin-format)提供支持。
 
 ```js
 // eslint.config.js
@@ -411,7 +477,7 @@ export default kirklin({
 });
 ```
 
-运行 `npx eslint` 应该会提示您安装所需的依赖项，否则，您可以手动安装它们：
+运行`npx eslint`时，它应该会提示您安装所需的依赖项，如果没有，您可以手动安装它们：
 
 ```bash
 npm i -D eslint-plugin-format
@@ -419,7 +485,7 @@ npm i -D eslint-plugin-format
 
 #### React
 
-要启用React支持，您需要明确地将其打开：
+要启用React框架的支持，您需要明确地将其打开：
 
 ```js
 // eslint.config.js
@@ -430,7 +496,7 @@ export default kirklin({
 });
 ```
 
-运行 npx eslint 应该会提示您安装所需的依赖项，否则，您可以手动安装它们：
+运行`npx eslint`时，它应该会提示您安装所需的依赖项，如果没有，您可以手动安装它们：
 
 ```bash
 npm i -D eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh
@@ -438,7 +504,7 @@ npm i -D eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refre
 
 #### Svelte
 
-要启用Svelte支持，您需要明确地将其打开：
+要启用Svelte框架的支持，您需要明确地将其打开：
 
 ```js
 // eslint.config.js
@@ -449,15 +515,53 @@ export default kirklin({
 });
 ```
 
-运行 `npx eslint` 应该会提示您安装所需的依赖项，否则，您可以手动安装它们：
+运行`npx eslint`时，它应该会提示您安装所需的依赖项，如果没有，您可以手动安装它们：
 
 ```bash
 npm i -D eslint-plugin-svelte
 ```
 
+#### Astro
+
+要启用Astro框架的支持，您需要明确地在配置中启用它：
+
+```js
+// eslint.config.js
+import kirklin from "@kirklin/eslint-config";
+
+export default kirklin({
+  astro: true,
+});
+```
+
+运行`npx eslint`时，它应该会提示您安装所需的依赖项，如果没有，您可以手动安装它们：
+
+```bash
+npm i -D eslint-plugin-astro
+```
+
+#### Solid
+
+要启用Solid框架的支持，您需要明确地在配置中启用它：
+
+```js
+// eslint.config.js
+import kirklin from "@kirklin/eslint-config";
+
+export default kirklin({
+  solid: true,
+});
+```
+
+运行`npx eslint`时，它应该会提示您安装所需的依赖项，如果没有，您可以手动安装它们：
+
+```bash
+npm i -D eslint-plugin-solid
+```
+
 #### UnoCSS
 
-要启用UnoCSS支持，您需要明确地将其打开：
+要启用UnoCSS框架的支持，您需要明确地在配置中启用它：
 
 ```js
 // eslint.config.js
@@ -468,7 +572,7 @@ export default kirklin({
 });
 ```
 
-运行 `npx eslint` 应该会提示您安装所需的依赖项，否则，您可以手动安装它们：
+运行`npx eslint`时，它应该会提示您安装所需的依赖项，如果没有，您可以手动安装它们：
 
 ```bash
 npm i -D @unocss/eslint-plugin
@@ -493,7 +597,6 @@ const objectWantedToSort = {
   b: 1,
   c: 3,
 };
-/* eslint perfectionist/sort-objects: "off" */
 ```
 
 ### 类型感知规则
@@ -508,6 +611,21 @@ export default kirklin({
   typescript: {
     tsconfigPath: "tsconfig.json",
   },
+});
+```
+
+### 编辑器特定禁用
+
+有些规则在ESLint IDE集成中被禁用，具体来说是 [`unused-imports/no-unused-imports`](https://www.npmjs.com/package/eslint-plugin-unused-imports) 和 [`test/no-only-tests`](https://github.com/levibuzolic/eslint-plugin-no-only-tests)。
+
+这样做是为了防止在重构过程中IDE自动移除未使用的导入，以提供更好的开发体验。当您在终端或使用 [Lint Staged](#lint-staged) 运行ESLint时，这些规则将会被应用。如果您不希望有这样的行为，可以通过以下方式禁用它们：
+
+```js
+// eslint.config.js
+import kirklin from "@kirklin/eslint-config";
+
+export default kirklin({
+  isInEditor: false
 });
 ```
 
@@ -537,7 +655,7 @@ npx simple-git-hooks
 
 ## 查看启用的规则
 
-我创建了一个可视化工具，帮助您查看项目中启用了哪些规则，并将它们应用于哪些文件，[eslint-flat-config-viewer](https://github.com/kirklin/eslint-flat-config-viewer)
+我创建了一个可视化工具，帮助您查看项目中启用了哪些规则，并将它们应用于哪些文件，[@eslint/config-inspector](https://github.com/eslint/config-inspector)
 
 前往包含 `eslint.config.js` 的项目根目录，并运行：
 

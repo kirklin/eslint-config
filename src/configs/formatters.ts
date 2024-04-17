@@ -1,14 +1,14 @@
 import { isPackageExists } from "local-pkg";
-import { GLOB_ASTRO, GLOB_CSS, GLOB_LESS, GLOB_MARKDOWN, GLOB_POSTCSS, GLOB_SCSS } from "../globs";
+import { GLOB_ASTRO, GLOB_CSS, GLOB_GRAPHQL, GLOB_HTML, GLOB_LESS, GLOB_MARKDOWN, GLOB_POSTCSS, GLOB_SCSS } from "../globs";
 import type { VendoredPrettierOptions } from "../vender/prettier-types";
 import { ensurePackages, interopDefault, parserPlain } from "../utils";
-import type { FlatConfigItem, OptionsFormatters, StylisticConfig } from "../types";
+import type { OptionsFormatters, StylisticConfig, TypedFlatConfigItem } from "../types";
 import { StylisticConfigDefaults } from "./stylistic";
 
 export async function formatters(
   options: OptionsFormatters | true = {},
   stylistic: StylisticConfig = {},
-): Promise<FlatConfigItem[]> {
+): Promise<TypedFlatConfigItem[]> {
   if (options === true) {
     options = {
       astro: isPackageExists("astro"),
@@ -62,9 +62,9 @@ export async function formatters(
 
   const pluginFormat = await interopDefault(import("eslint-plugin-format"));
 
-  const configs: FlatConfigItem[] = [
+  const configs: TypedFlatConfigItem[] = [
     {
-      name: "kirklin:formatters:setup",
+      name: "kirklin/formatter/setup",
       plugins: {
         format: pluginFormat,
       },
@@ -78,7 +78,7 @@ export async function formatters(
         languageOptions: {
           parser: parserPlain,
         },
-        name: "kirklin:formatter:css",
+        name: "kirklin/formatter/css",
         rules: {
           "format/prettier": [
             "error",
@@ -94,7 +94,7 @@ export async function formatters(
         languageOptions: {
           parser: parserPlain,
         },
-        name: "kirklin:formatter:scss",
+        name: "kirklin/formatter/scss",
         rules: {
           "format/prettier": [
             "error",
@@ -110,7 +110,7 @@ export async function formatters(
         languageOptions: {
           parser: parserPlain,
         },
-        name: "kirklin:formatter:less",
+        name: "kirklin/formatter/less",
         rules: {
           "format/prettier": [
             "error",
@@ -126,11 +126,11 @@ export async function formatters(
 
   if (options.html) {
     configs.push({
-      files: ["**/*.html"],
+      files: [GLOB_HTML],
       languageOptions: {
         parser: parserPlain,
       },
-      name: "kirklin:formatter:html",
+      name: "kirklin/formatter/html",
       rules: {
         "format/prettier": [
           "error",
@@ -160,7 +160,7 @@ export async function formatters(
       languageOptions: {
         parser: parserPlain,
       },
-      name: "kirklin:formatter:markdown",
+      name: "kirklin/formatter/markdown",
       rules: {
         [`format/${formater}`]: [
           "error",
@@ -178,13 +178,14 @@ export async function formatters(
         ],
       },
     });
+
     if (options.slidev) {
       configs.push({
         files: GLOB_SLIDEV,
         languageOptions: {
           parser: parserPlain,
         },
-        name: "kirklin:formatter:slidev",
+        name: "kirklin/formatter/slidev",
         rules: {
           "format/prettier": [
             "error",
@@ -209,7 +210,7 @@ export async function formatters(
       languageOptions: {
         parser: parserPlain,
       },
-      name: "kirklin:formatter:astro",
+      name: "kirklin/formatter/astro",
       rules: {
         "format/prettier": [
           "error",
@@ -227,11 +228,11 @@ export async function formatters(
 
   if (options.graphql) {
     configs.push({
-      files: ["**/*.graphql"],
+      files: [GLOB_GRAPHQL],
       languageOptions: {
         parser: parserPlain,
       },
-      name: "kirklin:formatter:graphql",
+      name: "kirklin/formatter/graphql",
       rules: {
         "format/prettier": [
           "error",
