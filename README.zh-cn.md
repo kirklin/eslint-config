@@ -499,7 +499,7 @@ export default kirklin({
 运行`npx eslint`时，它应该会提示您安装所需的依赖项，如果没有，您可以手动安装它们：
 
 ```bash
-npm i -D eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh
+npm i -D @eslint-react/eslint-plugin eslint-plugin-react-hooks eslint-plugin-react-refresh
 ```
 
 #### Svelte
