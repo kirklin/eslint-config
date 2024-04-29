@@ -582,22 +582,39 @@ npm i -D @unocss/eslint-plugin
 
 此配置还提供了一些用于扩展用途的可选插件/规则。
 
-#### `perfectionist`（排序）
+#### `command`
 
-此插件 [`eslint-plugin-perfectionist`](https://github.com/azat-io/eslint-plugin-perfectionist) 允许您对对象键、导入等进行自动修复的排序。
+由 [`eslint-plugin-command`](https://github.com/antfu/eslint-plugin-command) 提供支持。这不是一个典型的代码检查规则，而是一个按需的微型代码修改工具，通过特定的注释触发。
 
-插件已安装，但默认情况下不启用任何规则。
+例如，几个触发器包括：
 
-建议通过使用[配置注释](https://eslint.org/docs/latest/use/configure/rules#using-configuration-comments-1)来为每个文件单独选择启用。
+- `/// to-function` - 将箭头函数转换为普通函数
+- `/// to-arrow` - 将普通函数转换为箭头函数
+- `/// to-for-each` - 将 for-in/for-of 循环转换为 `.forEach()`
+- `/// to-for-of` - 将 `.forEach()` 转换为 for-of 循环
+- `/// keep-sorted` - 对对象/数组/接口进行排序
+- ... 等 - 参考 [文档](https://github.com/antfu/eslint-plugin-command#built-in-commands)
 
-```js
-/* eslint perfectionist/sort-objects: "error" */
-const objectWantedToSort = {
-  a: 2,
-  b: 1,
-  c: 3,
+你可以在想要转换的代码上方添加触发注释，例如（注意三个斜杠）：
+
+<!-- eslint-skip -->
+
+```typescript
+/// to-function
+const foo = async (msg: string): void => {
+  console.log(msg);
 };
 ```
+
+当你在编辑器中保存或运行 `eslint . --fix` 时，将转换为：
+
+```typescript
+async function foo(msg: string): void {
+  console.log(msg);
+}
+```
+
+命令注释通常是一次性的，一旦转换完成，它们将被一并移除。
 
 ### 类型感知规则
 
