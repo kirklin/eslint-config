@@ -1,7 +1,4 @@
 {
-  // Enable the ESlint flat config support
-  "eslint.experimental.useFlatConfig": true,
-
   // Disable the default formatter, use eslint instead
   "prettier.enable": false,
   "editor.formatOnSave": false,
@@ -11,6 +8,8 @@
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "never"
   },
+
+  "eslint.runtime": "node",
 
   // Silent the stylistic rules in you IDE, but still auto fix them
   "eslint.rules.customizations": [
@@ -37,7 +36,8 @@
     "json",
     "jsonc",
     "yaml",
-    "toml"
+    "toml",
+    "xml"
   ],
 
   "pair-diff.patterns": [

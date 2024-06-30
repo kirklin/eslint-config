@@ -1,5 +1,5 @@
 import process from "node:process";
-import { GLOB_SRC, GLOB_TS, GLOB_TSX } from "../globs";
+import { GLOB_ASTRO_TS, GLOB_MARKDOWN, GLOB_TS, GLOB_TSX } from "../globs";
 import type { OptionsComponentExts, OptionsFiles, OptionsOverrides, OptionsTypeScriptParserOptions, OptionsTypeScriptWithTypes, TypedFlatConfigItem } from "../types";
 import { pluginKirkLin } from "../plugins";
 import { interopDefault, renameRules, toArray } from "../utils";
@@ -14,11 +14,16 @@ export async function typescript(
   } = options;
 
   const files = options.files ?? [
-    GLOB_SRC,
+    GLOB_TS,
+    GLOB_TSX,
     ...componentExts.map(ext => `**/*.${ext}`),
   ];
 
   const filesTypeAware = options.filesTypeAware ?? [GLOB_TS, GLOB_TSX];
+  const ignoresTypeAware = options.ignoresTypeAware ?? [
+    `${GLOB_MARKDOWN}/**`,
+    GLOB_ASTRO_TS,
+  ];
   const tsconfigPath = options?.tsconfigPath
     ? toArray(options.tsconfigPath)
     : undefined;
@@ -41,8 +46,12 @@ export async function typescript(
     "ts/no-unsafe-call": "error",
     "ts/no-unsafe-member-access": "error",
     "ts/no-unsafe-return": "error",
+    "ts/promise-function-async": "error",
     "ts/restrict-plus-operands": "error",
     "ts/restrict-template-expressions": "error",
+    "ts/return-await": ["error", "in-try-catch"],
+    "ts/strict-boolean-expressions": ["error", { allowNullableBoolean: true, allowNullableObject: true }],
+    "ts/switch-exhaustiveness-check": "error",
     "ts/unbound-method": "error",
   };
 
@@ -88,10 +97,12 @@ export async function typescript(
     // assign type-aware parser for type-aware files and type-unaware parser for the rest
     ...isTypeAware
       ? [
-          makeParser(true, filesTypeAware),
+          makeParser(true, filesTypeAware, ignoresTypeAware),
           makeParser(false, files, filesTypeAware),
         ]
-      : [makeParser(false, files)],
+      : [
+          makeParser(false, files),
+        ],
     {
       files,
       name: "kirklin/typescript/rules",
@@ -136,15 +147,13 @@ export async function typescript(
     ...isTypeAware
       ? [{
           files: filesTypeAware,
+          ignores: ignoresTypeAware,
           name: "kirklin/typescript/rules-type-aware",
-          rules: {
-            ...tsconfigPath ? typeAwareRules : {},
-            ...overrides,
-          },
+          rules: typeAwareRules,
         }]
       : [],
     {
-      files: ["**/*.d.ts"],
+      files: ["**/*.d.?([cm])ts"],
       name: "kirklin/typescript/disables/dts",
       rules: {
         "eslint-comments/no-unlimited-disable": "off",

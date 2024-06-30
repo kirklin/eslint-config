@@ -37,7 +37,7 @@
 - 使用[ESLint Stylistic](https://github.com/eslint-stylistic/eslint-stylistic)
 - 默认情况下遵守`.gitignore`
 - 可选的[React](#react), [Svelte](#svelte), [UnoCSS](#unocss), [Astro](#astro), [Solid](#solid)支持
-- 可选的[格式化程序](#formatters)支持CSS，HTML等。
+- 可选的[格式化程序](#formatters)支持CSS，HTML，XML等。
 - **样式原则**：最小化阅读，稳定的差异性，保持一致性
 
 > [!IMPORTANT]
@@ -128,9 +128,6 @@ For example:
 
 ```jsonc
 {
-  // 启用ESLint flat config支持
-  "eslint.experimental.useFlatConfig": true,
-
   // 禁用默认的格式化程序，改用ESLint进行格式化
   "prettier.enable": false,
   "editor.formatOnSave": false,
@@ -168,8 +165,15 @@ For example:
     "jsonc",
     "yaml",
     "toml",
+    "xml",
     "gql",
-    "graphql"
+    "graphql",
+    "astro",
+    "css",
+    "less",
+    "scss",
+    "pcss",
+    "postcss"
   ]
 }
 ```
@@ -384,7 +388,7 @@ export default kirklin({
 
 ### 配置组合器
 
-从 v2.3.0 版本开始，工厂函数 `kirklin()` 返回了一个来自 `eslint-flat-config-utils` 的 [`FlatConfigComposer` 对象](https://github.com/antfu/eslint-flat-config-utils#composer)。您可以链式调用方法，以更加灵活地组合配置。
+从 v2.3.0 版本开始，工厂函数 `kirklin()` 返回了一个来自 `eslint-flat-config-utils` 的 [`FlatConfigComposer` 对象](https://github.com/kirklin/eslint-flat-config-utils#composer)。您可以链式调用方法，以更加灵活地组合配置。
 
 ```js
 // eslint.config.js
@@ -718,6 +722,8 @@ This project is based on [@antfu/eslint-config](https://github.com/antfu/eslint-
 
 - [kirklin/dotfiles](https://github.com/kirklin/dotfiles) - My dotfiles
 - [kirklin/vscode-settings](https://github.com/kirklin/vscode-settings) - My VS Code settings
+- [kirklin/boot-ts](https://github.com/kirklin/boot-ts) - My starter template for TypeScript library
+- [kirklin/boot-vue](https://github.com/kirklin/boot-vue) - My starter template for Vue & Vite app
 
 ## License
 

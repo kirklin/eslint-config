@@ -35,6 +35,9 @@ export async function javascript(
       linterOptions: {
         reportUnusedDisableDirectives: true,
       },
+      name: "kirklin/javascript/setup",
+    },
+    {
       name: "kirklin/javascript/rules",
       plugins: {
         "kirklin": pluginKirkLin,

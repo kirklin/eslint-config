@@ -33,7 +33,7 @@
 - Opinionated, but [very customizable](#customization)
 - [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), compose easily!
 - Optional [React](#react), [Svelte](#svelte), [UnoCSS](#unocss), [Astro](#astro), [Solid](#solid) support
-- Optional [formatters](#formatters) support for formatting CSS, HTML, etc.
+- Optional [formatters](#formatters) support for formatting CSS, HTML, XML, etc.
 - **Style principle**: Minimal for reading, stable for diff, consistent
   - Sorted imports, dangling commas
   - Single quotes, no semi
@@ -127,9 +127,6 @@ Add the following settings to your `.vscode/settings.json`:
 
 ```jsonc
 {
-  // Enable the ESlint flat config support
-  "eslint.experimental.useFlatConfig": true,
-
   // Disable the default formatter, use eslint instead
   "prettier.enable": false,
   "editor.formatOnSave": false,
@@ -167,8 +164,15 @@ Add the following settings to your `.vscode/settings.json`:
     "jsonc",
     "yaml",
     "toml",
+    "xml",
     "gql",
-    "graphql"
+    "graphql",
+    "astro",
+    "css",
+    "less",
+    "scss",
+    "pcss",
+    "postcss"
   ]
 }
 ```
@@ -600,7 +604,7 @@ You can add the trigger comment one line above the code you want to transform, f
 /// to-function
 const foo = async (msg: string): void => {
   console.log(msg)
-};
+}
 ```
 
 Will be transformed to this when you hit save with your editor or run `eslint . --fix`:
@@ -716,6 +720,8 @@ This project is based on [@antfu/eslint-config](https://github.com/antfu/eslint-
 
 - [kirklin/dotfiles](https://github.com/kirklin/dotfiles) - My dotfiles
 - [kirklin/vscode-settings](https://github.com/kirklin/vscode-settings) - My VS Code settings
+- [kirklin/boot-ts](https://github.com/kirklin/boot-ts) - My starter template for TypeScript library
+- [kirklin/boot-vue](https://github.com/kirklin/boot-vue) - My starter template for Vue & Vite app
 
 ## License
 

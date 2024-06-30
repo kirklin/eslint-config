@@ -44,7 +44,6 @@ runWithConfig(
   },
 );
 
-// https://github.com/antfu/eslint-config/issues/255
 runWithConfig(
   "ts-override",
   {
@@ -119,7 +118,7 @@ export default kirklin(
       const outputPath = join(output, file);
       if (content === source) {
         if (fs.existsSync(outputPath)) {
-          fs.remove(outputPath);
+          await fs.remove(outputPath);
         }
         return;
       }
