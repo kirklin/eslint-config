@@ -50,7 +50,7 @@
 我们提供了一个命令行工具，帮助您快速设置项目，或者通过一个命令从旧的配置迁移到新的平面配置。
 
 ```bash
-npx @kirklin/eslint-config@latest
+pnpm dlx @kirklin/eslint-config@latest
 ```
 
 ### 手动安装
@@ -118,17 +118,20 @@ For example:
 }
 ```
 
-## VS Code支持（自动修复）
+## IDE 支持（保存时自动修复）
 
-为了在Visual Studio Code中实现保存时自动修复代码的功能，您需要安装ESLint扩展并配置相应的设置。以下是详细的步骤和说明：
+<details>
+<summary>🟦 VS Code 支持</summary>
 
-1. 安装 [VS Code ESLint扩展](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+<br>
 
-2. 在您的项目根目录下，创建或编辑`.vscode`文件夹中的`settings.json`文件，添加以下配置：
+安装 [VS Code ESLint 插件](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+
+在 `.vscode/settings.json` 中添加以下设置：
 
 ```jsonc
 {
-  // 禁用默认的格式化程序，改用ESLint进行格式化
+  // 禁用默认格式化器，使用 eslint 代替
   "prettier.enable": false,
   "editor.formatOnSave": false,
 
@@ -138,21 +141,21 @@ For example:
     "source.organizeImports": "never"
   },
 
-  // 在IDE中隐藏样式规则的提示，但仍然自动修复它们
+  // 在IDE中静默样式规则，但仍然自动修复
   "eslint.rules.customizations": [
-    { "rule": "style/*", "severity": "off" },
-    { "rule": "format/*", "severity": "off" },
-    { "rule": "*-indent", "severity": "off" },
-    { "rule": "*-spacing", "severity": "off" },
-    { "rule": "*-spaces", "severity": "off" },
-    { "rule": "*-order", "severity": "off" },
-    { "rule": "*-dangle", "severity": "off" },
-    { "rule": "*-newline", "severity": "off" },
-    { "rule": "*quotes", "severity": "off" },
-    { "rule": "*semi", "severity": "off" }
+    { "rule": "style/*", "severity": "off", "fixable": true },
+    { "rule": "format/*", "severity": "off", "fixable": true },
+    { "rule": "*-indent", "severity": "off", "fixable": true },
+    { "rule": "*-spacing", "severity": "off", "fixable": true },
+    { "rule": "*-spaces", "severity": "off", "fixable": true },
+    { "rule": "*-order", "severity": "off", "fixable": true },
+    { "rule": "*-dangle", "severity": "off", "fixable": true },
+    { "rule": "*-newline", "severity": "off", "fixable": true },
+    { "rule": "*quotes", "severity": "off", "fixable": true },
+    { "rule": "*semi", "severity": "off", "fixable": true }
   ],
 
-  // 为所有支持的语言启用ESLint
+  // 为所有支持的语言启用 eslint
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -169,6 +172,7 @@ For example:
     "gql",
     "graphql",
     "astro",
+    "svelte",
     "css",
     "less",
     "scss",
@@ -177,6 +181,90 @@ For example:
   ]
 }
 ```
+
+</details>
+
+<details>
+<summary>🟩 Neovim 支持</summary>
+
+<br>
+
+更新你的配置，使用以下内容：
+
+```lua
+local customizations = {
+  { rule = 'style/*', severity = 'off', fixable = true },
+  { rule = 'format/*', severity = 'off', fixable = true },
+  { rule = '*-indent', severity = 'off', fixable = true },
+  { rule = '*-spacing', severity = 'off', fixable = true },
+  { rule = '*-spaces', severity = 'off', fixable = true },
+  { rule = '*-order', severity = 'off', fixable = true },
+  { rule = '*-dangle', severity = 'off', fixable = true },
+  { rule = '*-newline', severity = 'off', fixable = true },
+  { rule = '*quotes', severity = 'off', fixable = true },
+  { rule = '*semi', severity = 'off', fixable = true },
+}
+
+local lspconfig = require('lspconfig')
+-- 为所有支持的语言启用 eslint
+lspconfig.eslint.setup(
+  {
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "javascript.jsx",
+      "typescript",
+      "typescriptreact",
+      "typescript.tsx",
+      "vue",
+      "html",
+      "markdown",
+      "json",
+      "jsonc",
+      "yaml",
+      "toml",
+      "xml",
+      "gql",
+      "graphql",
+      "astro",
+      "svelte",
+      "css",
+      "less",
+      "scss",
+      "pcss",
+      "postcss"
+    },
+    settings = {
+      -- 在IDE中静默样式规则，但仍然自动修复
+      rulesCustomizations = customizations,
+    },
+  }
+)
+```
+
+### Neovim 保存时格式化
+
+在 Neovim 中实现保存时格式化有几种方法：
+
+- `nvim-lspconfig` 预定义了 `EslintFixAll` 命令，你可以创建一个 autocmd，在保存文件后调用该命令。
+
+```lua
+lspconfig.eslint.setup({
+  --- ...
+  on_attach = function(client, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
+  end,
+})
+```
+
+- 使用 [conform.nvim](https://github.com/stevearc/conform.nvim)。
+- 使用 [none-ls](https://github.com/nvimtools/none-ls.nvim)。
+- 使用 [nvim-lint](https://github.com/mfussenegger/nvim-lint)。
+
+</details>
 
 ## 自定义
 
@@ -198,6 +286,9 @@ export default kirklin();
 import kirklin from "@kirklin/eslint-config";
 
 export default kirklin({
+  // 项目类型。'lib' 表示库，默认是 'app'
+  type: "lib",
+
   // 启用风格格式规则
   // stylistic: true,
 
@@ -310,7 +401,7 @@ export default combine(
 | `yaml/*`   | `yml/*`                | [eslint-plugin-yml](https://github.com/ota-meshi/eslint-plugin-yml)                        |
 | `ts/*`     | `@typescript-eslint/*` | [@typescript-eslint/eslint-plugin](https://github.com/typescript-eslint/typescript-eslint) |
 | `style/*`  | `@stylistic/*`         | [@stylistic/eslint-plugin](https://github.com/eslint-stylistic/eslint-stylistic)           |
-| `test/*`   | `vitest/*`             | [eslint-plugin-vitest](https://github.com/veritem/eslint-plugin-vitest)                    |
+| `test/*`   | `vitest/*`             | [@vitest/eslint-plugin](https://github.com/vitest-dev/eslint-plugin-vitest)                |
 | `test/*`   | `no-only-tests/*`      | [eslint-plugin-no-only-tests](https://github.com/levibuzolic/eslint-plugin-no-only-tests)  |
 
 当您想要覆盖规则或在内联中禁用它们时，您需要更新新前缀：
@@ -331,6 +422,25 @@ type foo = { bar: 2 }
 > 如果你想将这个配置与其他配置预设组合使用，但遇到了命名冲突，请随时提出问题。我很乐意找出一种方法让它们协同工作。但目前我没有计划撤销重命名。
 
 从 v2.3.0 版本开始，这个预设将自动重命名插件，也适用于您的自定义配置。您可以使用原始前缀直接覆盖规则。
+
+<details>
+<summary>恢复原始前缀</summary>
+
+如果你确实想使用原始前缀，可以通过以下方式还原插件重命名：
+
+```ts
+import kirklin from "@kirklin/eslint-config";
+
+export default kirklin()
+  .renamePlugins({
+    ts: "@typescript-eslint",
+    yaml: "yml",
+    node: "n"
+    // ...
+  });
+```
+
+</details>
 
 ### 规则覆盖
 

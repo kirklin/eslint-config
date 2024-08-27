@@ -51,7 +51,7 @@
 We provided a CLI tool to help you set up your project, or migrate from the legacy config to the new flat config with one command.
 
 ```bash
-npx @kirklin/eslint-config@latest
+pnpm dlx @kirklin/eslint-config@latest
 ```
 
 ### Manual Install
@@ -119,7 +119,12 @@ For example:
 }
 ```
 
-## VS Code support (auto fix on save)
+## IDE Support (auto fix on save)
+
+<details>
+<summary>🟦 VS Code support</summary>
+
+<br>
 
 Install [VS Code ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
@@ -139,16 +144,16 @@ Add the following settings to your `.vscode/settings.json`:
 
   // Silent the stylistic rules in you IDE, but still auto fix them
   "eslint.rules.customizations": [
-    { "rule": "style/*", "severity": "off" },
-    { "rule": "format/*", "severity": "off" },
-    { "rule": "*-indent", "severity": "off" },
-    { "rule": "*-spacing", "severity": "off" },
-    { "rule": "*-spaces", "severity": "off" },
-    { "rule": "*-order", "severity": "off" },
-    { "rule": "*-dangle", "severity": "off" },
-    { "rule": "*-newline", "severity": "off" },
-    { "rule": "*quotes", "severity": "off" },
-    { "rule": "*semi", "severity": "off" }
+    { "rule": "style/*", "severity": "off", "fixable": true },
+    { "rule": "format/*", "severity": "off", "fixable": true },
+    { "rule": "*-indent", "severity": "off", "fixable": true },
+    { "rule": "*-spacing", "severity": "off", "fixable": true },
+    { "rule": "*-spaces", "severity": "off", "fixable": true },
+    { "rule": "*-order", "severity": "off", "fixable": true },
+    { "rule": "*-dangle", "severity": "off", "fixable": true },
+    { "rule": "*-newline", "severity": "off", "fixable": true },
+    { "rule": "*quotes", "severity": "off", "fixable": true },
+    { "rule": "*semi", "severity": "off", "fixable": true }
   ],
 
   // Enable eslint for all supported languages
@@ -168,6 +173,7 @@ Add the following settings to your `.vscode/settings.json`:
     "gql",
     "graphql",
     "astro",
+    "svelte",
     "css",
     "less",
     "scss",
@@ -176,6 +182,90 @@ Add the following settings to your `.vscode/settings.json`:
   ]
 }
 ```
+
+</details>
+
+<details>
+<summary>🟩 Neovim Support</summary>
+
+<br>
+
+Update your configuration to use the following:
+
+```lua
+local customizations = {
+  { rule = 'style/*', severity = 'off', fixable = true },
+  { rule = 'format/*', severity = 'off', fixable = true },
+  { rule = '*-indent', severity = 'off', fixable = true },
+  { rule = '*-spacing', severity = 'off', fixable = true },
+  { rule = '*-spaces', severity = 'off', fixable = true },
+  { rule = '*-order', severity = 'off', fixable = true },
+  { rule = '*-dangle', severity = 'off', fixable = true },
+  { rule = '*-newline', severity = 'off', fixable = true },
+  { rule = '*quotes', severity = 'off', fixable = true },
+  { rule = '*semi', severity = 'off', fixable = true },
+}
+
+local lspconfig = require('lspconfig')
+-- Enable eslint for all supported languages
+lspconfig.eslint.setup(
+  {
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "javascript.jsx",
+      "typescript",
+      "typescriptreact",
+      "typescript.tsx",
+      "vue",
+      "html",
+      "markdown",
+      "json",
+      "jsonc",
+      "yaml",
+      "toml",
+      "xml",
+      "gql",
+      "graphql",
+      "astro",
+      "svelte",
+      "css",
+      "less",
+      "scss",
+      "pcss",
+      "postcss"
+    },
+    settings = {
+      -- Silent the stylistic rules in you IDE, but still auto fix them
+      rulesCustomizations = customizations,
+    },
+  }
+)
+```
+
+### Neovim format on save
+
+There's few ways you can achieve format on save in neovim:
+
+- `nvim-lspconfig` has a `EslintFixAll` command predefined, you can create a autocmd to call this command after saving file.
+
+```lua
+lspconfig.eslint.setup({
+  --- ...
+  on_attach = function(client, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
+  end,
+})
+```
+
+- Use [conform.nvim](https://github.com/stevearc/conform.nvim).
+- Use [none-ls](https://github.com/nvimtools/none-ls.nvim)
+- Use [nvim-lint](https://github.com/mfussenegger/nvim-lint)
+
+</details>
 
 ## Customization
 
@@ -197,6 +287,9 @@ And that's it! Or you can configure each integration individually, for example:
 import kirklin from "@kirklin/eslint-config";
 
 export default kirklin({
+  // Type of the project. 'lib' for libraries, the default is 'app'
+  type: "lib",
+
   // Enable stylistic formatting rules
   // stylistic: true,
 
@@ -206,7 +299,7 @@ export default kirklin({
     quotes: "double", // or 'single'
   },
 
-  // TypeScript and Vue are auto-detected, you can also explicitly enable them:
+  // TypeScript and Vue are autodetected, you can also explicitly enable them:
   typescript: true,
   vue: true,
 
@@ -309,7 +402,7 @@ Since flat config requires us to explicitly provide the plugin names (instead of
 | `yaml/*`   | `yml/*`                | [eslint-plugin-yml](https://github.com/ota-meshi/eslint-plugin-yml)                        |
 | `ts/*`     | `@typescript-eslint/*` | [@typescript-eslint/eslint-plugin](https://github.com/typescript-eslint/typescript-eslint) |
 | `style/*`  | `@stylistic/*`         | [@stylistic/eslint-plugin](https://github.com/eslint-stylistic/eslint-stylistic)           |
-| `test/*`   | `vitest/*`             | [eslint-plugin-vitest](https://github.com/veritem/eslint-plugin-vitest)                    |
+| `test/*`   | `vitest/*`             | [@vitest/eslint-plugin](https://github.com/vitest-dev/eslint-plugin-vitest)                |
 | `test/*`   | `no-only-tests/*`      | [eslint-plugin-no-only-tests](https://github.com/levibuzolic/eslint-plugin-no-only-tests)  |
 
 When you want to override rules, or disable them inline, you need to update to the new prefix:
@@ -329,7 +422,26 @@ type foo = { bar: 2 }
 >
 > Feel free to open issues if you want to combine this config with some other config presets but faced naming collisions. I am happy to figure out a way to make them work. But at this moment I have no plan to revert the renaming.
 
-Since v2.9.0, this preset will automatically rename the plugins also for your custom configs. You can use the original prefix to override the rules directly.
+Since v2.3.0, this preset will automatically rename the plugins also for your custom configs. You can use the original prefix to override the rules directly.
+
+<details>
+<summary>Change back to original prefix</summary>
+
+If you really want to use the original prefix, you can revert the plugin renaming by:
+
+```ts
+import kirklin from "@kirklin/eslint-config";
+
+export default kirklin()
+  .renamePlugins({
+    ts: "@typescript-eslint",
+    yaml: "yml",
+    node: "n"
+    // ...
+  });
+```
+
+</details>
 
 ### Rules Overrides
 
