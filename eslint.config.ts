@@ -11,6 +11,7 @@ export default kirklin(
     astro: true,
     typescript: true,
     formatters: true,
+    type: "lib",
   },
   {
     ignores: [
@@ -33,9 +34,4 @@ export default kirklin(
       "style-migrate/migrate": ["error", { namespaceTo: "style" }],
     },
   },
-)
-  .removeRules(
-    "ts/no-unsafe-member-access",
-    "ts/no-unsafe-argument",
-    "ts/no-unsafe-assignment",
-  );
+);

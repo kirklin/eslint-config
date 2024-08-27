@@ -1,7 +1,7 @@
 import { isPackageExists } from "local-pkg";
-import { GLOB_ASTRO, GLOB_ASTRO_TS, GLOB_CSS, GLOB_GRAPHQL, GLOB_HTML, GLOB_LESS, GLOB_MARKDOWN, GLOB_POSTCSS, GLOB_SCSS, GLOB_XML } from "../globs";
+import { GLOB_ASTRO, GLOB_ASTRO_TS, GLOB_CSS, GLOB_GRAPHQL, GLOB_HTML, GLOB_LESS, GLOB_MARKDOWN, GLOB_POSTCSS, GLOB_SCSS, GLOB_SVG, GLOB_XML } from "../globs";
 import type { VendoredPrettierOptions } from "../vender/prettier-types";
-import { ensurePackages, interopDefault, parserPlain } from "../utils";
+import { ensurePackages, interopDefault, isPackageInScope, parserPlain } from "../utils";
 import type { OptionsFormatters, StylisticConfig, TypedFlatConfigItem } from "../types";
 import { StylisticConfigDefaults } from "./stylistic";
 
@@ -10,14 +10,16 @@ export async function formatters(
   stylistic: StylisticConfig = {},
 ): Promise<TypedFlatConfigItem[]> {
   if (options === true) {
+    const isPrettierPluginXmlInScope = isPackageInScope("@prettier/plugin-xml");
     options = {
-      astro: isPackageExists("prettier-plugin-astro"),
+      astro: isPackageInScope("prettier-plugin-astro"),
       css: true,
       graphql: true,
       html: true,
       markdown: true,
       slidev: isPackageExists("@slidev/cli"),
-      xml: isPackageExists("@prettier/plugin-xml"),
+      svg: isPrettierPluginXmlInScope,
+      xml: isPrettierPluginXmlInScope,
     };
   }
 
@@ -25,7 +27,7 @@ export async function formatters(
     "eslint-plugin-format",
     options.markdown && options.slidev ? "prettier-plugin-slidev" : undefined,
     options.astro ? "prettier-plugin-astro" : undefined,
-    options.xml ? "@prettier/plugin-xml" : undefined,
+    (options.xml || options.svg) ? "@prettier/plugin-xml" : undefined,
   ]);
 
   if (options.slidev && options.markdown !== true && options.markdown !== "prettier") {
@@ -44,6 +46,7 @@ export async function formatters(
   const prettierOptions: VendoredPrettierOptions = Object.assign(
     {
       endOfLine: "auto",
+      printWidth: 120,
       semi,
       singleQuote: quotes === "single",
       tabWidth: typeof indent === "number" ? indent : 2,
@@ -174,6 +177,28 @@ export async function formatters(
       },
     });
   }
+  if (options.svg) {
+    configs.push({
+      files: [GLOB_SVG],
+      languageOptions: {
+        parser: parserPlain,
+      },
+      name: "kirklin/formatter/svg",
+      rules: {
+        "format/prettier": [
+          "error",
+          {
+            ...prettierXmlOptions,
+            ...prettierOptions,
+            parser: "xml",
+            plugins: [
+              "@prettier/plugin-xml",
+            ],
+          },
+        ],
+      },
+    });
+  }
 
   if (options.markdown) {
     const formater = options.markdown === true
@@ -198,7 +223,6 @@ export async function formatters(
           "error",
           formater === "prettier"
             ? {
-                printWidth: 120,
                 ...prettierOptions,
                 embeddedLanguageFormatting: "off",
                 parser: "markdown",
@@ -222,7 +246,6 @@ export async function formatters(
           "format/prettier": [
             "error",
             {
-              printWidth: 120,
               ...prettierOptions,
               embeddedLanguageFormatting: "off",
               parser: "slidev",
@@ -266,6 +289,8 @@ export async function formatters(
         "style/comma-dangle": "off",
         "style/indent": "off",
         "style/no-multi-spaces": "off",
+        "style/quotes": "off",
+        "style/semi": "off",
       },
     });
   }

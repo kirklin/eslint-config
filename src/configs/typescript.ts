@@ -1,16 +1,18 @@
 import process from "node:process";
 import { GLOB_ASTRO_TS, GLOB_MARKDOWN, GLOB_TS, GLOB_TSX } from "../globs";
-import type { OptionsComponentExts, OptionsFiles, OptionsOverrides, OptionsTypeScriptParserOptions, OptionsTypeScriptWithTypes, TypedFlatConfigItem } from "../types";
+import type { OptionsComponentExts, OptionsFiles, OptionsOverrides, OptionsProjectType, OptionsTypeScriptParserOptions, OptionsTypeScriptWithTypes, TypedFlatConfigItem } from "../types";
 import { pluginKirkLin } from "../plugins";
-import { interopDefault, renameRules, toArray } from "../utils";
+import { interopDefault, renameRules } from "../utils";
 
 export async function typescript(
-  options: OptionsFiles & OptionsComponentExts & OptionsOverrides & OptionsTypeScriptWithTypes & OptionsTypeScriptParserOptions = {},
+  options: OptionsFiles & OptionsComponentExts & OptionsOverrides & OptionsTypeScriptWithTypes & OptionsTypeScriptParserOptions & OptionsProjectType = {},
 ): Promise<TypedFlatConfigItem[]> {
   const {
     componentExts = [],
     overrides = {},
+    overridesTypeAware = {},
     parserOptions = {},
+    type = "app",
   } = options;
 
   const files = options.files ?? [
@@ -25,21 +27,19 @@ export async function typescript(
     GLOB_ASTRO_TS,
   ];
   const tsconfigPath = options?.tsconfigPath
-    ? toArray(options.tsconfigPath)
+    ? options.tsconfigPath
     : undefined;
   const isTypeAware = !!tsconfigPath;
 
   const typeAwareRules: TypedFlatConfigItem["rules"] = {
     "dot-notation": "off",
     "no-implied-eval": "off",
-    "no-throw-literal": "off",
     "ts/await-thenable": "error",
     "ts/dot-notation": ["error", { allowKeywords: true }],
     "ts/no-floating-promises": "error",
     "ts/no-for-in-array": "error",
     "ts/no-implied-eval": "error",
     "ts/no-misused-promises": "error",
-    "ts/no-throw-literal": "error",
     "ts/no-unnecessary-type-assertion": "error",
     "ts/no-unsafe-argument": "error",
     "ts/no-unsafe-assignment": "error",
@@ -74,7 +74,10 @@ export async function typescript(
           sourceType: "module",
           ...typeAware
             ? {
-                project: tsconfigPath,
+                projectService: {
+                  allowDefaultProject: ["./*.js"],
+                  defaultProject: tsconfigPath,
+                },
                 tsconfigRootDir: process.cwd(),
               }
             : {},
@@ -97,8 +100,8 @@ export async function typescript(
     // assign type-aware parser for type-aware files and type-unaware parser for the rest
     ...isTypeAware
       ? [
+          makeParser(false, files),
           makeParser(true, filesTypeAware, ignoresTypeAware),
-          makeParser(false, files, filesTypeAware),
         ]
       : [
           makeParser(false, files),
@@ -120,13 +123,17 @@ export async function typescript(
         "no-redeclare": "off",
         "no-use-before-define": "off",
         "no-useless-constructor": "off",
-        "ts/ban-ts-comment": ["error", { "ts-ignore": "allow-with-description" }],
-        "ts/ban-types": ["error", { types: { Function: false } }],
+        "ts/ban-ts-comment": ["error", { "ts-expect-error": "allow-with-description" }],
         "ts/consistent-type-definitions": ["error", "interface"],
-        "ts/consistent-type-imports": ["error", { disallowTypeAnnotations: false, prefer: "type-imports" }],
+        "ts/consistent-type-imports": ["error", {
+          disallowTypeAnnotations: false,
+          prefer: "type-imports",
+        }],
+
         "ts/method-signature-style": ["error", "property"], // https://www.totaltypescript.com/method-shorthand-syntax-considered-harmful
         "ts/no-dupe-class-members": "error",
         "ts/no-dynamic-delete": "off",
+        "ts/no-empty-object-type": ["error", { allowInterfaces: "always" }],
         "ts/no-explicit-any": "off",
         "ts/no-extraneous-class": "off",
         "ts/no-import-type-side-effects": "error",
@@ -138,9 +145,20 @@ export async function typescript(
         "ts/no-unused-vars": "off",
         "ts/no-use-before-define": ["error", { classes: false, functions: false, variables: true }],
         "ts/no-useless-constructor": "off",
-        "ts/prefer-ts-expect-error": "error",
+        "ts/no-wrapper-object-types": "error",
         "ts/triple-slash-reference": "off",
         "ts/unified-signatures": "off",
+
+        ...(type === "lib"
+          ? {
+              "ts/explicit-function-return-type": ["error", {
+                allowExpressions: true,
+                allowHigherOrderFunctions: true,
+                allowIIFEs: true,
+              }],
+            }
+          : {}
+        ),
         ...overrides,
       },
     },
@@ -149,7 +167,10 @@ export async function typescript(
           files: filesTypeAware,
           ignores: ignoresTypeAware,
           name: "kirklin/typescript/rules-type-aware",
-          rules: typeAwareRules,
+          rules: {
+            ...typeAwareRules,
+            ...overridesTypeAware,
+          },
         }]
       : [],
     {

@@ -78,12 +78,16 @@ export async function svelte(
         "svelte/no-useless-mustaches": "error",
         "svelte/require-store-callbacks-use-set-param": "error",
         "svelte/system": "error",
-        "svelte/valid-compile": "error",
         "svelte/valid-each-key": "error",
 
         "unused-imports/no-unused-vars": [
           "error",
-          { args: "after-used", argsIgnorePattern: "^_", vars: "all", varsIgnorePattern: "^(_|\\$\\$Props$|\\$\\$Events$|\\$\\$Slots$)" },
+          {
+            args: "after-used",
+            argsIgnorePattern: "^_",
+            vars: "all",
+            varsIgnorePattern: "^(_|\\$\\$Props$|\\$\\$Events$|\\$\\$Slots$)",
+          },
         ],
 
         ...stylistic

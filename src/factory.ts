@@ -1,5 +1,3 @@
-import process from "node:process";
-import fs from "node:fs";
 import { isPackageExists } from "local-pkg";
 import { FlatConfigComposer } from "eslint-flat-config-utils";
 import type { Linter } from "eslint";
@@ -8,7 +6,6 @@ import {
   astro,
   command,
   comments,
-  formatters,
   ignores,
   imports,
   javascript,
@@ -19,7 +16,6 @@ import {
   node,
   perfectionist,
   react,
-  regexp,
   solid,
   sortPackageJson,
   sortTsconfig,
@@ -33,7 +29,10 @@ import {
   vue,
   yaml,
 } from "./configs";
-import { interopDefault } from "./utils";
+import { interopDefault, isInEditorEnv } from "./utils";
+import { formatters } from "./configs/formatters";
+import { regexp } from "./configs/regexp";
+import type { RuleOptions } from "./typegen";
 
 const flatConfigProps: (keyof TypedFlatConfigItem)[] = [
   "name",
@@ -80,14 +79,13 @@ export const defaultPluginRenaming = {
  */
 export function kirklin(
   options: OptionsConfig & TypedFlatConfigItem = {},
-  ...userConfigs: Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[] | FlatConfigComposer<any, any> | Linter.FlatConfig[]>[]
+  ...userConfigs: Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[] | FlatConfigComposer<any, any> | Linter.Config[]>[]
 ): FlatConfigComposer<TypedFlatConfigItem, ConfigNames> {
   const {
     astro: enableAstro = false,
     autoRenamePlugins = true,
     componentExts = [],
     gitignore: enableGitignore = true,
-    isInEditor = !!((process.env.VSCODE_PID || process.env.VSCODE_CWD || process.env.JETBRAINS_IDE || process.env.VIM || process.env.NVIM) && !process.env.CI),
     jsx: enableJsx = true,
     react: enableReact = false,
     regexp: enableRegexp = true,
@@ -97,6 +95,14 @@ export function kirklin(
     unocss: enableUnoCSS = false,
     vue: enableVue = VuePackages.some(i => isPackageExists(i)),
   } = options;
+
+  let isInEditor = options.isInEditor;
+  if (isInEditor == null) {
+    isInEditor = isInEditorEnv();
+    if (isInEditor) {
+      console.log("[@kirklin/eslint-config] Detected running in editor, some rules are disabled.");
+    }
+  }
 
   const stylisticOptions = options.stylistic === false
     ? false
@@ -114,9 +120,7 @@ export function kirklin(
     if (typeof enableGitignore !== "boolean") {
       configs.push(interopDefault(import("eslint-config-flat-gitignore")).then(r => [r(enableGitignore)]));
     } else {
-      if (fs.existsSync(".gitignore")) {
-        configs.push(interopDefault(import("eslint-config-flat-gitignore")).then(r => [r()]));
-      }
+      configs.push(interopDefault(import("eslint-config-flat-gitignore")).then(r => [r({ strict: false })]));
     }
   }
 
@@ -158,6 +162,7 @@ export function kirklin(
       ...typescriptOptions,
       componentExts,
       overrides: getOverrides(options, "typescript"),
+      type: options.type,
     }));
   }
 
@@ -313,7 +318,7 @@ export function resolveSubOptions<K extends keyof OptionsConfig>(
 export function getOverrides<K extends keyof OptionsConfig>(
   options: OptionsConfig,
   key: K,
-) {
+): Partial<Linter.RulesRecord & RuleOptions> {
   const sub = resolveSubOptions(options, key);
   return {
     ...(options.overrides as any)?.[key],

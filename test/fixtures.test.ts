@@ -57,6 +57,20 @@ runWithConfig(
 );
 
 runWithConfig(
+  "ts-strict",
+  {
+    typescript: {
+      tsconfigPath: "./tsconfig.json",
+    },
+  },
+  {
+    rules: {
+      "ts/no-unsafe-return": ["off"],
+    },
+  },
+);
+
+runWithConfig(
   "with-formatters",
   {
     typescript: true,
