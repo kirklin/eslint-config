@@ -2,7 +2,7 @@
   "name": "@kirklin/eslint-config",
   "type": "module",
   "version": "2.6.0",
-  "packageManager": "pnpm@9.4.0",
+  "packageManager": "pnpm@9.9.0",
   "description": "Kirk Lin's ESLint config",
   "author": "Kirk Lin (https://github.com/kirklin/)",
   "license": "MIT",
@@ -134,8 +134,8 @@
     "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@antfu/ni": "^0.22.4",
-    "@eslint-react/eslint-plugin": "^1.12.1",
+    "@antfu/ni": "^0.23.0",
+    "@eslint-react/eslint-plugin": "^1.12.2",
     "@eslint/config-inspector": "^0.5.4",
     "@kirklin/eslint-config": "workspace:*",
     "@prettier/plugin-xml": "^3.4.1",
@@ -169,7 +169,7 @@
     "svelte": "^4.2.19",
     "svelte-eslint-parser": "^0.41.0",
     "tsup": "^8.2.4",
-    "tsx": "^4.18.0",
+    "tsx": "^4.19.0",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5",
     "vue": "^3.4.38"
