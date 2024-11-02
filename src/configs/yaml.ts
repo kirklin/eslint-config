@@ -14,7 +14,7 @@ export async function yaml(
 
   const {
     indent = 2,
-    quotes = "single",
+    quotes = "double",
   } = typeof stylistic === "boolean" ? {} : stylistic;
 
   const [
