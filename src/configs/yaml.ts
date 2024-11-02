@@ -1,5 +1,6 @@
 import type { OptionsFiles, OptionsOverrides, OptionsStylistic, TypedFlatConfigItem } from "../types";
 import { GLOB_YAML } from "../globs";
+
 import { interopDefault } from "../utils";
 
 export async function yaml(
@@ -13,7 +14,7 @@ export async function yaml(
 
   const {
     indent = 2,
-    quotes = "double",
+    quotes = "single",
   } = typeof stylistic === "boolean" ? {} : stylistic;
 
   const [

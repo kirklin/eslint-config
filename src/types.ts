@@ -1,10 +1,10 @@
-import type { FlatGitignoreOptions } from "eslint-config-flat-gitignore";
-import type { ParserOptions } from "@typescript-eslint/parser";
-import type { Options as VueBlocksOptions } from "eslint-processor-vue-blocks";
-import type { Linter } from "eslint";
 import type { StylisticCustomizeOptions } from "@stylistic/eslint-plugin";
-import type { VendoredPrettierOptions } from "./vender/prettier-types";
+import type { ParserOptions } from "@typescript-eslint/parser";
+import type { Linter } from "eslint";
+import type { FlatGitignoreOptions } from "eslint-config-flat-gitignore";
+import type { Options as VueBlocksOptions } from "eslint-processor-vue-blocks";
 import type { ConfigNames, RuleOptions } from "./typegen";
+import type { VendoredPrettierOptions } from "./vender/prettier-types";
 
 export type Awaitable<T> = T | Promise<T>;
 
@@ -134,6 +134,15 @@ export interface OptionsComponentExts {
   componentExts?: string[];
 }
 
+export interface OptionsUnicorn {
+  /**
+   * Include all rules recommended by `eslint-plugin-unicorn`, instead of only ones picked by Anthony.
+   *
+   * @default false
+   */
+  allRecommended?: boolean;
+}
+
 export interface OptionsTypeScriptParserOptions {
   /**
    * Additional parser options for TypeScript.
@@ -259,6 +268,13 @@ export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType 
    * @default true
    */
   jsx?: boolean;
+
+  /**
+   * Options for eslint-plugin-unicorn.
+   *
+   * @default true
+   */
+  unicorn?: boolean | OptionsUnicorn;
 
   /**
    * Enable test support.

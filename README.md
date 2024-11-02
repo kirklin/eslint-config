@@ -39,10 +39,12 @@
   - Single quotes, no semi
   - Using [ESLint Stylistic](https://github.com/eslint-stylistic/eslint-stylistic)
 - Respects `.gitignore` by default
-- Supports ESLint v9 or v8.50.0+
+- Requires ESLint v9.5.0+
 
-> [!IMPORTANT]
+> [!NOTE]
 > Since v1.0.0, this config is rewritten to the new [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), check the [release note](https://github.com/kirklin/eslint-config/releases/tag/v1.0.0) for more details.
+>
+> Since v2.7.0, ESLint v9.5.0+ is now required.
 
 ## Usage
 
@@ -79,9 +81,9 @@ Combined with legacy config:
 If you still use some configs from the legacy eslintrc format, you can use the [`@eslint/eslintrc`](https://www.npmjs.com/package/@eslint/eslintrc) package to convert them to the flat config.
 
 ```js
+import { FlatCompat } from "@eslint/eslintrc";
 // eslint.config.mjs
 import kirklin from "@kirklin/eslint-config";
-import { FlatCompat } from "@eslint/eslintrc";
 
 const compat = new FlatCompat();
 
@@ -287,7 +289,7 @@ And that's it! Or you can configure each integration individually, for example:
 import kirklin from "@kirklin/eslint-config";
 
 export default kirklin({
-  // Type of the project. 'lib' for libraries, the default is 'app'
+// Type of the project. 'lib' for libraries, the default is 'app'
   type: "lib",
 
   // Enable stylistic formatting rules

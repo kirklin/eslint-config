@@ -1,11 +1,14 @@
-import { isPackageExists } from "local-pkg";
-import { FlatConfigComposer } from "eslint-flat-config-utils";
 import type { Linter } from "eslint";
+import type { RuleOptions } from "./typegen";
 import type { Awaitable, ConfigNames, OptionsConfig, TypedFlatConfigItem } from "./types";
+
+import { FlatConfigComposer } from "eslint-flat-config-utils";
+import { isPackageExists } from "local-pkg";
 import {
   astro,
   command,
   comments,
+  disables,
   ignores,
   imports,
   javascript,
@@ -29,22 +32,20 @@ import {
   vue,
   yaml,
 } from "./configs";
-import { interopDefault, isInEditorEnv } from "./utils";
 import { formatters } from "./configs/formatters";
-import { regexp } from "./configs/regexp";
-import type { RuleOptions } from "./typegen";
 
-const flatConfigProps: (keyof TypedFlatConfigItem)[] = [
+import { regexp } from "./configs/regexp";
+import { interopDefault, isInEditorEnv } from "./utils";
+
+const flatConfigProps = [
   "name",
-  "files",
-  "ignores",
   "languageOptions",
   "linterOptions",
   "processor",
   "plugins",
   "rules",
   "settings",
-];
+] satisfies (keyof TypedFlatConfigItem)[];
 
 const VuePackages = [
   "vue",
@@ -78,7 +79,7 @@ export const defaultPluginRenaming = {
  *  The merged ESLint configurations.
  */
 export function kirklin(
-  options: OptionsConfig & TypedFlatConfigItem = {},
+  options: OptionsConfig & Omit<TypedFlatConfigItem, "files"> = {},
   ...userConfigs: Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[] | FlatConfigComposer<any, any> | Linter.Config[]>[]
 ): FlatConfigComposer<TypedFlatConfigItem, ConfigNames> {
   const {
@@ -92,6 +93,7 @@ export function kirklin(
     solid: enableSolid = false,
     svelte: enableSvelte = false,
     typescript: enableTypeScript = isPackageExists("typescript"),
+    unicorn: enableUnicorn = true,
     unocss: enableUnoCSS = false,
     vue: enableVue = VuePackages.some(i => isPackageExists(i)),
   } = options;
@@ -100,7 +102,7 @@ export function kirklin(
   if (isInEditor == null) {
     isInEditor = isInEditorEnv();
     if (isInEditor) {
-      console.log("[@kirklin/eslint-config] Detected running in editor, some rules are disabled.");
+      console.info("[@kirklin/eslint-config] Detected running in editor, some rules are disabled.");
     }
   }
 
@@ -118,9 +120,15 @@ export function kirklin(
 
   if (enableGitignore) {
     if (typeof enableGitignore !== "boolean") {
-      configs.push(interopDefault(import("eslint-config-flat-gitignore")).then(r => [r(enableGitignore)]));
+      configs.push(interopDefault(import("eslint-config-flat-gitignore")).then(r => [r({
+        name: "kirklin/gitignore",
+        ...enableGitignore,
+      })]));
     } else {
-      configs.push(interopDefault(import("eslint-config-flat-gitignore")).then(r => [r({ strict: false })]));
+      configs.push(interopDefault(import("eslint-config-flat-gitignore")).then(r => [r({
+        name: "kirklin/gitignore",
+        strict: false,
+      })]));
     }
   }
 
@@ -129,7 +137,7 @@ export function kirklin(
 
   // Base configs
   configs.push(
-    ignores(),
+    ignores(options.ignores),
     javascript({
       isInEditor,
       overrides: getOverrides(options, "javascript"),
@@ -142,12 +150,15 @@ export function kirklin(
     imports({
       stylistic: stylisticOptions,
     }),
-    unicorn(),
     command(),
 
     // Optional plugins (installed but not enabled by default)
     perfectionist(),
   );
+
+  if (enableUnicorn) {
+    configs.push(unicorn(enableUnicorn === true ? {} : enableUnicorn));
+  }
 
   if (enableVue) {
     componentExts.push("vue");
@@ -272,6 +283,14 @@ export function kirklin(
       options.formatters,
       typeof stylisticOptions === "boolean" ? {} : stylisticOptions,
     ));
+  }
+
+  configs.push(
+    disables(),
+  );
+
+  if ("files" in options) {
+    throw new Error("[@kirklin/eslint-config] The first argument should not contain the \"files\" property as the options are supposed to be global. Place it in the second or later config instead.");
   }
 
   // User can optionally pass a flat config item to the first argument

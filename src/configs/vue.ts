@@ -1,7 +1,15 @@
+import type {
+  OptionsFiles,
+  OptionsHasTypeScript,
+  OptionsOverrides,
+  OptionsStylistic,
+  OptionsVue,
+  TypedFlatConfigItem,
+} from "../types";
+
 import { mergeProcessors } from "eslint-merge-processors";
-import { interopDefault } from "../utils";
-import type { OptionsFiles, OptionsHasTypeScript, OptionsOverrides, OptionsStylistic, OptionsVue, TypedFlatConfigItem } from "../types";
 import { GLOB_VUE } from "../globs";
+import { interopDefault } from "../utils";
 
 export async function vue(
   options: OptionsVue & OptionsHasTypeScript & OptionsOverrides & OptionsStylistic & OptionsFiles = {},
@@ -26,7 +34,6 @@ export async function vue(
     parserVue,
     processorVueBlocks,
   ] = await Promise.all([
-    // @ts-expect-error missing types
     interopDefault(import("eslint-plugin-vue")),
     interopDefault(import("vue-eslint-parser")),
     interopDefault(import("eslint-processor-vue-blocks")),
@@ -102,7 +109,10 @@ export async function vue(
               ...pluginVue.configs["vue3-recommended"].rules as any,
             },
 
+        "kirklin/no-top-level-await": "off",
         "node/prefer-global/process": "off",
+        "ts/explicit-function-return-type": "off",
+
         "vue/block-order": ["error", {
           order: ["script", "template", "style"],
         }],

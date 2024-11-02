@@ -42,6 +42,8 @@
 
 > [!IMPORTANT]
 > 从v1.0.0开始，该配置已重写为新的 [ESLint Flat配置](https://eslint.org/docs/latest/use/configure/configuration-files-new), 请查看[发布说明](https://github.com/kirklin/eslint-config/releases/tag/v1.0.0)以获取更多详细信息。
+>
+> 自 v2.7.0 起，需要 ESLint v9.5.0+。
 
 ## 使用方法
 
@@ -78,9 +80,9 @@ export default kirklin();
 如果您仍然使用旧版`eslintrc`的一些配置，您可以使用[`@eslint/eslintrc`](https://www.npmjs.com/package/@eslint/eslintrc)将它们转换为flat config
 
 ```js
+import { FlatCompat } from "@eslint/eslintrc";
 // eslint.config.mjs
 import kirklin from "@kirklin/eslint-config";
-import { FlatCompat } from "@eslint/eslintrc";
 
 const compat = new FlatCompat();
 

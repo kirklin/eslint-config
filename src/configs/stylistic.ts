@@ -1,6 +1,7 @@
-import { interopDefault } from "../utils";
 import type { OptionsOverrides, StylisticConfig, TypedFlatConfigItem } from "../types";
+
 import { pluginKirkLin } from "../plugins";
+import { interopDefault } from "../utils";
 
 export const StylisticConfigDefaults: StylisticConfig = {
   indent: 2,
@@ -49,6 +50,7 @@ export async function stylistic(
       rules: {
         ...config.rules,
 
+        "kirklin/consistent-chaining": "error",
         "kirklin/consistent-list-newline": "error",
         "style/brace-style": ["error", "1tbs", { allowSingleLine: false }],
         "style/member-delimiter-style": ["error", { multiline: { delimiter: "semi" } }],

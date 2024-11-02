@@ -1,7 +1,8 @@
-import globals from "globals";
 import type { OptionsIsInEditor, OptionsOverrides, TypedFlatConfigItem } from "../types";
+
+import globals from "globals";
+
 import { pluginKirkLin, pluginUnusedImports } from "../plugins";
-import { GLOB_SRC, GLOB_SRC_EXT } from "../globs";
 
 export async function javascript(
   options: OptionsIsInEditor & OptionsOverrides = {},
@@ -47,11 +48,13 @@ export async function javascript(
         "accessor-pairs": ["error", { enforceForClassMembers: true, setWithoutGet: true }],
 
         "array-callback-return": "error",
+
         "block-scoped-var": "error",
         "constructor-super": "error",
         "default-case-last": "error",
         "dot-notation": ["error", { allowKeywords: true }],
         "eqeqeq": ["error", "smart"],
+        "kirklin/no-top-level-await": "error",
         "new-cap": ["error", { capIsNew: false, newIsCap: true, properties: true }],
         "no-alert": "error",
         "no-array-constructor": "error",
@@ -117,9 +120,6 @@ export async function javascript(
         ],
         "no-restricted-syntax": [
           "error",
-          "DebuggerStatement",
-          "LabeledStatement",
-          "WithStatement",
           "TSEnumDeclaration[const=true]",
           "TSExportAssignment",
         ],
@@ -190,17 +190,6 @@ export async function javascript(
         "prefer-rest-params": "error",
         "prefer-spread": "error",
         "prefer-template": "error",
-        "sort-imports": [
-          "error",
-          {
-            allowSeparatedGroups: false,
-            ignoreCase: false,
-            ignoreDeclarationSort: true,
-            ignoreMemberSort: false,
-            memberSyntaxSortOrder: ["none", "all", "multiple", "single"],
-          },
-        ],
-
         "symbol-description": "error",
         "unicode-bom": ["error", "never"],
         "unused-imports/no-unused-imports": isInEditor ? "off" : "error",
@@ -220,13 +209,6 @@ export async function javascript(
         "yoda": ["error", "never"],
 
         ...overrides,
-      },
-    },
-    {
-      files: [`scripts/${GLOB_SRC}`, `cli.${GLOB_SRC_EXT}`],
-      name: "kirklin/javascript/disables/cli",
-      rules: {
-        "no-console": "off",
       },
     },
   ];

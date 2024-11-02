@@ -1,6 +1,15 @@
+import type {
+  OptionsComponentExts,
+  OptionsFiles,
+  OptionsOverrides,
+  OptionsProjectType,
+  OptionsTypeScriptParserOptions,
+  OptionsTypeScriptWithTypes,
+  TypedFlatConfigItem,
+} from "../types";
+
 import process from "node:process";
 import { GLOB_ASTRO_TS, GLOB_MARKDOWN, GLOB_TS, GLOB_TSX } from "../globs";
-import type { OptionsComponentExts, OptionsFiles, OptionsOverrides, OptionsProjectType, OptionsTypeScriptParserOptions, OptionsTypeScriptWithTypes, TypedFlatConfigItem } from "../types";
 import { pluginKirkLin } from "../plugins";
 import { interopDefault, renameRules } from "../utils";
 
@@ -119,7 +128,6 @@ export async function typescript(
           { "@typescript-eslint": "ts" },
         ),
         "no-dupe-class-members": "off",
-        "no-loss-of-precision": "off",
         "no-redeclare": "off",
         "no-use-before-define": "off",
         "no-useless-constructor": "off",
@@ -138,10 +146,14 @@ export async function typescript(
         "ts/no-extraneous-class": "off",
         "ts/no-import-type-side-effects": "error",
         "ts/no-invalid-void-type": "off",
-        "ts/no-loss-of-precision": "error",
         "ts/no-non-null-assertion": "off",
-        "ts/no-redeclare": "error",
+        "ts/no-redeclare": ["error", { builtinGlobals: false }],
         "ts/no-require-imports": "error",
+        "ts/no-unused-expressions": ["error", {
+          allowShortCircuit: true,
+          allowTaggedTemplates: true,
+          allowTernary: true,
+        }],
         "ts/no-unused-vars": "off",
         "ts/no-use-before-define": ["error", { classes: false, functions: false, variables: true }],
         "ts/no-useless-constructor": "off",
@@ -173,30 +185,5 @@ export async function typescript(
           },
         }]
       : [],
-    {
-      files: ["**/*.d.?([cm])ts"],
-      name: "kirklin/typescript/disables/dts",
-      rules: {
-        "eslint-comments/no-unlimited-disable": "off",
-        "import/no-duplicates": "off",
-        "no-restricted-syntax": "off",
-        "unused-imports/no-unused-vars": "off",
-      },
-    },
-    {
-      files: ["**/*.{test,spec}.ts?(x)"],
-      name: "kirklin/typescript/disables/test",
-      rules: {
-        "no-unused-expressions": "off",
-      },
-    },
-    {
-      files: ["**/*.js", "**/*.cjs"],
-      name: "kirklin/typescript/disables/cjs",
-      rules: {
-        "ts/no-require-imports": "off",
-        "ts/no-var-requires": "off",
-      },
-    },
   ];
 }

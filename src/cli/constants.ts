@@ -1,6 +1,7 @@
+import type { ExtraLibrariesOption, FrameworkOption, PromItem } from "./types";
+
 import c from "picocolors";
 import pkgJson from "../../package.json";
-import type { ExtraLibrariesOption, FrameworkOption, PromItem } from "./types";
 
 export { pkgJson };
 
@@ -39,6 +40,7 @@ export const vscodeSettingsString = `
     "html",
     "markdown",
     "json",
+    "json5",
     "jsonc",
     "yaml",
     "toml",
