@@ -45,6 +45,7 @@ export async function astro(
       rules: {
         // use recommended rules
         "astro/missing-client-only-directive-value": "error",
+
         "astro/no-conflict-set-directives": "error",
         "astro/no-deprecated-astro-canonicalurl": "error",
         "astro/no-deprecated-astro-fetchcontent": "error",
@@ -54,6 +55,9 @@ export async function astro(
         "astro/no-unused-define-vars-in-style": "error",
         "astro/semi": "off",
         "astro/valid-compile": "error",
+        // Astro uses top level await for e.g. data fetching
+        // https://docs.astro.build/en/guides/data-fetching/#fetch-in-astro
+        "kirklin/no-top-level-await": "off",
 
         ...stylistic
           ? {

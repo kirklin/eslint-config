@@ -1,5 +1,5 @@
 /* eslint-disable perfectionist/sort-objects */
-import type { ExtraLibrariesOption, FrameworkOption, PromItem, PromptResult } from "./types";
+import type { ExtraLibrariesOption, FrameworkOption, PromptResult } from "./types";
 
 import fs from "node:fs";
 import path from "node:path";
@@ -70,7 +70,7 @@ export async function run(options: CliRunOptions = {}): Promise<void> {
           ? `"${argTemplate}" isn't a valid template. Please choose from below: `
           : "Select a framework:";
 
-        return p.multiselect<PromItem<FrameworkOption>[], FrameworkOption>({
+        return p.multiselect<FrameworkOption>({
           message: c.reset(message),
           options: frameworkOptions,
           required: false,
@@ -87,7 +87,7 @@ export async function run(options: CliRunOptions = {}): Promise<void> {
           ? `"${argExtra}" isn't a valid extra util. Please choose from below: `
           : "Select a extra utils:";
 
-        return p.multiselect<PromItem<ExtraLibrariesOption>[], ExtraLibrariesOption>({
+        return p.multiselect<ExtraLibrariesOption>({
           message: c.reset(message),
           options: extraOptions,
           required: false,
@@ -121,5 +121,5 @@ export async function run(options: CliRunOptions = {}): Promise<void> {
   await updateVscodeSettings(result);
 
   p.log.success(c.green(`Setup completed`));
-  p.outro(`Now you can update the dependencies and run ${c.blue("eslint . --fix")}\n`);
+  p.outro(`Now you can update the dependencies by run ${c.blue("pnpm install")} and run ${c.blue("eslint . --fix")}\n`);
 }
