@@ -48,6 +48,7 @@ export async function javascript(
         "accessor-pairs": ["error", { enforceForClassMembers: true, setWithoutGet: true }],
 
         "array-callback-return": "error",
+
         "block-scoped-var": "error",
         "constructor-super": "error",
         "default-case-last": "error",
@@ -177,7 +178,7 @@ export async function javascript(
           },
         ],
         "prefer-const": [
-          "error",
+          isInEditor ? "warn" : "error",
           {
             destructuring: "all",
             ignoreReadBeforeAssign: true,
@@ -191,7 +192,7 @@ export async function javascript(
         "prefer-template": "error",
         "symbol-description": "error",
         "unicode-bom": ["error", "never"],
-        "unused-imports/no-unused-imports": isInEditor ? "off" : "error",
+        "unused-imports/no-unused-imports": isInEditor ? "warn" : "error",
         "unused-imports/no-unused-vars": [
           "error",
           {

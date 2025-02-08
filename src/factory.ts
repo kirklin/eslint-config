@@ -33,7 +33,6 @@ import {
   yaml,
 } from "./configs";
 import { formatters } from "./configs/formatters";
-
 import { regexp } from "./configs/regexp";
 import { interopDefault, isInEditorEnv } from "./utils";
 
@@ -102,7 +101,7 @@ export function kirklin(
   if (isInEditor == null) {
     isInEditor = isInEditorEnv();
     if (isInEditor) {
-      console.info("[@kirklin/eslint-config] Detected running in editor, some rules are disabled.");
+      console.log("[@kirklin/eslint-config] Detected running in editor, some rules are disabled.");
     }
   }
 
@@ -207,6 +206,7 @@ export function kirklin(
 
   if (enableReact) {
     configs.push(react({
+      ...typescriptOptions,
       overrides: getOverrides(options, "react"),
       tsconfigPath,
     }));
@@ -316,6 +316,17 @@ export function kirklin(
   if (autoRenamePlugins) {
     composer = composer
       .renamePlugins(defaultPluginRenaming);
+  }
+
+  if (isInEditor) {
+    composer = composer
+      .disableRulesFix([
+        "unused-imports/no-unused-imports",
+        "test/no-only-tests",
+        "prefer-const",
+      ], {
+        builtinRules: () => import(["eslint", "use-at-your-own-risk"].join("/")).then(r => r.builtinRules),
+      });
   }
 
   return composer;
