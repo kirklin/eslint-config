@@ -57,7 +57,7 @@ export async function stylistic(
 
         ...(lessOpinionated
           ? {
-              curly: ["error", "multi-or-nest", "consistent"],
+              curly: ["error", "all"],
             }
           : {
               "curly": ["error", "all"],
