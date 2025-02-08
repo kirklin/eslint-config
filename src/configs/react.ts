@@ -15,6 +15,12 @@ const RemixPackages = [
   "@remix-run/serve",
   "@remix-run/dev",
 ];
+const ReactRouterPackages = [
+  "@react-router/node",
+  "@react-router/react",
+  "@react-router/serve",
+  "@react-router/dev",
+];
 const NextJsPackages = [
   "next",
 ];
@@ -57,6 +63,7 @@ export async function react(
 
   const isAllowConstantExport = ReactRefreshAllowConstantExportPackages.some(i => isPackageExists(i));
   const isUsingRemix = RemixPackages.some(i => isPackageExists(i));
+  const isUsingReactRouter = ReactRouterPackages.some(i => isPackageExists(i));
   const isUsingNext = NextJsPackages.some(i => isPackageExists(i));
 
   const plugins = pluginReact.configs.all.plugins;
@@ -71,6 +78,7 @@ export async function react(
         "react-hooks-extra": plugins["@eslint-react/hooks-extra"],
         "react-naming-convention": plugins["@eslint-react/naming-convention"],
         "react-refresh": pluginReactRefresh,
+        "react-web-api": plugins["@eslint-react/web-api"],
       },
     },
     {
@@ -101,7 +109,6 @@ export async function react(
         // recommended rules react-hooks
         "react-hooks/exhaustive-deps": "warn",
         "react-hooks/rules-of-hooks": "error",
-
         // react refresh
         "react-refresh/only-export-components": [
           "warn",
@@ -125,7 +132,7 @@ export async function react(
                     "generateViewport",
                   ]
                 : []),
-              ...(isUsingRemix
+              ...(isUsingRemix || isUsingReactRouter
                 ? [
                     "meta",
                     "links",
@@ -137,28 +144,40 @@ export async function react(
             ],
           },
         ],
+        // recommended rules from @eslint-react/web-api
+        "react-web-api/no-leaked-event-listener": "warn",
+
+        "react-web-api/no-leaked-interval": "warn",
+        "react-web-api/no-leaked-resize-observer": "warn",
+
+        "react-web-api/no-leaked-timeout": "warn",
 
         // recommended rules from @eslint-react
         "react/ensure-forward-ref-using-ref": "warn",
+        "react/jsx-no-duplicate-props": "warn",
+        "react/jsx-uses-vars": "warn",
         "react/no-access-state-in-setstate": "error",
         "react/no-array-index-key": "warn",
         "react/no-children-count": "warn",
         "react/no-children-for-each": "warn",
         "react/no-children-map": "warn",
         "react/no-children-only": "warn",
-        "react/no-children-prop": "warn",
         "react/no-children-to-array": "warn",
         "react/no-clone-element": "warn",
         "react/no-comment-textnodes": "warn",
         "react/no-component-will-mount": "error",
         "react/no-component-will-receive-props": "error",
         "react/no-component-will-update": "error",
+        "react/no-context-provider": "warn",
         "react/no-create-ref": "error",
+        "react/no-default-props": "error",
         "react/no-direct-mutation-state": "error",
         "react/no-duplicate-key": "error",
-        "react/no-implicit-key": "error",
+        "react/no-forward-ref": "warn",
+        "react/no-implicit-key": "warn",
         "react/no-missing-key": "error",
-        "react/no-nested-components": "warn",
+        "react/no-nested-components": "error",
+        "react/no-prop-types": "error",
         "react/no-redundant-should-component-update": "error",
         "react/no-set-state-in-component-did-mount": "warn",
         "react/no-set-state-in-component-did-update": "warn",
@@ -167,11 +186,10 @@ export async function react(
         "react/no-unsafe-component-will-mount": "warn",
         "react/no-unsafe-component-will-receive-props": "warn",
         "react/no-unsafe-component-will-update": "warn",
-        "react/no-unstable-context-value": "error",
-        "react/no-unstable-default-props": "error",
+        "react/no-unstable-context-value": "warn",
+        "react/no-unstable-default-props": "warn",
         "react/no-unused-class-component-members": "warn",
         "react/no-unused-state": "warn",
-        "react/no-useless-fragment": "warn",
         "react/prefer-destructuring-assignment": "warn",
         "react/prefer-shorthand-boolean": "warn",
         "react/prefer-shorthand-fragment": "warn",
