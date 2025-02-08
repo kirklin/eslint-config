@@ -15,8 +15,10 @@ export async function imports(options: OptionsStylistic = {}): Promise<TypedFlat
         kirklin: pluginKirkLin,
       },
       rules: {
+        "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
         "import/first": "error",
         "import/no-duplicates": "error",
+
         "import/no-mutable-exports": "error",
         "import/no-named-default": "error",
         "import/no-self-import": "error",
