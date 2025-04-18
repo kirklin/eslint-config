@@ -32,7 +32,6 @@ export async function stylistic(
   const pluginStylistic = await interopDefault(import("@stylistic/eslint-plugin"));
 
   const config = pluginStylistic.configs.customize({
-    flat: true,
     indent,
     jsx,
     pluginName: "style",
@@ -65,6 +64,9 @@ export async function stylistic(
               "kirklin/top-level-function": "error",
             }
         ),
+
+        "style/generator-star-spacing": ["error", { after: true, before: false }],
+        "style/yield-star-spacing": ["error", { after: true, before: false }],
 
         ...overrides,
       },

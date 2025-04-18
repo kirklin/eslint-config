@@ -5,19 +5,23 @@ import { kirklin } from "./src";
 
 export default kirklin(
   {
-    vue: true,
+    vue: {
+      a11y: true,
+    },
     react: true,
     solid: true,
     svelte: true,
     astro: true,
     typescript: true,
     formatters: true,
+    pnpm: true,
     type: "lib",
   },
   {
     ignores: [
       "fixtures",
       "_fixtures",
+      "**/constants-generated.ts",
     ],
   },
   {

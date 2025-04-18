@@ -33,7 +33,7 @@
 - Optional [formatters](#formatters) support for formatting CSS, HTML, XML, etc.
 - **Style principle**: Minimal for reading, stable for diff, consistent
   - Sorted imports, dangling commas
-  - Single quotes, no semi
+  - double quotes, no semi
   - Using [ESLint Stylistic](https://github.com/eslint-stylistic/eslint-stylistic)
 - Respects `.gitignore` by default
 - Requires ESLint v9.5.0+
@@ -112,8 +112,8 @@ For example:
 ```json
 {
   "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
   }
 }
 ```
@@ -554,6 +554,27 @@ export default kirklin({
 ```
 
 As it's in maintenance mode, we only accept bug fixes for Vue 2. It might also be removed in the future when `eslint-plugin-vue` drops support for Vue 2. We recommend upgrading to Vue 3 if possible.
+
+#### Vue Accessibility
+
+To enable Vue accessibility support, you need to explicitly turn it on:
+
+```js
+// eslint.config.js
+import kirklin from "@kirklin/eslint-config";
+
+export default kirklin({
+  vue: {
+    a11y: true
+  },
+});
+```
+
+Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
+
+```bash
+npm i -D eslint-plugin-vuejs-accessibility
+```
 
 ### Optional Configs
 

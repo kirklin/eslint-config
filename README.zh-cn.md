@@ -40,10 +40,10 @@
 - 可选的[格式化程序](#formatters)支持CSS，HTML，XML等。
 - **样式原则**：最小化阅读，稳定的差异性，保持一致性
 
-> [!NOTE]  
-> 自 v1.0.0 版本起，该配置已重写为新的 [ESLint Flat 配置](https://eslint.org/docs/latest/use/configure/configuration-files-new)，详细信息请查看 [发布说明](https://github.com/kirklin/eslint-config/releases/tag/v1.0.0)。  
->  
-> 自 v2.7.0 版本起，现要求使用 ESLint v9.5.0 及以上版本。  
+> [!NOTE]
+> 自 v1.0.0 版本起，该配置已重写为新的 [ESLint Flat 配置](https://eslint.org/docs/latest/use/configure/configuration-files-new)，详细信息请查看 [发布说明](https://github.com/kirklin/eslint-config/releases/tag/v1.0.0)。
+>
+> 自 v2.7.0 版本起，现要求使用 ESLint v9.5.0 及以上版本。
 
 ## 使用方法
 
@@ -747,17 +747,17 @@ export default kirklin({
 });
 ```
 
-### 编辑器特定的禁用规则  
+### 编辑器特定的禁用规则
 
-当 ESLint 在代码编辑器中运行时，以下规则的自动修复功能被禁用：  
+当 ESLint 在代码编辑器中运行时，以下规则的自动修复功能被禁用：
 
-- [`prefer-const`](https://eslint.org/docs/rules/prefer-const)  
-- [`test/no-only-tests`](https://github.com/levibuzolic/eslint-plugin-no-only-tests)  
-- [`unused-imports/no-unused-imports`](https://www.npmjs.com/package/eslint-plugin-unused-imports)  
+- [`prefer-const`](https://eslint.org/docs/rules/prefer-const)
+- [`test/no-only-tests`](https://github.com/levibuzolic/eslint-plugin-no-only-tests)
+- [`unused-imports/no-unused-imports`](https://www.npmjs.com/package/eslint-plugin-unused-imports)
 
-自 v3.0.0 版本起，这些规则不再被完全禁用，而是通过 [此辅助工具](https://github.com/antfu/eslint-flat-config-utils#composerdisablerulesfix) 设为不可自动修复。  
+自 v3.0.0 版本起，这些规则不再被完全禁用，而是通过 [此辅助工具](https://github.com/antfu/eslint-flat-config-utils#composerdisablerulesfix) 设为不可自动修复。
 
-这样可以防止编辑器在重构代码时自动删除未使用的导入，以提供更好的开发体验。这些规则仍然会在你通过终端运行 ESLint 或使用 [Lint Staged](#lint-staged) 时生效。  
+这样可以防止编辑器在重构代码时自动删除未使用的导入，以提供更好的开发体验。这些规则仍然会在你通过终端运行 ESLint 或使用 [Lint Staged](#lint-staged) 时生效。
 
 如果你不希望有这种行为，你可以手动禁用它们。
 

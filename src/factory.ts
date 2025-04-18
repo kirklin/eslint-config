@@ -18,6 +18,7 @@ import {
   markdown,
   node,
   perfectionist,
+  pnpm,
   react,
   solid,
   sortPackageJson,
@@ -87,6 +88,7 @@ export function kirklin(
     componentExts = [],
     gitignore: enableGitignore = true,
     jsx: enableJsx = true,
+    pnpm: enableCatalogs = false, // TODO: smart detect
     react: enableReact = false,
     regexp: enableRegexp = true,
     solid: enableSolid = false,
@@ -253,6 +255,12 @@ export function kirklin(
     );
   }
 
+  if (enableCatalogs) {
+    configs.push(
+      pnpm(),
+    );
+  }
+
   if (options.yaml ?? true) {
     configs.push(yaml({
       overrides: getOverrides(options, "yaml"),
@@ -342,7 +350,7 @@ export function resolveSubOptions<K extends keyof OptionsConfig>(
 ): ResolvedOptions<OptionsConfig[K]> {
   return typeof options[key] === "boolean"
     ? {} as any
-    : options[key] || {};
+    : options[key] || {} as any;
 }
 
 export function getOverrides<K extends keyof OptionsConfig>(
