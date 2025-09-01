@@ -108,6 +108,7 @@ export function kirklin(
   if (isInEditor == null) {
     isInEditor = isInEditorEnv();
     if (isInEditor) {
+      // eslint-disable-next-line no-console
       console.log("[@kirklin/eslint-config] Detected running in editor, some rules are disabled.");
     }
   }
