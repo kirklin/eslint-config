@@ -1,9 +1,9 @@
 export function Component1() {
-  return <div />
+  return <div />;
 }
 
 export function jsx2() {
-  const props = { a: 1, b: 2 }
+  const props = { a: 1, b: 2 };
   return (
     <a foo="bar" bar="foo">
       <div
@@ -28,5 +28,5 @@ export function jsx2() {
         <b>baz</b>
       </p>
     </a>
-  )
+  );
 }
