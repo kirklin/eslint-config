@@ -2,7 +2,7 @@
   "name": "@kirklin/eslint-config",
   "type": "module",
   "version": "5.0.0",
-  "packageManager": "pnpm@10.2.1",
+  "packageManager": "pnpm@10.14.0",
   "description": "Kirk Lin's ESLint config",
   "author": "Kirk Lin (https://github.com/kirklin/)",
   "license": "MIT",
@@ -22,11 +22,11 @@
     "dist"
   ],
   "scripts": {
-    "build": "nr gen && tsup --clean --dts",
-    "stub": "tsup",
+    "build": "nr gen && tsdown --clean --dts",
+    "stub": "tsdown",
     "dev": "npx @eslint/config-inspector --config eslint.config.ts",
     "build:inspector": "pnpm build && npx @eslint/config-inspector build",
-    "watch": "tsup --watch",
+    "watch": "tsdown --watch",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "gen": "tsx scripts/typegen.ts && tsx scripts/versiongen.ts",
@@ -38,12 +38,14 @@
   },
   "peerDependencies": {
     "@eslint-react/eslint-plugin": "^1.38.4",
+    "@next/eslint-plugin-next": "^15.4.0-canary.115",
     "@prettier/plugin-xml": "^3.4.1",
     "@unocss/eslint-plugin": ">=0.50.0",
     "astro-eslint-parser": "^1.0.2",
     "eslint": "^9.10.0",
     "eslint-plugin-astro": "^1.2.0",
     "eslint-plugin-format": ">=0.1.0",
+    "eslint-plugin-jsx-a11y": ">=6.10.2",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "eslint-plugin-solid": "^0.14.3",
@@ -55,6 +57,9 @@
   },
   "peerDependenciesMeta": {
     "@eslint-react/eslint-plugin": {
+      "optional": true
+    },
+    "@next/eslint-plugin-next": {
       "optional": true
     },
     "@prettier/plugin-xml": {
@@ -70,6 +75,9 @@
       "optional": true
     },
     "eslint-plugin-format": {
+      "optional": true
+    },
+    "eslint-plugin-jsx-a11y": {
       "optional": true
     },
     "eslint-plugin-react-hooks": {
@@ -112,7 +120,7 @@
     "eslint-flat-config-utils": "catalog:prod",
     "eslint-merge-processors": "catalog:prod",
     "eslint-plugin-command": "catalog:prod",
-    "eslint-plugin-import-x": "catalog:prod",
+    "eslint-plugin-import-lite": "catalog:prod",
     "eslint-plugin-jsdoc": "catalog:prod",
     "eslint-plugin-jsonc": "catalog:prod",
     "eslint-plugin-kirklin": "catalog:prod",
@@ -140,8 +148,9 @@
     "@eslint-react/eslint-plugin": "catalog:peer",
     "@eslint/config-inspector": "catalog:dev",
     "@kirklin/eslint-config": "workspace:*",
+    "@next/eslint-plugin-next": "catalog:peer",
     "@prettier/plugin-xml": "catalog:peer",
-    "@stylistic/eslint-plugin-migrate": "catalog:dev",
+    "@types/eslint-plugin-jsx-a11y": "catalog:dev",
     "@types/node": "catalog:dev",
     "@unocss/eslint-plugin": "catalog:peer",
     "astro-eslint-parser": "catalog:peer",
@@ -149,6 +158,7 @@
     "eslint": "catalog:peer",
     "eslint-plugin-astro": "catalog:peer",
     "eslint-plugin-format": "catalog:peer",
+    "eslint-plugin-jsx-a11y": "catalog:peer",
     "eslint-plugin-react-hooks": "catalog:peer",
     "eslint-plugin-react-refresh": "catalog:peer",
     "eslint-plugin-solid": "catalog:peer",
@@ -165,11 +175,14 @@
     "svelte": "catalog:peer",
     "svelte-eslint-parser": "catalog:peer",
     "tinyglobby": "catalog:dev",
-    "tsup": "catalog:dev",
+    "tsdown": "catalog:dev",
     "tsx": "catalog:dev",
     "typescript": "catalog:dev",
     "vitest": "catalog:dev",
     "vue": "catalog:peer"
+  },
+  "resolutions": {
+    "eslint": "catalog:peer"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"

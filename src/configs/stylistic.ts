@@ -1,5 +1,4 @@
 import type { OptionsOverrides, StylisticConfig, TypedFlatConfigItem } from "../types";
-
 import { pluginKirkLin } from "../plugins";
 import { interopDefault } from "../utils";
 
@@ -37,7 +36,7 @@ export async function stylistic(
     pluginName: "style",
     quotes,
     semi,
-  });
+  }) as TypedFlatConfigItem;
 
   return [
     {

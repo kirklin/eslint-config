@@ -1,4 +1,4 @@
-import { kirklin } from "./src";
+import { kirklin } from './src'
 
 export default kirklin(
   {
@@ -9,26 +9,22 @@ export default kirklin(
     solid: true,
     svelte: true,
     astro: true,
-    nextjs: true,
     typescript: true,
     formatters: true,
     pnpm: true,
-    type: "lib",
-    jsx: {
-      a11y: true,
-    },
+    type: 'lib',
   },
   {
     ignores: [
-      "fixtures",
-      "_fixtures",
-      "**/constants-generated.ts",
+      'fixtures',
+      '_fixtures',
+      '**/constants-generated.ts',
     ],
   },
   {
-    files: ["src/**/*.ts"],
+    files: ['src/**/*.ts'],
     rules: {
-      "perfectionist/sort-objects": "error",
+      'perfectionist/sort-objects': 'error',
     },
   },
-);
+)
