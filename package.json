@@ -2,7 +2,7 @@
   "name": "@kirklin/eslint-config",
   "type": "module",
   "version": "6.0.0",
-  "packageManager": "pnpm@10.15.0",
+  "packageManager": "pnpm@10.24.0",
   "description": "Kirk Lin's ESLint config",
   "author": "Kirk Lin (https://github.com/kirklin/)",
   "license": "MIT",
@@ -19,10 +19,10 @@
     "eslint-config"
   ],
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.mjs"
   },
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "bin": "./bin/index.js",
   "files": [
     "bin",
