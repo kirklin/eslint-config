@@ -83,8 +83,8 @@ export interface OptionsJSX {
 }
 
 export type OptionsTypescript
-  = (OptionsTypeScriptWithTypes & OptionsOverrides)
-    | (OptionsTypeScriptParserOptions & OptionsOverrides);
+  = (OptionsTypeScriptWithTypes & OptionsOverrides & OptionsTypeScriptErasableOnly)
+    | (OptionsTypeScriptParserOptions & OptionsOverrides & OptionsTypeScriptErasableOnly);
 
 export interface OptionsFormatters {
   /**
@@ -236,6 +236,16 @@ export interface OptionsProjectType {
   type?: "app" | "lib";
 }
 
+export interface OptionsTypeScriptErasableOnly {
+  /**
+   * Enable erasable syntax only rules.
+   *
+   * @see https://github.com/JoshuaKGoldberg/eslint-plugin-erasable-syntax-only
+   * @default false
+   */
+  erasableOnly?: boolean;
+}
+
 export interface OptionsRegExp {
   /**
    * Override rulelevels
@@ -270,6 +280,16 @@ export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType 
    * @default true
    */
   gitignore?: boolean | FlatGitignoreOptions;
+
+  /**
+   * Extend the global ignores.
+   *
+   * Passing an array to extends the ignores.
+   * Passing a function to modify the default ignores.
+   *
+   * @default []
+   */
+  ignores?: string[] | ((originals: string[]) => string[]);
 
   /**
    * Disable some opinionated rules to Anthony's preference.

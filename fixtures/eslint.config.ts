@@ -1,4 +1,4 @@
-import { kirklin } from './src'
+import { kirklin } from "./src"
 
 export default kirklin(
   {
@@ -9,7 +9,9 @@ export default kirklin(
     solid: true,
     svelte: true,
     astro: true,
-    typescript: true,
+    typescript: {
+      erasableOnly: false,
+    },
     formatters: true,
     pnpm: true,
     type: 'lib',

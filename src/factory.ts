@@ -90,6 +90,7 @@ export function kirklin(
     autoRenamePlugins = true,
     componentExts = [],
     gitignore: enableGitignore = true,
+    ignores: userIgnores = [],
     imports: enableImports = true,
     jsx: enableJsx = true,
     nextjs: enableNextjs = false,
@@ -144,7 +145,7 @@ export function kirklin(
 
   // Base configs
   configs.push(
-    ignores(options.ignores),
+    ignores(userIgnores),
     javascript({
       isInEditor,
       overrides: getOverrides(options, "javascript"),
