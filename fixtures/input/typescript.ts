@@ -61,8 +61,10 @@ class Animal {
 
 // Extend a class
 class Dog extends Animal {
-  constructor(private alias: string) {
+  private alias: string;
+  constructor(alias: string) {
     super(alias);
+    this.alias = alias;
   }
   bark() {
     this.makeSound('Woof!');
