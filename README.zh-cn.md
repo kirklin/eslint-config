@@ -36,7 +36,7 @@
 - [ESLint Flat配置](https://eslint.org/docs/latest/use/configure/configuration-files-new)，轻松组合！
 - 使用[ESLint Stylistic](https://github.com/eslint-stylistic/eslint-stylistic)
 - 默认情况下遵守`.gitignore`
-- 可选的[React](#react), [Svelte](#svelte), [UnoCSS](#unocss), [Astro](#astro), [Solid](#solid)支持
+- 可选的[React](#react), [Next.js](#nextjs), [Svelte](#svelte), [UnoCSS](#unocss), [Astro](#astro), [Solid](#solid)支持
 - 可选的[格式化程序](#formatters)支持CSS，HTML，XML等。
 - **样式原则**：最小化阅读，稳定的差异性，保持一致性
 
@@ -398,13 +398,14 @@ export default combine(
 
 | New Prefix | Original Prefix        | Source Plugin                                                                              |
 | ---------- | ---------------------- | ------------------------------------------------------------------------------------------ |
-| `import/*` | `import-x/*`           | [eslint-plugin-import-x](https://github.com/un-es/eslint-plugin-import-x)                  |
+| `import/*` | `import-lite/*`        | [eslint-plugin-import-lite](https://github.com/9romise/eslint-plugin-import-lite)                     |
 | `node/*`   | `n/*`                  | [eslint-plugin-n](https://github.com/eslint-community/eslint-plugin-n)                     |
 | `yaml/*`   | `yml/*`                | [eslint-plugin-yml](https://github.com/ota-meshi/eslint-plugin-yml)                        |
 | `ts/*`     | `@typescript-eslint/*` | [@typescript-eslint/eslint-plugin](https://github.com/typescript-eslint/typescript-eslint) |
 | `style/*`  | `@stylistic/*`         | [@stylistic/eslint-plugin](https://github.com/eslint-stylistic/eslint-stylistic)           |
 | `test/*`   | `vitest/*`             | [@vitest/eslint-plugin](https://github.com/vitest-dev/eslint-plugin-vitest)                |
-| `test/*`   | `no-only-tests/*`      | [eslint-plugin-no-only-tests](https://github.com/levibuzolic/eslint-plugin-no-only-tests)  |
+| `test/*`   | `no-only-tests/*`      | [eslint-plugin-no-only-tests](https://github.com/levibuzolic/eslint-plugin-no-only-tests)             |
+| `next/*`   | `@next/next`           | [@next/eslint-plugin-next](https://github.com/vercel/next.js/tree/canary/packages/eslint-plugin-next) |
 
 当您想要覆盖规则或在内联中禁用它们时，您需要更新新前缀：
 
@@ -618,6 +619,25 @@ export default kirklin({
 npm i -D @eslint-react/eslint-plugin eslint-plugin-react-hooks eslint-plugin-react-refresh
 ```
 
+#### Next.js
+
+要启用 Next.js 支持，您需要显式启用它：
+
+```js
+// eslint.config.js
+import kirklin from "@kirklin/eslint-config";
+
+export default kirklin({
+  nextjs: true,
+});
+```
+
+运行 `npx eslint` 应该会提示您安装所需的依赖项，否则，您可以手动安装它们：
+
+```bash
+npm i -D @next/eslint-plugin-next
+```
+
 #### Svelte
 
 要启用Svelte框架的支持，您需要明确地将其打开：
@@ -694,6 +714,25 @@ export default kirklin({
 npm i -D @unocss/eslint-plugin
 ```
 
+#### Angular
+
+要启用 Angular 支持，您需要显式启用它：
+
+```js
+// eslint.config.js
+import kirklin from "@kirklin/eslint-config";
+
+export default kirklin({
+  angular: true,
+});
+```
+
+运行 `npx eslint` 应该会提示您安装所需的依赖项，否则，您可以手动安装它们：
+
+```bash
+npm i -D @angular-eslint/eslint-plugin @angular-eslint/eslint-plugin-template @angular-eslint/template-parser
+```
+
 ### 可选规则
 
 此配置还提供了一些用于扩展用途的可选插件/规则。
@@ -754,6 +793,9 @@ export default kirklin({
 - [`prefer-const`](https://eslint.org/docs/rules/prefer-const)
 - [`test/no-only-tests`](https://github.com/levibuzolic/eslint-plugin-no-only-tests)
 - [`unused-imports/no-unused-imports`](https://www.npmjs.com/package/eslint-plugin-unused-imports)
+- [`pnpm/json-enforce-catalog`](https://github.com/antfu/pnpm-workspace-utils/tree/main/packages/eslint-plugin-pnpm#rules)
+- [`pnpm/json-prefer-workspace-settings`](https://github.com/antfu/pnpm-workspace-utils/tree/main/packages/eslint-plugin-pnpm#rules)
+- [`pnpm/json-valid-catalog`](https://github.com/antfu/pnpm-workspace-utils/tree/main/packages/eslint-plugin-pnpm#rules)
 
 自 v3.0.0 版本起，这些规则不再被完全禁用，而是通过 [此辅助工具](https://github.com/antfu/eslint-flat-config-utils#composerdisablerulesfix) 设为不可自动修复。
 

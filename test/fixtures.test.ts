@@ -141,7 +141,7 @@ export default kirklin(
     await execa("npx", ["eslint", ".", "--fix"], {
       cwd: target,
       stdio: "pipe",
-    });
+    }).catch(() => {});
 
     const files = await glob("**/*", {
       ignore: [

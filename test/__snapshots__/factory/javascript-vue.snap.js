@@ -153,6 +153,9 @@
     ],
   },
   {
+    "files": [
+      "**/*.?([cm])[jt]s?(x)",
+    ],
     "name": "kirklin/node/rules",
     "plugins": [
       "node",
@@ -169,6 +172,9 @@
     ],
   },
   {
+    "files": [
+      "**/*.?([cm])[jt]s?(x)",
+    ],
     "name": "kirklin/jsdoc/rules",
     "plugins": [
       "jsdoc",
