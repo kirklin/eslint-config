@@ -1,8 +1,8 @@
 {
   "name": "@kirklin/eslint-config",
   "type": "module",
-  "version": "8.0.0",
-  "packageManager": "pnpm@10.24.0",
+  "version": "8.0.1",
+  "packageManager": "pnpm@10.29.3",
   "description": "Kirk Lin's ESLint config",
   "author": "Kirk Lin (https://github.com/kirklin/)",
   "license": "MIT",
@@ -23,8 +23,6 @@
     "./cli": "./dist/cli.mjs",
     "./package.json": "./package.json"
   },
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
   "bin": "./bin/index.mjs",
   "files": [
