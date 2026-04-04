@@ -45,7 +45,6 @@ export async function astro(
       rules: {
         // use recommended rules
         "astro/missing-client-only-directive-value": "error",
-
         "astro/no-conflict-set-directives": "error",
         "astro/no-deprecated-astro-canonicalurl": "error",
         "astro/no-deprecated-astro-fetchcontent": "error",

@@ -36,6 +36,7 @@ import {
   vue,
   yaml,
 } from "./configs";
+import { e18e } from "./configs/e18e";
 import { formatters } from "./configs/formatters";
 import { regexp } from "./configs/regexp";
 import { interopDefault, isInEditorEnv } from "./utils";
@@ -60,8 +61,9 @@ const VuePackages = [
 export const defaultPluginRenaming = {
   "@eslint-react": "react",
   "@eslint-react/dom": "react-dom",
-  "@eslint-react/hooks-extra": "react-hooks-extra",
   "@eslint-react/naming-convention": "react-naming-convention",
+  "@eslint-react/rsc": "react-rsc",
+  "@eslint-react/web-api": "react-web-api",
 
   "@next/next": "next",
   "@stylistic": "style",
@@ -92,6 +94,7 @@ export function kirklin(
     astro: enableAstro = false,
     autoRenamePlugins = true,
     componentExts = [],
+    e18e: enableE18e = true,
     gitignore: enableGitignore = true,
     ignores: userIgnores = [],
     imports: enableImports = true,
@@ -104,7 +107,8 @@ export function kirklin(
     regexp: enableRegexp = true,
     solid: enableSolid = false,
     svelte: enableSvelte = false,
-    typescript: enableTypeScript = isPackageExists("typescript"),
+    type: appType = "app",
+    typescript: enableTypeScript = isPackageExists("typescript") || isPackageExists("@typescript/native-preview"),
     unicorn: enableUnicorn = true,
     unocss: enableUnoCSS = false,
     vue: enableVue = VuePackages.some(i => isPackageExists(i)),
@@ -189,6 +193,15 @@ export function kirklin(
     );
   }
 
+  if (enableE18e) {
+    configs.push(
+      e18e({
+        isInEditor,
+        ...enableE18e === true ? {} : enableE18e,
+      }),
+    );
+  }
+
   if (enableUnicorn) {
     configs.push(
       unicorn(enableUnicorn === true ? {} : enableUnicorn),
@@ -211,7 +224,7 @@ export function kirklin(
         ...typescriptOptions,
         componentExts,
         overrides: getOverrides(options, "typescript"),
-        type: options.type,
+        type: appType,
       }),
     );
   }

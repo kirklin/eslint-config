@@ -41,6 +41,7 @@
     "prepack": "nr build",
     "release": "bumpp",
     "test": "vitest",
+    "test:update": "vitest -u",
     "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks"
   },
@@ -48,7 +49,7 @@
     "@angular-eslint/eslint-plugin": "^21.1.0",
     "@angular-eslint/eslint-plugin-template": "^21.1.0",
     "@angular-eslint/template-parser": "^21.1.0",
-    "@eslint-react/eslint-plugin": "^2.11.0",
+    "@eslint-react/eslint-plugin": "^3.0.0",
     "@next/eslint-plugin-next": ">=15.0.0",
     "@prettier/plugin-xml": "^3.4.1",
     "@unocss/eslint-plugin": ">=0.50.0",
@@ -57,7 +58,6 @@
     "eslint-plugin-astro": "^1.2.0",
     "eslint-plugin-format": ">=0.1.0",
     "eslint-plugin-jsx-a11y": ">=6.10.2",
-    "eslint-plugin-react-hooks": "^7.0.0",
     "eslint-plugin-react-refresh": "^0.5.0",
     "eslint-plugin-solid": "^0.14.3",
     "eslint-plugin-svelte": ">=2.35.1",
@@ -100,9 +100,6 @@
     "eslint-plugin-jsx-a11y": {
       "optional": true
     },
-    "eslint-plugin-react-hooks": {
-      "optional": true
-    },
     "eslint-plugin-react-refresh": {
       "optional": true
     },
@@ -128,6 +125,7 @@
   "dependencies": {
     "@antfu/install-pkg": "catalog:prod",
     "@clack/prompts": "catalog:prod",
+    "@e18e/eslint-plugin": "catalog:prod",
     "@eslint-community/eslint-plugin-eslint-comments": "catalog:prod",
     "@eslint/markdown": "catalog:prod",
     "@stylistic/eslint-plugin": "catalog:prod",
@@ -156,7 +154,6 @@
     "eslint-plugin-yml": "catalog:prod",
     "eslint-processor-vue-blocks": "catalog:prod",
     "globals": "catalog:prod",
-    "jsonc-eslint-parser": "catalog:prod",
     "local-pkg": "catalog:prod",
     "parse-gitignore": "catalog:prod",
     "toml-eslint-parser": "catalog:prod",
@@ -185,7 +182,6 @@
     "eslint-plugin-erasable-syntax-only": "catalog:peer",
     "eslint-plugin-format": "catalog:peer",
     "eslint-plugin-jsx-a11y": "catalog:peer",
-    "eslint-plugin-react-hooks": "catalog:peer",
     "eslint-plugin-react-refresh": "catalog:peer",
     "eslint-plugin-solid": "catalog:peer",
     "eslint-plugin-svelte": "catalog:peer",
@@ -223,5 +219,19 @@
   },
   "lint-staged": {
     "*": "eslint --fix"
+  },
+  "inlinedDependencies": {
+    "@eslint-community/eslint-utils": "4.9.1",
+    "@typescript-eslint/scope-manager": "8.58.0",
+    "@typescript-eslint/types": "8.58.0",
+    "@typescript-eslint/utils": "8.58.0",
+    "@typescript-eslint/visitor-keys": "8.58.0",
+    "cached-factory": "0.1.0",
+    "eslint-plugin-erasable-syntax-only": "0.4.0",
+    "eslint-visitor-keys": [
+      "3.4.3",
+      "5.0.1"
+    ],
+    "find-up-simple": "1.0.1"
   }
 }

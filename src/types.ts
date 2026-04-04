@@ -171,6 +171,30 @@ export interface OptionsComponentExts {
   componentExts?: string[];
 }
 
+export interface OptionsE18e extends OptionsOverrides {
+  /**
+   * Include modernization rules
+   *
+   * @see https://github.com/e18e/eslint-plugin#modernization
+   * @default true
+   */
+  modernization?: boolean;
+  /**
+   * Include module replacements rules
+   *
+   * @see https://github.com/e18e/eslint-plugin#module-replacements
+   * @default type === 'lib' && isInEditor
+   */
+  moduleReplacements?: boolean;
+  /**
+   * Include performance improvements rules
+   *
+   * @see https://github.com/e18e/eslint-plugin#performance-improvements
+   * @default true
+   */
+  performanceImprovements?: boolean;
+}
+
 export interface OptionsUnicorn extends OptionsOverrides {
   /**
    * Include all rules recommended by `eslint-plugin-unicorn`, instead of only ones picked by Anthony.
@@ -178,6 +202,20 @@ export interface OptionsUnicorn extends OptionsOverrides {
    * @default false
    */
   allRecommended?: boolean;
+}
+
+export interface OptionsMarkdown extends OptionsOverrides {
+  /**
+   * Enable GFM (GitHub Flavored Markdown) support.
+   *
+   * @default true
+   */
+  gfm?: boolean;
+
+  /**
+   * Override rules for markdown itself.
+   */
+  overridesMarkdown?: TypedFlatConfigItem["rules"];
 }
 
 export interface OptionsTypeScriptParserOptions {
@@ -302,7 +340,6 @@ export interface OptionsUnoCSS extends OptionsOverrides {
 }
 
 export interface OptionsReact extends OptionsOverrides {
-  reactCompiler?: boolean;
 }
 
 export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType {
@@ -373,6 +410,13 @@ export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType 
    * @default true
    */
   jsx?: boolean | OptionsJSX;
+
+  /**
+   * Options for [@e18e/eslint-plugin](https://github.com/e18e/eslint-plugin)
+   *
+   * @default true
+   */
+  e18e?: boolean | OptionsE18e;
 
   /**
    * Options for eslint-plugin-unicorn.
@@ -449,13 +493,13 @@ export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType 
   angular?: boolean | OptionsOverrides;
 
   /**
-   * Enable linting for **code snippets** in Markdown.
+   * Enable linting for **code snippets** in Markdown and the markdown content itself.
    *
    * For formatting Markdown content, enable also `formatters.markdown`.
    *
    * @default true
    */
-  markdown?: boolean | OptionsOverrides;
+  markdown?: boolean | OptionsMarkdown;
 
   /**
    * Enable stylistic rules.
@@ -478,7 +522,6 @@ export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType 
    *
    * Requires installing:
    * - `@eslint-react/eslint-plugin`
-   * - `eslint-plugin-react-hooks`
    * - `eslint-plugin-react-refresh`
    *
    * @default false

@@ -153,13 +153,16 @@
     ],
   },
   {
+    "name": "kirklin/node/setup",
+    "plugins": [
+      "node",
+    ],
+  },
+  {
     "files": [
       "**/*.?([cm])[jt]s?(x)",
     ],
     "name": "kirklin/node/rules",
-    "plugins": [
-      "node",
-    ],
     "rules": [
       "node/handle-callback-err",
       "node/no-deprecated-api",
@@ -172,13 +175,16 @@
     ],
   },
   {
+    "name": "kirklin/jsdoc/setup",
+    "plugins": [
+      "jsdoc",
+    ],
+  },
+  {
     "files": [
       "**/*.?([cm])[jt]s?(x)",
     ],
     "name": "kirklin/jsdoc/rules",
-    "plugins": [
-      "jsdoc",
-    ],
     "rules": [
       "jsdoc/check-access",
       "jsdoc/check-param-names",
@@ -215,6 +221,30 @@
       "kirklin/no-import-dist",
       "kirklin/no-import-node-modules-by-path",
       "import/newline-after-import",
+    ],
+  },
+  {
+    "name": "kirklin/e18e/rules",
+    "plugins": [
+      "e18e",
+    ],
+    "rules": [
+      "e18e/prefer-array-at",
+      "e18e/prefer-array-fill",
+      "e18e/prefer-includes",
+      "- e18e/prefer-array-to-reversed",
+      "- e18e/prefer-array-to-sorted",
+      "- e18e/prefer-array-to-spliced",
+      "e18e/prefer-nullish-coalescing",
+      "e18e/prefer-object-has-own",
+      "- e18e/prefer-spread-syntax",
+      "e18e/prefer-url-canparse",
+      "e18e/prefer-array-from-map",
+      "e18e/prefer-timer-args",
+      "e18e/prefer-date-now",
+      "e18e/prefer-regex-test",
+      "e18e/prefer-array-some",
+      "e18e/prefer-static-regex",
     ],
   },
   {
@@ -539,6 +569,7 @@
       "test/no-only-tests",
       "test/prefer-hooks-in-order",
       "test/prefer-lowercase-title",
+      "- e18e/prefer-static-regex",
       "- kirklin/no-top-level-await",
       "- no-unused-expressions",
       "- node/prefer-global/process",
@@ -748,9 +779,7 @@
       "**/*.json5",
       "**/*.jsonc",
     ],
-    "languageOptions": {
-      "parser": "jsonc-eslint-parser",
-    },
+    "language": "jsonc/x",
     "name": "kirklin/jsonc/rules",
     "rules": [
       "jsonc/no-bigint-literals",
@@ -816,9 +845,7 @@
       "package.json",
       "**/package.json",
     ],
-    "languageOptions": {
-      "parser": "jsonc-eslint-parser",
-    },
+    "language": "jsonc/x",
     "name": "kirklin/pnpm/package-json",
     "plugins": [
       "pnpm",
@@ -954,10 +981,50 @@
     "files": [
       "**/*.md",
     ],
-    "languageOptions": {
-      "parser": "parser-plain",
-    },
+    "language": "markdown/gfm",
     "name": "kirklin/markdown/parser",
+  },
+  {
+    "files": [
+      "**/*.md",
+    ],
+    "name": "kirklin/markdown/rules",
+    "rules": [
+      "- markdown/fenced-code-language",
+      "markdown/heading-increment",
+      "markdown/no-duplicate-definitions",
+      "markdown/no-empty-definitions",
+      "markdown/no-empty-images",
+      "markdown/no-empty-links",
+      "markdown/no-invalid-label-refs",
+      "markdown/no-missing-atx-heading-space",
+      "- markdown/no-missing-label-refs",
+      "markdown/no-missing-link-fragments",
+      "markdown/no-multiple-h1",
+      "markdown/no-reference-like-urls",
+      "markdown/no-reversed-media-syntax",
+      "markdown/no-space-in-emphasis",
+      "markdown/no-unused-definitions",
+      "markdown/require-alt-text",
+      "markdown/table-column-count",
+    ],
+  },
+  {
+    "files": [
+      "**/*.md",
+    ],
+    "name": "kirklin/markdown/disables/markdown",
+    "rules": [
+      "- command/command",
+      "- no-irregular-whitespace",
+      "- perfectionist/sort-exports",
+      "- perfectionist/sort-imports",
+      "- regexp/no-legacy-features",
+      "- regexp/no-missing-g-flag",
+      "- regexp/no-useless-dollar-replacements",
+      "- regexp/no-useless-flag",
+      "- style/indent",
+    ],
   },
   {
     "files": [
@@ -971,8 +1038,9 @@
         },
       },
     },
-    "name": "kirklin/markdown/disables",
+    "name": "kirklin/markdown/disables/code",
     "rules": [
+      "- e18e/prefer-static-regex",
       "- kirklin/no-top-level-await",
       "- no-alert",
       "- no-console",

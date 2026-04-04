@@ -21,12 +21,10 @@ export async function pnpm(
     pluginPnpm,
     pluginYaml,
     yamlParser,
-    jsoncParser,
   ] = await Promise.all([
     interopDefault(import("eslint-plugin-pnpm")),
     interopDefault(import("eslint-plugin-yml")),
     interopDefault(import("yaml-eslint-parser")),
-    interopDefault(import("jsonc-eslint-parser")),
   ]);
 
   const {
@@ -46,9 +44,7 @@ export async function pnpm(
           "package.json",
           "**/package.json",
         ],
-        languageOptions: {
-          parser: jsoncParser,
-        },
+        language: "jsonc/x",
         name: "kirklin/pnpm/package-json",
         plugins: {
           pnpm: pluginPnpm,

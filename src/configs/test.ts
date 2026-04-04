@@ -54,6 +54,7 @@ export async function test(
 
         // Disables
         ...{
+          "e18e/prefer-static-regex": "off",
           "kirklin/no-top-level-await": "off",
           "no-unused-expressions": "off",
           "node/prefer-global/process": "off",
