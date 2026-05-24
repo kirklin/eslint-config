@@ -60,7 +60,7 @@ export async function run(options: CliRunOptions = {}): Promise<void> {
         });
       },
       frameworks: ({ results }) => {
-        const isArgTemplateValid = typeof argTemplate === "string" && !!frameworks.includes(argTemplate as FrameworkOption);
+        const isArgTemplateValid = typeof argTemplate === "string" && !!frameworks.includes((argTemplate) as FrameworkOption);
 
         if (!results.uncommittedConfirmed || isArgTemplateValid) {
           return;
@@ -77,7 +77,7 @@ export async function run(options: CliRunOptions = {}): Promise<void> {
         });
       },
       extra: ({ results }) => {
-        const isArgExtraValid = argExtra?.length && !argExtra.some(element => !extra.includes(element as ExtraLibrariesOption));
+        const isArgExtraValid = argExtra?.length && !argExtra.some(element => !extra.includes((element) as ExtraLibrariesOption));
 
         if (!results.uncommittedConfirmed || isArgExtraValid) {
           return;

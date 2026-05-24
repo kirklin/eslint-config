@@ -6,7 +6,6 @@ strictPeerDependencies: false
 trustPolicy: no-downgrade
 trustPolicyExclude:
   - cached-factory@0.1.0
-  - tinyexec@1.2.2
 
 packages:
   - fixtures/*
