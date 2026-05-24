@@ -294,6 +294,7 @@ export const syncConfig: SyncConfig = {
   extraScripts: {
     "lint:fix": "eslint --fix",
     "test:update": "vitest -u",
+    "sync:upstream": "pnpm tsx scripts/sync-upstream.ts",
   },
 
   // Fields to remove from package.json (upstream-only things)
