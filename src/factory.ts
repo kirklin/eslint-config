@@ -116,7 +116,7 @@ export function kirklin(
   if (isInEditor == null) {
     isInEditor = isInEditorEnv();
     if (isInEditor) {
-      console.log("[@kirklin/eslint-config] Detected running in editor, some rules are disabled.");
+      console.warn("[@kirklin/eslint-config] Detected running in editor, some rules are disabled.");
     }
   }
 

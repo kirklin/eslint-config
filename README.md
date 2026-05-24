@@ -895,9 +895,6 @@ let people know that your code is using the Kirk Lin style.
 [![kirklin-code-style-image](https://img.shields.io/badge/code__style-%40kirklin%2Feslint--config-3491fa?style=flat&colorA=080f12&colorB=3491fa)](https://github.com/kirklin/eslint-config/)
 ```
 
-[code-style-image]: https://img.shields.io/badge/code__style-%40kirklin%2Feslint--config-3491fa?style=flat&colorA=080f12&colorB=3491fa
-[code-style-url]: https://github.com/kirklin/eslint-config/
-
 ## Thanks
 
 This project is based on [@antfu/eslint-config](https://github.com/antfu/eslint-config)

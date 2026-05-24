@@ -32,12 +32,12 @@
 - 合理的默认设置，最佳实践，只需一行配置
 - 设计用于与TypeScript，JSX，Vue无缝配合
 - 对json，yaml，toml，markdown等进行语法检查
-- 有主见，但可[非常定制化](#customization)
+- 有主见，但可[非常定制化](#自定义)
 - [ESLint Flat配置](https://eslint.org/docs/latest/use/configure/configuration-files-new)，轻松组合！
 - 使用[ESLint Stylistic](https://github.com/eslint-stylistic/eslint-stylistic)
 - 默认情况下遵守`.gitignore`
 - 可选的[React](#react), [Next.js](#nextjs), [Svelte](#svelte), [UnoCSS](#unocss), [Astro](#astro), [Solid](#solid)支持
-- 可选的[格式化程序](#formatters)支持CSS，HTML，XML等。
+- 可选的[格式化程序](#格式化器)支持CSS，HTML，XML等。
 - **样式原则**：最小化阅读，稳定的差异性，保持一致性
 
 > [!NOTE]
@@ -863,9 +863,6 @@ npx eslint-flat-config-viewer
 ```markdown
 [![kirklin-code-style-image](https://img.shields.io/badge/code__style-%40kirklin%2Feslint--config-3491fa?style=flat&colorA=080f12&colorB=3491fa)](https://github.com/kirklin/eslint-config/)
 ```
-
-[code-style-image]: https://img.shields.io/badge/code__style-%40kirklin%2Feslint--config-3491fa?style=flat&colorA=080f12&colorB=3491fa
-[code-style-url]: https://github.com/kirklin/eslint-config/
 
 ## Thanks
 
