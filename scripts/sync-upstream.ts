@@ -280,7 +280,7 @@ function mergePackageJson(): void {
   const scriptEntries: [string, string][] = [];
   const insertedExtras = new Set<string>();
   for (const [key, value] of Object.entries(upstreamScripts)) {
-    scriptEntries.push([key, value]);
+    scriptEntries.push([key, value as string]);
     // Check if any extra script should be inserted after this key
     for (const [extraKey, extraValue] of Object.entries(syncConfig.extraScripts)) {
       const baseKey = extraKey.split(":")[0]; // "lint:fix" → "lint"

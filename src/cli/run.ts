@@ -31,8 +31,8 @@ export interface CliRunOptions {
 
 export async function run(options: CliRunOptions = {}): Promise<void> {
   const argSkipPrompt = !!process.env.SKIP_PROMPT || options.yes;
-  const argTemplate = <FrameworkOption[]>options.frameworks?.map(m => m?.trim()).filter(Boolean);
-  const argExtra = <ExtraLibrariesOption[]>options.extra?.map(m => m?.trim()).filter(Boolean);
+  const argTemplate = (options.frameworks?.map(m => m?.trim()).filter(Boolean)) as FrameworkOption[];
+  const argExtra = (options.extra?.map(m => m?.trim()).filter(Boolean)) as ExtraLibrariesOption[];
 
   if (fs.existsSync(path.join(process.cwd(), "eslint.config.js"))) {
     p.log.warn(c.yellow`eslint.config.js already exists, migration wizard exited.`);
@@ -60,7 +60,7 @@ export async function run(options: CliRunOptions = {}): Promise<void> {
         });
       },
       frameworks: ({ results }) => {
-        const isArgTemplateValid = typeof argTemplate === "string" && !!frameworks.includes(<FrameworkOption>argTemplate);
+        const isArgTemplateValid = typeof argTemplate === "string" && !!frameworks.includes(argTemplate as FrameworkOption);
 
         if (!results.uncommittedConfirmed || isArgTemplateValid) {
           return;
@@ -77,7 +77,7 @@ export async function run(options: CliRunOptions = {}): Promise<void> {
         });
       },
       extra: ({ results }) => {
-        const isArgExtraValid = argExtra?.length && !argExtra.some(element => !extra.includes(<ExtraLibrariesOption>element));
+        const isArgExtraValid = argExtra?.length && !argExtra.some(element => !extra.includes(element as ExtraLibrariesOption));
 
         if (!results.uncommittedConfirmed || isArgExtraValid) {
           return;
