@@ -6,6 +6,7 @@ strictPeerDependencies: false
 trustPolicy: no-downgrade
 trustPolicyExclude:
   - cached-factory@0.1.0
+  - tinyexec@1.2.2
 
 packages:
   - fixtures/*
@@ -27,7 +28,6 @@ catalogs:
     pnpm-workspace-yaml: ^1.6.0
     semver: ^7.8.0
     simple-git-hooks: ^2.13.1
-    skills-npm: ^1.1.1
     synckit: ^0.11.12
     tinyglobby: ^0.2.16
     tsdown: ^0.22.0
