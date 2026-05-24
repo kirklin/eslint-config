@@ -267,46 +267,8 @@ export const syncConfig: SyncConfig = {
       file: "src/factory.ts",
       replacements: [
         {
-          find: /console\.log\("\[@kirklin\/eslint-config\]/g,
-          replace: "console.warn(\"[@kirklin/eslint-config]",
-        },
-      ],
-    },
-
-    // ── cli/run.ts: angle-bracket assertions → 'as' (erasableSyntaxOnly) ──
-    {
-      file: "src/cli/run.ts",
-      replacements: [
-        {
-          find: /<FrameworkOption\[\]>(.+\.filter\(Boolean\))/g,
-          replace: "($1) as FrameworkOption[]",
-        },
-        {
-          find: /<ExtraLibrariesOption\[\]>(.+\.filter\(Boolean\))/g,
-          replace: "($1) as ExtraLibrariesOption[]",
-        },
-        {
-          find: /includes\(<FrameworkOption>(\w+)\)/g,
-          replace: "includes($1 as FrameworkOption)",
-        },
-        {
-          find: /includes\(<ExtraLibrariesOption>(\w+)\)/g,
-          replace: "includes($1 as ExtraLibrariesOption)",
-        },
-      ],
-    },
-
-    // ── update-package-json.ts: <const> assertion → 'as const' (erasableSyntaxOnly) ──
-    {
-      file: "src/cli/stages/update-package-json.ts",
-      replacements: [
-        {
-          find: "(<const>[",
-          replace: "([",
-        },
-        {
-          find: "]).forEach((f)",
-          replace: "] as const).forEach((f)",
+          find: /console\.log\((['"])(\[@kirklin\/eslint-config\])/g,
+          replace: "console.warn($1$2",
         },
       ],
     },
