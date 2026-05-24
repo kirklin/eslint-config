@@ -2,7 +2,7 @@
   "name": "@kirklin/eslint-config",
   "type": "module",
   "version": "8.3.0",
-  "packageManager": "pnpm@10.29.3",
+  "packageManager": "pnpm@11.3.0",
   "description": "Kirk Lin's ESLint config",
   "author": "Kirk Lin (https://github.com/kirklin/)",
   "license": "MIT",
