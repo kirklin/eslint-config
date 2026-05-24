@@ -3,6 +3,9 @@
   "<ignored>",
   "<ignored>",
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/javascript/rules",
     "plugins": [
       "kirklin",
@@ -120,6 +123,9 @@
     ],
   },
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/eslint-comments/rules",
     "plugins": [
       "eslint-comments",
@@ -132,6 +138,9 @@
     ],
   },
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/command/rules",
     "plugins": [
       "command",
@@ -141,6 +150,9 @@
     ],
   },
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/perfectionist/setup",
     "plugins": [
       "perfectionist",
@@ -206,6 +218,9 @@
     ],
   },
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/imports/rules",
     "plugins": [
       "import",
@@ -224,12 +239,15 @@
     ],
   },
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/e18e/rules",
     "plugins": [
       "e18e",
     ],
     "rules": [
-      "e18e/prefer-array-at",
+      "- e18e/prefer-array-at",
       "e18e/prefer-array-fill",
       "e18e/prefer-includes",
       "- e18e/prefer-array-to-reversed",
@@ -239,15 +257,19 @@
       "e18e/prefer-object-has-own",
       "- e18e/prefer-spread-syntax",
       "e18e/prefer-url-canparse",
-      "e18e/prefer-array-from-map",
+      "- e18e/prefer-array-from-map",
       "e18e/prefer-timer-args",
       "e18e/prefer-date-now",
       "e18e/prefer-regex-test",
       "e18e/prefer-array-some",
-      "e18e/prefer-static-regex",
+      "- e18e/prefer-static-regex",
+      "e18e/prefer-string-fromcharcode",
     ],
   },
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/unicorn/rules",
     "plugins": [
       "unicorn",
@@ -384,6 +406,9 @@
     ],
   },
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/typescript/erasable-syntax-only",
     "plugins": [
       "erasable-syntax-only",
@@ -396,6 +421,9 @@
     ],
   },
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/stylistic/rules",
     "plugins": [
       "kirklin",
@@ -475,6 +503,9 @@
     ],
   },
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/regexp/rules",
     "plugins": [
       "regexp",
@@ -920,23 +951,6 @@
       "markdown/no-unused-definitions",
       "markdown/require-alt-text",
       "markdown/table-column-count",
-    ],
-  },
-  {
-    "files": [
-      "**/*.md",
-    ],
-    "name": "kirklin/markdown/disables/markdown",
-    "rules": [
-      "- command/command",
-      "- no-irregular-whitespace",
-      "- perfectionist/sort-exports",
-      "- perfectionist/sort-imports",
-      "- regexp/no-legacy-features",
-      "- regexp/no-missing-g-flag",
-      "- regexp/no-useless-dollar-replacements",
-      "- regexp/no-useless-flag",
-      "- style/indent",
     ],
   },
   {

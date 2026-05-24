@@ -3,6 +3,9 @@
   "<ignored>",
   "<ignored>",
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/javascript/rules",
     "plugins": [
       "kirklin",
@@ -120,6 +123,9 @@
     ],
   },
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/eslint-comments/rules",
     "plugins": [
       "eslint-comments",
@@ -132,6 +138,9 @@
     ],
   },
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/command/rules",
     "plugins": [
       "command",
@@ -141,6 +150,9 @@
     ],
   },
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/perfectionist/setup",
     "plugins": [
       "perfectionist",
@@ -206,6 +218,9 @@
     ],
   },
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/imports/rules",
     "plugins": [
       "import",
@@ -224,12 +239,15 @@
     ],
   },
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/e18e/rules",
     "plugins": [
       "e18e",
     ],
     "rules": [
-      "e18e/prefer-array-at",
+      "- e18e/prefer-array-at",
       "e18e/prefer-array-fill",
       "e18e/prefer-includes",
       "- e18e/prefer-array-to-reversed",
@@ -239,15 +257,19 @@
       "e18e/prefer-object-has-own",
       "- e18e/prefer-spread-syntax",
       "e18e/prefer-url-canparse",
-      "e18e/prefer-array-from-map",
+      "- e18e/prefer-array-from-map",
       "e18e/prefer-timer-args",
       "e18e/prefer-date-now",
       "e18e/prefer-regex-test",
       "e18e/prefer-array-some",
-      "e18e/prefer-static-regex",
+      "- e18e/prefer-static-regex",
+      "e18e/prefer-string-fromcharcode",
     ],
   },
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/unicorn/rules",
     "plugins": [
       "unicorn",
@@ -475,6 +497,9 @@
     ],
   },
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/typescript/erasable-syntax-only",
     "plugins": [
       "erasable-syntax-only",
@@ -487,6 +512,9 @@
     ],
   },
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/stylistic/rules",
     "plugins": [
       "kirklin",
@@ -574,6 +602,9 @@
     ],
   },
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/regexp/rules",
     "plugins": [
       "regexp",
@@ -895,11 +926,7 @@
     "name": "kirklin/react/setup",
     "plugins": [
       "react",
-      "react-dom",
-      "react-naming-convention",
       "react-refresh",
-      "react-rsc",
-      "react-web-api",
     ],
   },
   {
@@ -916,11 +943,8 @@
     },
     "name": "kirklin/react/rules",
     "rules": [
-      "react/component-hook-factories",
       "react/error-boundaries",
       "react/exhaustive-deps",
-      "react/jsx-key-before-spread",
-      "react/jsx-no-comment-textnodes",
       "react/no-access-state-in-setstate",
       "react/no-array-index-key",
       "react/no-children-count",
@@ -939,7 +963,6 @@
       "react/no-missing-key",
       "react/no-nested-component-definitions",
       "react/no-nested-lazy-component-declarations",
-      "react/no-redundant-should-component-update",
       "react/no-set-state-in-component-did-mount",
       "react/no-set-state-in-component-did-update",
       "react/no-set-state-in-component-will-update",
@@ -953,30 +976,37 @@
       "react/rules-of-hooks",
       "react/set-state-in-effect",
       "react/set-state-in-render",
+      "react/static-components",
       "react/unsupported-syntax",
       "react/use-memo",
       "react/use-state",
-      "react-rsc/function-definition",
-      "react-dom/no-dangerously-set-innerhtml",
-      "react-dom/no-dangerously-set-innerhtml-with-children",
-      "react-dom/no-find-dom-node",
-      "react-dom/no-flush-sync",
-      "react-dom/no-hydrate",
-      "react-dom/no-namespace",
-      "react-dom/no-render",
-      "react-dom/no-render-return-value",
-      "react-dom/no-script-url",
-      "react-dom/no-unsafe-iframe-sandbox",
-      "react-dom/no-use-form-state",
-      "react-dom/no-void-elements-with-children",
-      "react-web-api/no-leaked-event-listener",
-      "react-web-api/no-leaked-interval",
-      "react-web-api/no-leaked-resize-observer",
-      "react-web-api/no-leaked-timeout",
-      "react-naming-convention/context-name",
-      "react-naming-convention/id-name",
-      "react-naming-convention/ref-name",
-      "react/prefer-namespace-import",
+      "react/jsx-no-children-prop",
+      "react/jsx-no-children-prop-with-children",
+      "react/jsx-no-comment-textnodes",
+      "react/jsx-no-key-after-spread",
+      "react/jsx-no-leaked-dollar",
+      "react/jsx-no-leaked-semicolon",
+      "react/jsx-no-namespace",
+      "react/rsc-function-definition",
+      "react/dom-no-dangerously-set-innerhtml",
+      "react/dom-no-dangerously-set-innerhtml-with-children",
+      "react/dom-no-find-dom-node",
+      "react/dom-no-flush-sync",
+      "react/dom-no-hydrate",
+      "react/dom-no-render",
+      "react/dom-no-render-return-value",
+      "react/dom-no-script-url",
+      "react/dom-no-unsafe-iframe-sandbox",
+      "react/dom-no-use-form-state",
+      "react/dom-no-void-elements-with-children",
+      "react/web-api-no-leaked-event-listener",
+      "react/web-api-no-leaked-fetch",
+      "react/web-api-no-leaked-interval",
+      "react/web-api-no-leaked-resize-observer",
+      "react/web-api-no-leaked-timeout",
+      "react/naming-convention-context-name",
+      "react/naming-convention-id-name",
+      "react/naming-convention-ref-name",
       "react-refresh/only-export-components",
     ],
   },
@@ -987,8 +1017,8 @@
     ],
     "name": "kirklin/react/typescript",
     "rules": [
-      "- react-dom/no-string-style-prop",
-      "- react-dom/no-unknown-property",
+      "- react/dom-no-string-style-prop",
+      "- react/dom-no-unknown-property",
     ],
   },
   {
@@ -1119,25 +1149,45 @@
     "rules": [
       "- no-undef",
       "no-unused-vars",
+      "- no-inner-declarations",
+      "- no-self-assign",
       "svelte/comment-directive",
+      "svelte/system",
+      "svelte/infinite-reactive-loop",
       "svelte/no-at-debug-tags",
       "svelte/no-at-html-tags",
+      "svelte/no-dom-manipulating",
       "svelte/no-dupe-else-if-blocks",
+      "svelte/no-dupe-on-directives",
       "svelte/no-dupe-style-properties",
       "svelte/no-dupe-use-directives",
       "svelte/no-export-load-in-svelte-module-in-kit-pages",
+      "svelte/no-immutable-reactive-statements",
       "svelte/no-inner-declarations",
+      "svelte/no-inspect",
+      "svelte/no-navigation-without-resolve",
       "svelte/no-not-function-handler",
       "svelte/no-object-in-text-mustaches",
+      "svelte/no-raw-special-elements",
       "svelte/no-reactive-functions",
       "svelte/no-reactive-literals",
+      "svelte/no-reactive-reassign",
       "svelte/no-shorthand-style-property-overrides",
+      "svelte/no-store-async",
+      "svelte/no-svelte-internal",
       "svelte/no-unknown-style-directive-property",
+      "svelte/no-unnecessary-state-wrap",
+      "svelte/no-unused-props",
       "svelte/no-unused-svelte-ignore",
+      "svelte/no-useless-children-snippet",
       "svelte/no-useless-mustaches",
-      "svelte/require-store-callbacks-use-set-param",
-      "svelte/system",
+      "svelte/prefer-svelte-reactivity",
+      "svelte/prefer-writable-derived",
+      "svelte/require-each-key",
+      "svelte/require-event-dispatcher-types",
+      "svelte/require-store-reactive-access",
       "svelte/valid-each-key",
+      "svelte/valid-prop-names-in-kit-pages",
       "unused-imports/no-unused-vars",
       "- style/indent",
       "- style/no-trailing-spaces",
@@ -1152,6 +1202,9 @@
     ],
   },
   {
+    "ignores": [
+      "**/*.md",
+    ],
     "name": "kirklin/unocss",
     "plugins": [
       "unocss",
@@ -1486,23 +1539,6 @@
       "markdown/no-unused-definitions",
       "markdown/require-alt-text",
       "markdown/table-column-count",
-    ],
-  },
-  {
-    "files": [
-      "**/*.md",
-    ],
-    "name": "kirklin/markdown/disables/markdown",
-    "rules": [
-      "- command/command",
-      "- no-irregular-whitespace",
-      "- perfectionist/sort-exports",
-      "- perfectionist/sort-imports",
-      "- regexp/no-legacy-features",
-      "- regexp/no-missing-g-flag",
-      "- regexp/no-useless-dollar-replacements",
-      "- regexp/no-useless-flag",
-      "- style/indent",
     ],
   },
   {
