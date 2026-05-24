@@ -43,7 +43,8 @@
     "test": "vitest",
     "test:update": "vitest -u",
     "typecheck": "tsc --noEmit",
-    "prepare": "simple-git-hooks"
+    "prepare": "simple-git-hooks",
+    "sync:upstream": "pnpm tsx scripts/sync-upstream.ts"
   },
   "peerDependencies": {
     "@angular-eslint/eslint-plugin": "^21.1.0",
