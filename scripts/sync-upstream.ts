@@ -72,11 +72,14 @@ function fetchUpstream(ref: string): void {
     run("git fetch origin", UPSTREAM_DIR);
   }
 
-  log(`Checking out ref: ${ref}`);
-  run(`git checkout ${ref} -- .`, UPSTREAM_DIR);
+  // A branch name must resolve to the freshly fetched remote-tracking ref —
+  // the local branch in the temp clone stays stale after `git fetch`.
+  const checkoutRef = ref === syncConfig.upstream.branch ? `origin/${ref}` : ref;
+  log(`Checking out ref: ${checkoutRef}`);
+  run(`git checkout ${checkoutRef} -- .`, UPSTREAM_DIR);
 
-  // Show what we checked out
-  const commitInfo = run("git log -1 --oneline", UPSTREAM_DIR);
+  // Show what we checked out (HEAD stays stale — log the ref itself)
+  const commitInfo = run(`git log -1 --oneline ${checkoutRef}`, UPSTREAM_DIR);
   success(`Upstream at: ${commitInfo}`);
 }
 
