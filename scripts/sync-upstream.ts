@@ -619,6 +619,13 @@ function mergeWorkspaceYaml(): void {
     content = mergeWorkspaceVersions(content, ourContent);
   }
 
+  // Drop catalog entries for deps we strip from package.json — they would
+  // trip pnpm/yaml-no-unused-catalog-item
+  for (const dep of syncConfig.removeFromPackageJson.devDependencies) {
+    const escaped = dep.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    content = content.replace(new RegExp(`^\\s+['"]?${escaped}['"]?:.*\\n`, "gm"), "");
+  }
+
   // Re-add local trustPolicyExclude entries that upstream doesn't carry
   for (const entry of syncConfig.workspaceTrustPolicyExclude) {
     if (!content.includes(`- ${entry}`)) {
