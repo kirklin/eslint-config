@@ -267,13 +267,16 @@
     ],
   },
   {
-    "ignores": [
-      "**/*.md",
-    ],
-    "name": "kirklin/unicorn/rules",
+    "name": "kirklin/unicorn/setup",
     "plugins": [
       "unicorn",
     ],
+  },
+  {
+    "files": [
+      "**/*.?([cm])[jt]s?(x)",
+    ],
+    "name": "kirklin/unicorn/rules",
     "rules": [
       "unicorn/consistent-empty-array-spread",
       "unicorn/error-message",
