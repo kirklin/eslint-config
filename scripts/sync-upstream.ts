@@ -619,6 +619,17 @@ function mergeWorkspaceYaml(): void {
     content = mergeWorkspaceVersions(content, ourContent);
   }
 
+  // Re-add local trustPolicyExclude entries that upstream doesn't carry
+  for (const entry of syncConfig.workspaceTrustPolicyExclude) {
+    if (!content.includes(`- ${entry}`)) {
+      if (/^trustPolicyExclude:/m.test(content)) {
+        content = content.replace(/^trustPolicyExclude:\n/m, match => `${match}  - ${entry}\n`);
+      } else {
+        content += `\ntrustPolicyExclude:\n  - ${entry}\n`;
+      }
+    }
+  }
+
   fs.writeFileSync(ourPath, content, "utf-8");
   success("Merged pnpm-workspace.yaml");
 }

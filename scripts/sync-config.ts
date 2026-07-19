@@ -38,6 +38,8 @@ export interface SyncConfig {
   };
   dependencyVersionStrategy: "merge-higher";
   workspaceDepReplacements: Record<string, string>;
+  /** Local trustPolicyExclude entries to keep when upstream's yaml overwrites ours */
+  workspaceTrustPolicyExclude: string[];
 }
 
 export const syncConfig: SyncConfig = {
@@ -316,4 +318,8 @@ export const syncConfig: SyncConfig = {
     "eslint-plugin-antfu": "eslint-plugin-kirklin",
     "@antfu/eslint-config": "@kirklin/eslint-config",
   },
+
+  // pnpm rejects tinyexec@1.2.2 under trustPolicy no-downgrade
+  // (earlier versions had trusted publisher, this one only provenance).
+  workspaceTrustPolicyExclude: ["tinyexec@1.2.2"],
 };
