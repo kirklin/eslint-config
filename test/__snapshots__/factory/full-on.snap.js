@@ -1004,6 +1004,7 @@
       "react/dom-no-void-elements-with-children",
       "react/web-api-no-leaked-event-listener",
       "react/web-api-no-leaked-fetch",
+      "react/web-api-no-leaked-intersection-observer",
       "react/web-api-no-leaked-interval",
       "react/web-api-no-leaked-resize-observer",
       "react/web-api-no-leaked-timeout",
