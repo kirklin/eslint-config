@@ -77,7 +77,7 @@ export async function run(options: CliRunOptions = {}): Promise<void> {
         });
       },
       extra: ({ results }) => {
-        const isArgExtraValid = argExtra?.length && !argExtra.some(element => !extra.includes((element) as ExtraLibrariesOption));
+        const isArgExtraValid = argExtra?.length && argExtra.every(element => extra.includes((element) as ExtraLibrariesOption));
 
         if (!results.uncommittedConfirmed || isArgExtraValid) {
           return;
